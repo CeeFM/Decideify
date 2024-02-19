@@ -1,0 +1,6 @@
+@Decideify_HostAddress = http://localhost:5044
+
+GET {{Decideify_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
