@@ -1,4 +1,8 @@
-﻿namespace Decideify.Models
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+namespace Decideify.Models
 {
     public class Subscription
     {
