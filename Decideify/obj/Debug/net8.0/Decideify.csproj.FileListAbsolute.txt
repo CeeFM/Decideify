@@ -64,3 +64,4 @@ C:\Users\cfree\workspace\Decideify\Decideify\obj\Debug\net8.0\refint\Decideify.d
 C:\Users\cfree\workspace\Decideify\Decideify\obj\Debug\net8.0\Decideify.pdb
 C:\Users\cfree\workspace\Decideify\Decideify\obj\Debug\net8.0\Decideify.genruntimeconfig.cache
 C:\Users\cfree\workspace\Decideify\Decideify\obj\Debug\net8.0\ref\Decideify.dll
+C:\Users\cfree\workspace\Decideify\Decideify\obj\Debug\net8.0\Decideify.sourcelink.json
