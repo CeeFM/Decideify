@@ -24,6 +24,25 @@ namespace Decideify.Controllers
         }
 
         //// GET api/<UserProfileController>/5
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            return Ok(_userProfileRepository.GetById(id));
+        }
+
+        [HttpGet("GetByEmail")]
+        public IActionResult GetByEmail(string email)
+        {
+            var user = _userProfileRepository.GetByEmail(email);
+
+            if (email == null || user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+
+
         //[HttpGet("{id}")]
         //public string Get(int id)
         //{
