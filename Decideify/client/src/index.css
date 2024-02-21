@@ -1,6 +1,12 @@
 * {
   background-color: #011627;
-  color: #F6F7F8
+  color: #F6F7F8;
+  font-family: "Bungee Inline";
+}
+
+#tagline {
+  font-family: "Bungee Inline";
+  color: #2EC4B6;
 }
 
 body {

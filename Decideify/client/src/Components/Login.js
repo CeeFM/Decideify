@@ -26,8 +26,10 @@ export default function Login({setIsLoggedIn}) {
 
   return (
     <>
-    <div className="text-center">
-    <img src={myImage} style={{width: "25vw", paddingTop: "10rem", paddingBottom: "5rem"}}/>
+    <div className="text-center" id="tagline">
+    <img src={myImage} style={{width: "25vw", paddingTop: "10rem", paddingBottom: "2.5rem"}}/>
+    <h2>Stop Wasting Time Deciding</h2>
+    <h2 style={{paddingBottom: "4rem"}}>Start Living</h2>
     </div>
     <Form onSubmit={loginSubmit} style={{ width: "25vw", margin: "auto" }}>
       <fieldset>

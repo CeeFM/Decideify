@@ -41,8 +41,8 @@ export default function Register({setIsLoggedIn}) {
           <Input id="lastName" type="text" onChange={e => setLastName(e.target.value)} />
         </FormGroup>
         <FormGroup>
-          <Label htmlFor="displayName">Display Name</Label>
-          <Input id="displayName" type="text" onChange={e => setDisplayName(e.target.value)} />
+          <Label htmlFor="userName">Display Name</Label>
+          <Input id="userName" type="text" onChange={e => setDisplayName(e.target.value)} />
         </FormGroup>
         <FormGroup>
           <Label for="email">Email</Label>
