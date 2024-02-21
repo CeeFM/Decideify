@@ -41,11 +41,3 @@ export const register = (userObject, password) => {
       localStorage.setItem("userProfile", JSON.stringify(savedUserProfile))
     });
 };
-
-
-
-// return (
-//   <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register,  }}>
-//      {props.children}
-//   </UserProfileContext.Provider>
-// );
