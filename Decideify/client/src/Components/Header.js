@@ -10,6 +10,7 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
+import myImage from './DECIDEIFY.png';
 
 export default function Header({ isLoggedIn, setIsLoggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,31 +18,31 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
 
   return (
     <div>
-      <Navbar color="light" light expand="md">
-        <NavbarBrand tag={RRNavLink} to="/">Decideify</NavbarBrand>
+      <Navbar light expand="md">
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             { /* When isLoggedIn === true, we will render the Home link */}
             {isLoggedIn &&
               <>
+            <NavbarBrand tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/"><img src={myImage} style={{width: "10rem"}} /></NavbarBrand>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/">Home</NavLink>
+                  <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to="/">Home</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to=""></NavLink>
+                  <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to=""></NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to=""></NavLink>
+                  <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to=""></NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to=""></NavLink>
+                  <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to=""></NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to=""></NavLink>
+                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to=""></NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to=""></NavLink>
+                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to=""></NavLink>
                 </NavItem>
               </>
             }
@@ -51,7 +52,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
               <>
                 <NavItem>
                   <a aria-current="page" className="nav-link"
-                    style={{ cursor: "pointer" }} onClick={() => {
+                    style={{ cursor: "pointer", color: '#F6F7F8'}} onClick={() => {
                       logout()
                       setIsLoggedIn(false)
                     }}>Logout</a>
@@ -61,10 +62,10 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
             {!isLoggedIn &&
               <>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/login">Login</NavLink>
+                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/login">Login</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/register">Register</NavLink>
+                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/register">Register</NavLink>
                 </NavItem>
               </>
             }

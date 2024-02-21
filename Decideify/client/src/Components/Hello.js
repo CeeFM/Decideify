@@ -1,7 +1,8 @@
 import React from "react";
+import myImage from './DECIDEIFY.png'
 
 export default function Hello() {
   return (
-  <h1>Hello world</h1>
+    <></>
   );
 }

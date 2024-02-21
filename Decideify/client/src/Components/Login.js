@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../Managers/UserProfileManager";
+import myImage from './DECIDEIFY.png';
 
 export default function Login({setIsLoggedIn}) {
   const navigate = useNavigate();
@@ -24,7 +25,11 @@ export default function Login({setIsLoggedIn}) {
   };
 
   return (
-    <Form onSubmit={loginSubmit}>
+    <>
+    <div className="text-center">
+    <img src={myImage} style={{width: "25vw", paddingTop: "10rem", paddingBottom: "5rem"}}/>
+    </div>
+    <Form onSubmit={loginSubmit} style={{ width: "25vw", margin: "auto" }}>
       <fieldset>
         <FormGroup>
           <Label for="email">Email</Label>
@@ -42,5 +47,6 @@ export default function Login({setIsLoggedIn}) {
         </em>
       </fieldset>
     </Form>
+    </>
   );
 }
