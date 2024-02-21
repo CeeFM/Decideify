@@ -48,6 +48,7 @@ namespace Decideify.Controllers
         {
             userProfile.CreateDateTime = DateTime.Now;
             userProfile.Bio = "";
+            userProfile.IsPublic = true;
             _userProfileRepository.Add(userProfile);
             return CreatedAtAction(
                 "GetByEmail",

@@ -67,7 +67,8 @@ namespace Decideify.Repositories
                             CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             Bio = DbUtils.GetString(reader, "Bio"),
-                            Password = DbUtils.GetString(reader, "Password")
+                            Password = DbUtils.GetString(reader, "Password"),
+                            IsPublic = reader.GetBoolean(reader.GetOrdinal("IsPublic"))
 
                         };
                     }
