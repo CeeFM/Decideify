@@ -9,7 +9,7 @@ export default function Register({setIsLoggedIn}) {
 
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
-  const [displayName, setDisplayName] = useState();
+  const [userName, setUserName] = useState();
   const [email, setEmail] = useState();
   const [imageLocation, setImageLocation] = useState();
   const [password, setPassword] = useState();
@@ -20,8 +20,8 @@ export default function Register({setIsLoggedIn}) {
     if (password && password !== confirmPassword) {
       alert("Passwords don't match. Do better.");
     } else {
-      const userProfile = { firstName, lastName, displayName, imageLocation, email };
-      register(userProfile, password)
+      const userProfile = { firstName, lastName, userName, imageLocation, email, password };
+      register(userProfile)
         .then(() => {
           setIsLoggedIn(true)
           navigate('/')
@@ -30,7 +30,7 @@ export default function Register({setIsLoggedIn}) {
  };
 
   return (
-    <Form onSubmit={registerClick}>
+    <Form onSubmit={registerClick} style={{ width: "25vw", margin: "auto", paddingTop: "17vh" }}>
       <fieldset>
         <FormGroup>
           <Label htmlFor="firstName">First Name</Label>
@@ -42,7 +42,7 @@ export default function Register({setIsLoggedIn}) {
         </FormGroup>
         <FormGroup>
           <Label htmlFor="userName">Display Name</Label>
-          <Input id="userName" type="text" onChange={e => setDisplayName(e.target.value)} />
+          <Input id="userName" type="text" onChange={e => setUserName(e.target.value)} />
         </FormGroup>
         <FormGroup>
           <Label for="email">Email</Label>

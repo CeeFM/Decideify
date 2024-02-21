@@ -7,5 +7,6 @@ namespace Decideify.Repositories
         List<UserProfile> GetAll();
         UserProfile GetById (int id);
         UserProfile GetByEmail (string email);
+        void Add (UserProfile profile);
     }
 }

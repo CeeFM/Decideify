@@ -43,6 +43,19 @@ namespace Decideify.Controllers
         }
 
 
+        [HttpPost]
+        public IActionResult Post(UserProfile userProfile)
+        {
+            userProfile.CreateDateTime = DateTime.Now;
+            userProfile.Bio = "";
+            _userProfileRepository.Add(userProfile);
+            return CreatedAtAction(
+                "GetByEmail",
+                new { email = userProfile.Email },
+                userProfile);
+        }
+
+
         //[HttpGet("{id}")]
         //public string Get(int id)
         //{

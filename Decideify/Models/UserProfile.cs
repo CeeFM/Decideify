@@ -15,6 +15,6 @@ namespace Decideify.Models
         public DateTime CreateDateTime { get; set; }
         public string ImageLocation { get; set; }
         public bool IsPublic { get; set; }
-        public string Bio {  get; set; }
+        public string? Bio {  get; set; }
     }
 }

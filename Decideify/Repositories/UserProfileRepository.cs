@@ -110,5 +110,33 @@ namespace Decideify.Repositories
                 }
             }
         }
+
+        public void Add(UserProfile userProfile)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO UserProfile (
+                            FirstName, LastName, Username, Email, Password, CreateDateTime, ImageLocation, IsPublic, Bio )
+                        OUTPUT INSERTED.ID
+                        VALUES (
+                        @FirstName, @LastName, @Username, @Email, @Password, @CreateDateTime, @ImageLocation, @IsPublic, @Bio)";
+                    cmd.Parameters.AddWithValue("@FirstName", userProfile.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", userProfile.LastName);
+                    cmd.Parameters.AddWithValue("@ImageLocation", userProfile.ImageLocation);
+                    cmd.Parameters.AddWithValue("@CreateDateTime", userProfile.CreateDateTime);
+                    cmd.Parameters.AddWithValue("@IsPublic", userProfile.IsPublic);
+                    cmd.Parameters.AddWithValue("@Bio", userProfile.Bio);
+                    cmd.Parameters.AddWithValue("@Password", userProfile.Password);
+                    cmd.Parameters.AddWithValue("@Email", userProfile.Email);
+                    cmd.Parameters.AddWithValue("@Username", userProfile.Username);
+
+                    userProfile.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
     }
 }
