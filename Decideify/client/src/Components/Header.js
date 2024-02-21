@@ -30,22 +30,25 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                   <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to="/">Home</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to="">Movies</NavLink>
+                  <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to="/movies">Movies</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to="">TV Shows</NavLink>
+                  <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to="/tv">TV Shows</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to="">Books</NavLink>
+                  <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to="/books">Books</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="">Music</NavLink>
+                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/music">Music</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="">Social</NavLink>
+                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/social">Social</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="">My Profile</NavLink>
+                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/profile">My Profile</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/library">My Library</NavLink>
                 </NavItem>
               </>
             }
