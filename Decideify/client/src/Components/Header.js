@@ -29,19 +29,19 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                   <NavLink tag={RRNavLink} to="/">Home</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/posts">Posts</NavLink>
+                  <NavLink tag={RRNavLink} to=""></NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/userposts">My Posts</NavLink>
+                  <NavLink tag={RRNavLink} to=""></NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/addpost">New Post</NavLink>
+                  <NavLink tag={RRNavLink} to=""></NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/category">Category Management</NavLink>
+                  <NavLink tag={RRNavLink} to=""></NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/tag">Tag Management</NavLink>
+                  <NavLink tag={RRNavLink} to=""></NavLink>
                 </NavItem>
               </>
             }
@@ -49,9 +49,6 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
           <Nav navbar>
             {isLoggedIn &&
               <>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/users">Users</NavLink>
-                </NavItem>
                 <NavItem>
                   <a aria-current="page" className="nav-link"
                     style={{ cursor: "pointer" }} onClick={() => {

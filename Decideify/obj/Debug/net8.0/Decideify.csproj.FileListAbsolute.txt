@@ -65,3 +65,6 @@ C:\Users\cfree\workspace\Decideify\Decideify\obj\Debug\net8.0\Decideify.pdb
 C:\Users\cfree\workspace\Decideify\Decideify\obj\Debug\net8.0\Decideify.genruntimeconfig.cache
 C:\Users\cfree\workspace\Decideify\Decideify\obj\Debug\net8.0\ref\Decideify.dll
 C:\Users\cfree\workspace\Decideify\Decideify\obj\Debug\net8.0\Decideify.sourcelink.json
+C:\Users\cfree\workspace\Decideify\Decideify\bin\Debug\net8.0\client\package-lock.json
+C:\Users\cfree\workspace\Decideify\Decideify\bin\Debug\net8.0\client\package.json
+C:\Users\cfree\workspace\Decideify\Decideify\bin\Debug\net8.0\client\public\manifest.json
