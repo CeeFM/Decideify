@@ -25,24 +25,27 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
             { /* When isLoggedIn === true, we will render the Home link */}
             {isLoggedIn &&
               <>
-            <NavbarBrand tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/"><img src={myImage} style={{width: "10rem"}} /></NavbarBrand>
+            <NavbarBrand tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/"><img src={myImage} style={{width: "5rem"}} /></NavbarBrand>
                 <NavItem>
                   <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to="/">Home</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to=""></NavLink>
+                  <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to="">Movies</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to=""></NavLink>
+                  <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to="">TV Shows</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to=""></NavLink>
+                  <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to="">Books</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to=""></NavLink>
+                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="">Music</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to=""></NavLink>
+                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="">Social</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="">My Profile</NavLink>
                 </NavItem>
               </>
             }
