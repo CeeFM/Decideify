@@ -11,7 +11,9 @@ export default function Movies() {
 
   const printmovies = () => {
     console.log(movieSuggestions);
-    console.log(movieSuggestions?.results[0])
+    const randomNumber = Math.floor(Math.random() * movieSuggestions?.results?.length);
+    console.log(randomNumber);
+    console.log(movieSuggestions?.results[randomNumber])
   }
 
   return (
@@ -21,13 +23,6 @@ export default function Movies() {
       <button onClick={getmovies} className="btn btn-secondary">Test The Movie API</button>
       <button onClick={printmovies} className="btn btn-secondary">Print Show Suggestion State</button>
       </section>
-      {/* <div className="text-center" style={{paddingTop: "1vh", fontSize: "2rem"}}>Pick a Content Hub To Get Started</div>
-      <div className="flex-container" style={{display: "flex", flexWrap: "wrap", justifyContent: "center", paddingTop: "1vh", fontSize: "3rem"}}>
-          <div style={{margin: ".5rem", color: "#ff00bb"}}>Movies</div>
-          <div style={{margin: ".5rem", color: "#4cf7e6"}}>TV Shows</div>
-          <div style={{margin: ".5rem", color: "#ff00bb"}}>Music</div>
-          <div style={{margin: ".5rem", color: "#4cf7e6"}}>Books</div>
-      </div> */}
     </>
 
   );
