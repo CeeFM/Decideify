@@ -3,16 +3,24 @@ import { getalltv } from "../Managers/APIManager";
 
 export default function TVShows() {
   const [showSuggestions, setShowSuggestions] = useState([]);
+  const [suggestion, setSuggestion] = useState();
 
   const getshows = () => {
     getalltv().then((theseshows) => setShowSuggestions(theseshows));
   }
+
+  let currentSuggestion;
 
   const printshows = () => {
     console.log(showSuggestions);
     const randomNumber = Math.floor(Math.random() * showSuggestions?.results?.length);
     console.log(randomNumber);
     console.log(showSuggestions?.results[randomNumber]);
+    currentSuggestion = showSuggestions?.results[randomNumber];
+  }
+
+  const saveSuggestion = () => {
+
   }
 
   return (
@@ -21,6 +29,7 @@ export default function TVShows() {
       <section className="text-center">
       <button onClick={getshows} className="btn btn-secondary">Test The TV API</button>
       <button onClick={printshows} className="btn btn-secondary">Print Show Suggestion State</button>
+      <button onClick={saveSuggestion}></button>
       </section>
     </>
 
