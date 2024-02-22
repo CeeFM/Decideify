@@ -11,6 +11,7 @@ export default function Movies() {
 
   const printmovies = () => {
     console.log(movieSuggestions);
+    console.log(movieSuggestions?.results[0])
   }
 
   return (

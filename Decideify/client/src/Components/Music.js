@@ -11,6 +11,7 @@ export default function Music() {
 
   const printmusic = () => {
     console.log(musicSuggestions);
+    console.log(musicSuggestions?.artists[21]);
   }
 
   return (

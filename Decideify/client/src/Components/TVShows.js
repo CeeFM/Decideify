@@ -10,6 +10,7 @@ export default function TVShows() {
 
   const printshows = () => {
     console.log(showSuggestions);
+    console.log(showSuggestions?.results[0]);
   }
 
   return (
