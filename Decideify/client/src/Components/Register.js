@@ -2,6 +2,7 @@ import React, { useState} from "react";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useNavigate } from "react-router-dom";
 import { register } from "../Managers/UserProfileManager";
+import myImage from "../Components/DECIDEIFY.png"
 
 
 export default function Register({setIsLoggedIn}) {
@@ -30,7 +31,11 @@ export default function Register({setIsLoggedIn}) {
  };
 
   return (
-    <Form onSubmit={registerClick} style={{ width: "25vw", margin: "auto", paddingTop: "17vh" }}>
+    <>
+    <div className="text-center">
+    <img src={myImage} style={{width: "25vw", paddingTop: "9rem", paddingBottom: "2.5rem"}}/>
+    </div>
+    <Form onSubmit={registerClick} style={{ width: "25vw", margin: "auto", paddingTop: "1vh" }}>
       <fieldset>
         <FormGroup>
           <Label htmlFor="firstName">First Name</Label>
@@ -65,5 +70,6 @@ export default function Register({setIsLoggedIn}) {
         </FormGroup>
       </fieldset>
     </Form>
+    </>
   );
 }
