@@ -56,6 +56,7 @@ namespace Decideify.Repositories
                             @ContentType, @Title, @Details, @Creator, @ReleaseDate, @ImageLocation, @CategoryId, @UserProfileId, @IsRecommended, @ExternalLink, @ExternalId)";
                     cmd.Parameters.AddWithValue("@ContentType", suggestion.ContentType);
                     cmd.Parameters.AddWithValue("@Title", suggestion.Title);
+                    cmd.Parameters.AddWithValue("@Creator", suggestion.Creator);
                     cmd.Parameters.AddWithValue("@Details", suggestion.Details);
                     cmd.Parameters.AddWithValue("@ReleaseDate", suggestion.ReleaseDate);
                     cmd.Parameters.AddWithValue("@ImageLocation", suggestion.ImageLocation);

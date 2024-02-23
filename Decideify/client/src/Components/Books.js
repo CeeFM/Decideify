@@ -15,11 +15,11 @@ export default function Books() {
     Creator: "",
     ImageLocation: "",
     UserProfileId: decideifyUserObject.id,
-    ReleaseDate: null,
-    CategoryId: null,
-    IsRecommended: null,
-    ExternalLink: null,
-    ExternalId: null
+    ReleaseDate: new Date(),
+    CategoryId: 1,
+    IsRecommended: false,
+    ExternalLink: "www.google.com",
+    ExternalId: "69420"
   });
 
   const getbooks = () => {
