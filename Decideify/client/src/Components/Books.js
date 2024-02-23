@@ -48,8 +48,8 @@ export default function Books() {
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Books!</div>
       <section className="text-center">
       <button onClick={getbooks} className="btn btn-secondary">Test The Book API</button>
-      <button onClick={printbooks} className="btn btn-secondary">Print Shows</button>
-      <button onClick={saveSuggestion}>Save Show</button>
+      <button onClick={printbooks} className="btn btn-secondary">Print Books</button>
+      <button onClick={saveSuggestion}>Save Book</button>
       </section>
     </>
 
