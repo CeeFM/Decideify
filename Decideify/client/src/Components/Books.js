@@ -27,11 +27,17 @@ export default function Books() {
   };
 
   let thisSuggestion;
+  let randomList;
+  let randomBook;
 
   const printbooks = () => {
+    randomList = Math.floor(Math.random() * bookSuggestions?.results?.lists?.length);
+    randomBook = Math.floor(Math.random() * bookSuggestions?.results?.lists[randomList]?.books?.length);
+    console.log(randomList);
+    console.log(randomBook);
     console.log(bookSuggestions);
-    console.log(bookSuggestions?.results?.lists[2]?.books[3]);
-    thisSuggestion = bookSuggestions?.results?.lists[2]?.books[3];
+    console.log(bookSuggestions?.results?.lists[randomList]?.books[randomBook]);
+    thisSuggestion = bookSuggestions?.results?.lists[randomList]?.books[randomBook];
   };
 
   const saveSuggestion = () => {
