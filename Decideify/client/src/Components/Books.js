@@ -46,10 +46,6 @@ export default function Books() {
     suggestion.Details = `description: ${thisSuggestion?.description}`;
     suggestion.ImageLocation = thisSuggestion?.book_image;
     console.log(suggestion)
-    // suggestion.Title =  bookSuggestions?.results?.lists[2]?.books[3]?.title;
-    // suggestion.Creator = bookSuggestions?.results?.lists[2]?.books[3]?.author;
-    // suggestion.Details = `description: ${bookSuggestions?.results?.lists[2]?.books[3]?.description}`;
-    // suggestion.ImageLocation = bookSuggestions?.results?.lists[2]?.books[3]?.book_image;
     addSuggestion(suggestion);
   }
 
