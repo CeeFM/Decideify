@@ -18,8 +18,8 @@ export default function Books() {
     ReleaseDate: new Date(),
     CategoryId: 1,
     IsRecommended: false,
-    ExternalLink: "www.google.com",
-    ExternalId: "69420"
+    ExternalLink: "n/a",
+    ExternalId: "n/a"
   });
 
   const getbooks = () => {
@@ -41,10 +41,15 @@ export default function Books() {
   };
 
   const saveSuggestion = () => {
-    suggestion.Title =  bookSuggestions?.results?.lists[2]?.books[3]?.title;
-    suggestion.Creator = bookSuggestions?.results?.lists[2]?.books[3]?.author;
-    suggestion.Details = `description: ${bookSuggestions?.results?.lists[2]?.books[3]?.description}`;
-    suggestion.ImageLocation = bookSuggestions?.results?.lists[2]?.books[3]?.book_image;
+    suggestion.Title =  thisSuggestion?.title;
+    suggestion.Creator = thisSuggestion?.author;
+    suggestion.Details = `description: ${thisSuggestion?.description}`;
+    suggestion.ImageLocation = thisSuggestion?.book_image;
+    console.log(suggestion)
+    // suggestion.Title =  bookSuggestions?.results?.lists[2]?.books[3]?.title;
+    // suggestion.Creator = bookSuggestions?.results?.lists[2]?.books[3]?.author;
+    // suggestion.Details = `description: ${bookSuggestions?.results?.lists[2]?.books[3]?.description}`;
+    // suggestion.ImageLocation = bookSuggestions?.results?.lists[2]?.books[3]?.book_image;
     addSuggestion(suggestion);
   }
 
