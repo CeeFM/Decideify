@@ -1,7 +1,7 @@
 import React from "react"
 import { Route, Routes, Navigate } from "react-router-dom";
-import Login from '../Components/Login'; 
-import Register from '../Components/Register'
+import Login from '../Authorization/Login'; 
+import Register from '../Authorization/Register';
 
 
 export default function Authorize({setIsLoggedIn}) {
