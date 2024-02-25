@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { getalltv } from "../Managers/APIManager";
 
 export default function TVShows() {
+
+  const localUserProfile = localStorage.getItem("userProfile");
+  const decideifyUserObject = JSON.parse(localUserProfile);
+
   const [showSuggestions, setShowSuggestions] = useState([]);
   const [suggestion, setSuggestion] = useState({
     ContentType: "TV Show",

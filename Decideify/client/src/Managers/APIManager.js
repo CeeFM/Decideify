@@ -46,7 +46,7 @@ export const getallmovies = () => {
       },
     };
   
-    return fetch(`https://musicbrainz.org/ws/2/recording?query=ab&limit=100&offset=25&fmt=json`)
+    return fetch(`https://musicbrainz.org/ws/2/release?query=ab&limit=100&offset=25&fmt=json`)
       .then((res) => res.json());
   };
   
