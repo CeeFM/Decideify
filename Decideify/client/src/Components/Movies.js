@@ -3,6 +3,9 @@ import { getallmovies } from "../Managers/APIManager";
 
 export default function Movies() {
 
+  const localUserProfile = localStorage.getItem("userProfile");
+  const decideifyUserObject = JSON.parse(localUserProfile);
+
   const [movieSuggestions, setMovieSuggestions] = useState([]);
   const [suggestion, setSuggestion] = useState({
     ContentType: "Movie",

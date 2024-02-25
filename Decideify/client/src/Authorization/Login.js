@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../Managers/UserProfileManager";
-import myImage from './DECIDEIFY.png';
+import myImage from '../Components/DECIDEIFY.png';
 
 export default function Login({setIsLoggedIn}) {
   const navigate = useNavigate();

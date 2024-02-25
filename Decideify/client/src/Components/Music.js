@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { getallmusic } from "../Managers/APIManager";
+import { addSuggestion } from "../Managers/SuggestionManager";
 
 export default function Music() {
+
+  const localUserProfile = localStorage.getItem("userProfile");
+  const decideifyUserObject = JSON.parse(localUserProfile);
 
   const [musicSuggestions, setMusicSuggestions] = useState([]);
   const [suggestion, setSuggestion] = useState({
@@ -26,15 +30,15 @@ export default function Music() {
 
   const printmusic = () => {
     console.log(musicSuggestions);
-    const randomNumber = Math.floor(Math.random() * musicSuggestions?.recordings?.length);
-    console.log(randomNumber);
-    console.log(musicSuggestions?.recordings[randomNumber]);
-    thisSuggestion = musicSuggestions?.recordings[randomNumber];
+    // const randomNumber = Math.floor(Math.random() * musicSuggestions?.recordings?.length);
+    // console.log(randomNumber);
+    // console.log(musicSuggestions?.recordings[randomNumber]);
+    // thisSuggestion = musicSuggestions?.recordings[randomNumber];
   }
 
   const saveSuggestion = () => {
     suggestion.Title =  thisSuggestion?.title;
-    suggestion.Creator = thisSuggestion?.author;
+    suggestion.Creator = thisSuggestion?.["artist-credit"][0]?.artist?.name;
     suggestion.Details = `description: ${thisSuggestion?.description}`;
     suggestion.ImageLocation = thisSuggestion?.book_image;
     console.log(suggestion)
