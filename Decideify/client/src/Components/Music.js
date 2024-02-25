@@ -11,9 +11,9 @@ export default function Music() {
 
   const printmusic = () => {
     console.log(musicSuggestions);
-    const randomNumber = Math.floor(Math.random() * musicSuggestions?.artists?.length);
+    const randomNumber = Math.floor(Math.random() * musicSuggestions?.recordings?.length);
     console.log(randomNumber);
-    console.log(musicSuggestions?.artists[randomNumber]);
+    console.log(musicSuggestions?.recordings[randomNumber]);
   }
 
   return (
