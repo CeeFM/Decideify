@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getalbumcover, getallmusic } from "../Managers/APIManager";
+import { discogsTest, getalbumcover, getallmusic } from "../Managers/APIManager";
 import { addSuggestion } from "../Managers/SuggestionManager";
 
 export default function Music() {
@@ -27,6 +27,10 @@ export default function Music() {
     getallmusic().then((thismusic) => setMusicSuggestions(thismusic));
   }
 
+  const getdiscogs = () => {
+    discogsTest().then((discogsdata) => setMusicSuggestions(discogsdata));
+  }
+
   const getcoverart = () => {
     getalbumcover(thisSuggestion?.releases[0]?.id).then((thiscover) => setCover(thiscover));
   }
@@ -39,10 +43,10 @@ export default function Music() {
 
   const printmusic = () => {
     console.log(musicSuggestions);
-    const randomNumber = Math.floor(Math.random() * musicSuggestions?.["release-groups"]?.length);
-    console.log(randomNumber);
-    console.log(musicSuggestions?.["release-groups"][parseInt(randomNumber)]);
-    thisSuggestion = musicSuggestions?.["release-groups"][parseInt(randomNumber)];
+    // const randomNumber = Math.floor(Math.random() * musicSuggestions?.["release-groups"]?.length);
+    // console.log(randomNumber);
+    // console.log(musicSuggestions?.["release-groups"][parseInt(randomNumber)]);
+    // thisSuggestion = musicSuggestions?.["release-groups"][parseInt(randomNumber)];
   }
 
   const saveSuggestion = () => {
@@ -62,7 +66,7 @@ export default function Music() {
       <section className="text-center">
       <button onClick={getcoverart} className="btn btn-warning">Test Album Cover</button>
       <button onClick={printcoverart} className="btn btn-warning">Print Album Cover</button>
-      <button onClick={getmusic} className="btn btn-secondary">Test The Music API</button>
+      <button onClick={getdiscogs} className="btn btn-secondary">Test The Music API</button>
       <button onClick={printmusic} className="btn btn-secondary">Print Music Suggestion State</button>
       <button onClick={saveSuggestion} className="btn btn-primary">Save Suggestion</button>
       </section>
