@@ -49,7 +49,40 @@ export const getallmovies = () => {
       },
     };
   
-    return fetch(`https://musicbrainz.org/ws/2/release-group?query=k&limit=100&offset=25&fmt=json`)
+    return fetch(`https://musicbrainz.org/ws/2/release-group?query=abbey&limit=100&offset=25&fmt=json`)
       .then((res) => res.json());
+  };
+
+  export const getalbumcover = (albumid) => {
+    // const options = {
+    //   method: 'GET',
+    //   headers: {
+    //     accept: 'application/json',
+    //     'User-Agent': 'Decideify/1.0 (colinfm88@gmail.com)',
+    //   },
+    // };
+  
+    return fetch(`https://coverartarchive.org/release/${albumid}`, {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        host: 'coverartarchive.org'
+      }
+    })
+      .then(res => {
+        if (res.status === 307) {
+          const redirectUrl = res.headers.get('Location');
+          return fetch(redirectUrl, {
+            method: 'GET',
+            headers: {
+              accept: 'application/json',
+              host: 'archive.org'
+            },
+          });
+        } else if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`)
+        }
+        return res.json();
+      });
   };
   

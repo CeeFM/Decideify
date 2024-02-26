@@ -43,6 +43,7 @@ export default function Movies() {
     suggestion.Details = `overview: ${thisSuggestion?.overview}`;
     suggestion.ImageLocation = `https://image.tmdb.org/t/p/w500${thisSuggestion?.poster_path}`;
     suggestion.ReleaseDate = thisSuggestion?.release_date;
+    suggestion.ExternalId = thisSuggestion?.id.toString();
     console.log(suggestion)
     addSuggestion(suggestion);
   }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getallmusic } from "../Managers/APIManager";
+import { getalbumcover, getallmusic } from "../Managers/APIManager";
 import { addSuggestion } from "../Managers/SuggestionManager";
 
 export default function Music() {
@@ -8,6 +8,7 @@ export default function Music() {
   const decideifyUserObject = JSON.parse(localUserProfile);
 
   const [musicSuggestions, setMusicSuggestions] = useState([]);
+  const [cover, setCover] = useState();
   const [suggestion, setSuggestion] = useState({
     ContentType: "Music",
     Title: "",
@@ -24,6 +25,14 @@ export default function Music() {
 
   const getmusic = () => {
     getallmusic().then((thismusic) => setMusicSuggestions(thismusic));
+  }
+
+  const getcoverart = () => {
+    getalbumcover(thisSuggestion?.releases[0]?.id).then((thiscover) => setCover(thiscover));
+  }
+
+  const printcoverart = () => {
+    console.log(cover);
   }
 
   let thisSuggestion;
@@ -51,6 +60,8 @@ export default function Music() {
     <>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Music!</div>
       <section className="text-center">
+      <button onClick={getcoverart} className="btn btn-warning">Test Album Cover</button>
+      <button onClick={printcoverart} className="btn btn-warning">Print Album Cover</button>
       <button onClick={getmusic} className="btn btn-secondary">Test The Music API</button>
       <button onClick={printmusic} className="btn btn-secondary">Print Music Suggestion State</button>
       <button onClick={saveSuggestion} className="btn btn-primary">Save Suggestion</button>
