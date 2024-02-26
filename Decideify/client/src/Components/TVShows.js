@@ -34,13 +34,17 @@ export default function TVShows() {
     console.log(randomNumber);
     console.log(showSuggestions?.results[randomNumber]);
     currentSuggestion = showSuggestions?.results[randomNumber];
+    console.log(currentSuggestion?.id.toString());
+    console.log(typeof currentSuggestion?.id.toString());
   };
 
   const saveSuggestion = () => {
       suggestion.Title =  currentSuggestion?.name;
       suggestion.Creator = "n/a"
       suggestion.Details = `overview: ${currentSuggestion?.overview}`;
-      suggestion.ImageLocation = `https://image.tmdb.org/t/p/w500${currentSuggestion?.poster_path}`;      // suggestion.ImageLocation = thisSuggestion?.book_image;
+      suggestion.ImageLocation = `https://image.tmdb.org/t/p/w500${currentSuggestion?.poster_path}`;     
+      suggestion.ReleaseDate = currentSuggestion?.first_air_date;
+      suggestion.ExternalId = currentSuggestion?.id.toString();
       console.log(suggestion)
       addSuggestion(suggestion);
   };
