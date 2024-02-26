@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { getallmovies } from "../Managers/APIManager";
+import { addSuggestion } from "../Managers/SuggestionManager";
 
 export default function Movies() {
 
@@ -26,20 +27,24 @@ export default function Movies() {
     getallmovies().then((thesemovies) => setMovieSuggestions(thesemovies));
   }
 
+  let thisSuggestion;
+
   const printmovies = () => {
     console.log(movieSuggestions);
     const randomNumber = Math.floor(Math.random() * movieSuggestions?.results?.length);
     console.log(randomNumber);
     console.log(movieSuggestions?.results[randomNumber])
+    thisSuggestion = movieSuggestions?.results[randomNumber];
   }
 
   const saveSuggestion = () => {
-    // suggestion.Title =  thisSuggestion?.title;
-    // suggestion.Creator = thisSuggestion?.author;
-    // suggestion.Details = `description: ${thisSuggestion?.description}`;
-    // suggestion.ImageLocation = thisSuggestion?.book_image;
-    // console.log(suggestion)
-    // addSuggestion(suggestion);
+    suggestion.Title =  thisSuggestion?.title;
+    suggestion.Creator = "n/a"
+    suggestion.Details = `overview: ${thisSuggestion?.overview}`;
+    suggestion.ImageLocation = `https://image.tmdb.org/t/p/w500${thisSuggestion?.poster_path}`;
+    suggestion.ReleaseDate = thisSuggestion?.release_date;
+    console.log(suggestion)
+    addSuggestion(suggestion);
   }
 
   return (
@@ -48,6 +53,7 @@ export default function Movies() {
       <section className="text-center">
       <button onClick={getmovies} className="btn btn-secondary">Test The Movie API</button>
       <button onClick={printmovies} className="btn btn-secondary">Print Show Suggestion State</button>
+      <button onClick={saveSuggestion}>Save Suggestion</button>
       </section>
     </>
 

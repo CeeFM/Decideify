@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { getalltv } from "../Managers/APIManager";
+import { addSuggestion } from "../Managers/SuggestionManager";
 
 export default function TVShows() {
 
@@ -36,12 +37,12 @@ export default function TVShows() {
   };
 
   const saveSuggestion = () => {
-      // suggestion.Title =  thisSuggestion?.title;
-      // suggestion.Creator = thisSuggestion?.author;
-      // suggestion.Details = `description: ${thisSuggestion?.description}`;
-      // suggestion.ImageLocation = thisSuggestion?.book_image;
-      // console.log(suggestion)
-      // addSuggestion(suggestion);
+      suggestion.Title =  currentSuggestion?.name;
+      suggestion.Creator = "n/a"
+      suggestion.Details = `overview: ${currentSuggestion?.overview}`;
+      suggestion.ImageLocation = `https://image.tmdb.org/t/p/w500${currentSuggestion?.poster_path}`;      // suggestion.ImageLocation = thisSuggestion?.book_image;
+      console.log(suggestion)
+      addSuggestion(suggestion);
   };
 
   return (
@@ -50,7 +51,7 @@ export default function TVShows() {
       <section className="text-center">
       <button onClick={getshows} className="btn btn-secondary">Test The TV API</button>
       <button onClick={printshows} className="btn btn-secondary">Print Show Suggestion State</button>
-      <button onClick={saveSuggestion}></button>
+      <button onClick={saveSuggestion}>Save Show</button>
       </section>
     </>
 
