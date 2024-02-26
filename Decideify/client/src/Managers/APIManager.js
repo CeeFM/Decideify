@@ -64,7 +64,7 @@ export const getallmovies = () => {
         }
       };
       
-      return fetch(`https://api.discogs.com/database/search?q=Nirvana`, options)
+      return fetch(`https://api.discogs.com/database/search?genre=rock&format=album&per_page=100&page=1`, options)
         .then(response => response.json())
   };
 
