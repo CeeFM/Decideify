@@ -1,5 +1,8 @@
 const bookapikey = `vem6bjG9QLoaHhi1cJVquNnoojijS3r1`;
 const movietvapikey = `daa116e318f6510e3187f5a14dd286c4`;
+const googleAPIkey = `AIzaSyBXJVmtx7PzY99EHDLGlIYoYrJtIHOVUx0`;
+const googleSEID = `a5032a5040e67488f`;
+const tmbdImageUrl = `https://image.tmdb.org/t/p/w500`;
 
 export const getallbooks = () => {
     return fetch(`https://api.nytimes.com/svc/books/v3/lists/full-overview.json?api-key=${bookapikey}`)

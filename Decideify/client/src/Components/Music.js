@@ -30,17 +30,19 @@ export default function Music() {
 
   const printmusic = () => {
     console.log(musicSuggestions);
-    // const randomNumber = Math.floor(Math.random() * musicSuggestions?.recordings?.length);
-    // console.log(randomNumber);
-    // console.log(musicSuggestions?.recordings[randomNumber]);
-    // thisSuggestion = musicSuggestions?.recordings[randomNumber];
+    const randomNumber = Math.floor(Math.random() * musicSuggestions?.["release-groups"]?.length);
+    console.log(randomNumber);
+    console.log(musicSuggestions?.["release-groups"][parseInt(randomNumber)]);
+    thisSuggestion = musicSuggestions?.["release-groups"][parseInt(randomNumber)];
   }
 
   const saveSuggestion = () => {
     suggestion.Title =  thisSuggestion?.title;
-    suggestion.Creator = thisSuggestion?.["artist-credit"][0]?.artist?.name;
-    suggestion.Details = `description: ${thisSuggestion?.description}`;
-    suggestion.ImageLocation = thisSuggestion?.book_image;
+    suggestion.Creator = thisSuggestion?.["artist-credit"][0]?.name;
+    suggestion.Details = `${thisSuggestion?.["primary-type"]}`;
+    suggestion.ImageLocation = "n/a";
+    suggestion.ExternalId = thisSuggestion?.id;
+    suggestion.ExternalLink = "n/a"
     console.log(suggestion)
     addSuggestion(suggestion);
   }
