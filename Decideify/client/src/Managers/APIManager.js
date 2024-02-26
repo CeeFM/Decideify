@@ -53,6 +53,22 @@ export const getallmovies = () => {
       .then((res) => res.json());
   };
 
+  export const discogsTest = () => {
+
+    const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: `Discogs key=IXzohifvIfbeLwVUcxaC, secret=yABBTtwmiWEuqgJfRtciQDiTfRmvtbYP`,
+          'User-Agent': 'Decideify/1.0 (colinfm88@gmail.com)'
+        }
+      };
+      
+      return fetch(`https://api.discogs.com/database/search?q=Nirvana`, options)
+        .then(response => response.json())
+  };
+
+
   export const getalbumcover = (albumid) => {
     // const options = {
     //   method: 'GET',
