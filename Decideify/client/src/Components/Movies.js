@@ -40,7 +40,7 @@ export default function Movies() {
   const saveSuggestion = () => {
     suggestion.Title =  thisSuggestion?.title;
     suggestion.Creator = "n/a"
-    suggestion.Details = `overview: ${thisSuggestion?.overview}`;
+    suggestion.Details = ${thisSuggestion?.overview};
     suggestion.ImageLocation = `https://image.tmdb.org/t/p/w500${thisSuggestion?.poster_path}`;
     suggestion.ReleaseDate = thisSuggestion?.release_date;
     suggestion.ExternalId = thisSuggestion?.id.toString();
