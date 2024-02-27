@@ -32,7 +32,7 @@ export const getallmovies = () => {
         }
       };
       
-      return fetch(`https://api.themoviedb.org/3/tv/popular?language=en-US&page=${randomNumber}`, options)
+      return fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&limit=100&with_genres=10759&sort_by=popularity.desc`, options)
         .then(response => response.json())
   };
 
