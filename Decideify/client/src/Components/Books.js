@@ -43,7 +43,7 @@ export default function Books() {
   const saveSuggestion = () => {
     suggestion.Title =  thisSuggestion?.title;
     suggestion.Creator = thisSuggestion?.author;
-    suggestion.Details = `description: ${thisSuggestion?.description}`;
+    suggestion.Details = ${thisSuggestion?.description};
     suggestion.ImageLocation = thisSuggestion?.book_image;
     console.log(suggestion)
     addSuggestion(suggestion);
