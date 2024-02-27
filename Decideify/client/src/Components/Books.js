@@ -33,9 +33,8 @@ export default function Books() {
   const printbooks = () => {
     randomList = Math.floor(Math.random() * bookSuggestions?.results?.lists?.length);
     randomBook = Math.floor(Math.random() * bookSuggestions?.results?.lists[randomList]?.books?.length);
-    console.log(randomList);
-    console.log(randomBook);
-    console.log(bookSuggestions);
+    const filterTest = bookSuggestions?.results?.lists.filter((NYTList) => NYTList?.display_name.includes("Combined Print & E-Book Fiction"));
+    console.log(filterTest);
     console.log(bookSuggestions?.results?.lists[randomList]?.books[randomBook]);
     thisSuggestion = bookSuggestions?.results?.lists[randomList]?.books[randomBook];
   };
@@ -43,7 +42,7 @@ export default function Books() {
   const saveSuggestion = () => {
     suggestion.Title =  thisSuggestion?.title;
     suggestion.Creator = thisSuggestion?.author;
-    suggestion.Details = ${thisSuggestion?.description};
+    suggestion.Details = thisSuggestion?.description;
     suggestion.ImageLocation = thisSuggestion?.book_image;
     console.log(suggestion)
     addSuggestion(suggestion);

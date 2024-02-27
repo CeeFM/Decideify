@@ -41,7 +41,7 @@ export default function TVShows() {
   const saveSuggestion = () => {
       suggestion.Title =  currentSuggestion?.name;
       suggestion.Creator = "n/a"
-      suggestion.Details = ${currentSuggestion?.overview};
+      suggestion.Details = currentSuggestion?.overview;
       suggestion.ImageLocation = `https://image.tmdb.org/t/p/w500${currentSuggestion?.poster_path}`;     
       suggestion.ReleaseDate = currentSuggestion?.first_air_date;
       suggestion.ExternalId = currentSuggestion?.id.toString();

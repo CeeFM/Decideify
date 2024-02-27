@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { discogsTest, getalbumcover, getallmusic } from "../Managers/APIManager";
+import { discogsTest, getallmusic } from "../Managers/APIManager";
 import { addSuggestion } from "../Managers/SuggestionManager";
 
 export default function Music() {
@@ -31,13 +31,6 @@ export default function Music() {
     discogsTest().then((discogsdata) => setMusicSuggestions(discogsdata));
   }
 
-  const getcoverart = () => {
-    getalbumcover(thisSuggestion?.releases[0]?.id).then((thiscover) => setCover(thiscover));
-  }
-
-  const printcoverart = () => {
-    console.log(cover);
-  }
 
   let thisSuggestion;
 
@@ -64,8 +57,6 @@ export default function Music() {
     <>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Music!</div>
       <section className="text-center">
-      <button onClick={getcoverart} className="btn btn-warning">Test Album Cover</button>
-      <button onClick={printcoverart} className="btn btn-warning">Print Album Cover</button>
       <button onClick={getdiscogs} className="btn btn-secondary">Test The Music API</button>
       <button onClick={printmusic} className="btn btn-secondary">Print Music Suggestion State</button>
       <button onClick={saveSuggestion} className="btn btn-primary">Save Suggestion</button>

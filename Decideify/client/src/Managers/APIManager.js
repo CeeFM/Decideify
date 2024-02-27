@@ -20,7 +20,7 @@ export const getallmovies = () => {
         }
       };
       
-      return fetch(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=${randomNumber}`, options)
+      return fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&with_genres=37&page=1&sort_by=popularity.desc`, options)
         .then(response => response.json())
   };
 
@@ -35,7 +35,7 @@ export const getallmovies = () => {
         }
       };
       
-      return fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&limit=100&with_genres=10759&sort_by=popularity.desc`, options)
+      return fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&with_genres=37&without_genres=10763%7C10767&sort_by=popularity.desc`, options)
         .then(response => response.json())
   };
 
@@ -64,41 +64,41 @@ export const getallmovies = () => {
         }
       };
       
-      return fetch(`https://api.discogs.com/database/search?genre=rock&format=album&per_page=100&page=1`, options)
+      return fetch(`https://api.discogs.com/database/search?style=Rocksteady&format=album&per_page=100&page=1`, options)
         .then(response => response.json())
   };
 
 
-  export const getalbumcover = (albumid) => {
-    // const options = {
-    //   method: 'GET',
-    //   headers: {
-    //     accept: 'application/json',
-    //     'User-Agent': 'Decideify/1.0 (colinfm88@gmail.com)',
-    //   },
-    // };
+  // export const getalbumcover = (albumid) => {
+  //   // const options = {
+  //   //   method: 'GET',
+  //   //   headers: {
+  //   //     accept: 'application/json',
+  //   //     'User-Agent': 'Decideify/1.0 (colinfm88@gmail.com)',
+  //   //   },
+  //   // };
   
-    return fetch(`https://coverartarchive.org/release/${albumid}`, {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        host: 'coverartarchive.org'
-      }
-    })
-      .then(res => {
-        if (res.status === 307) {
-          const redirectUrl = res.headers.get('Location');
-          return fetch(redirectUrl, {
-            method: 'GET',
-            headers: {
-              accept: 'application/json',
-              host: 'archive.org'
-            },
-          });
-        } else if (!res.ok) {
-          throw new Error(`HTTP error! Status: ${res.status}`)
-        }
-        return res.json();
-      });
-  };
+  //   return fetch(`https://coverartarchive.org/release/${albumid}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       accept: 'application/json',
+  //       host: 'coverartarchive.org'
+  //     }
+  //   })
+  //     .then(res => {
+  //       if (res.status === 307) {
+  //         const redirectUrl = res.headers.get('Location');
+  //         return fetch(redirectUrl, {
+  //           method: 'GET',
+  //           headers: {
+  //             accept: 'application/json',
+  //             host: 'archive.org'
+  //           },
+  //         });
+  //       } else if (!res.ok) {
+  //         throw new Error(`HTTP error! Status: ${res.status}`)
+  //       }
+  //       return res.json();
+  //     });
+  // };
   
