@@ -49,7 +49,7 @@ export const getallmovies = () => {
       },
     };
   
-    return fetch(`https://musicbrainz.org/ws/2/release-group?query=abbey&limit=100&offset=25&fmt=json`)
+    return fetch(`https://musicbrainz.org/ws/2/release-group?query=abbey&limit=100&fmt=json`)
       .then((res) => res.json());
   };
 
