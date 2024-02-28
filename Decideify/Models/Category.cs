@@ -10,5 +10,6 @@ namespace Decideify.Models
         public string Name { get; set; }
         public string ContentType { get; set; }
         public int ExternalId { get; set; }
+        public int ResultsCount { get; set; }
     }
 }

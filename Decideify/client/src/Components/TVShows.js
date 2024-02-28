@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getalltv } from "../Managers/APIManager";
 import { addSuggestion } from "../Managers/SuggestionManager";
+import { getCategoryByContentType } from "../Managers/CategoryManager";
+import { Form, FormGroup, Input, Label } from "reactstrap";
 
 export default function TVShows() {
 
@@ -8,6 +10,7 @@ export default function TVShows() {
   const decideifyUserObject = JSON.parse(localUserProfile);
 
   const [showSuggestions, setShowSuggestions] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [suggestion, setSuggestion] = useState({
     ContentType: "TV Show",
     Title: "",
@@ -21,6 +24,10 @@ export default function TVShows() {
     ExternalLink: "n/a",
     ExternalId: "n/a"
   });
+
+  const getCategories = () => {
+    getCategoryByContentType("tv show").then((thesecategories) => setCategories(thesecategories));
+  };
 
   const getshows = () => {
     getalltv().then((theseshows) => setShowSuggestions(theseshows));
@@ -49,6 +56,19 @@ export default function TVShows() {
       addSuggestion(suggestion);
   };
 
+  const handleControlledInputChange = (e) => {
+
+    const newSuggestion = { ...suggestion }
+
+    newSuggestion[`${e.target.name}`] = e.target.value
+
+    setSuggestion(newSuggestion);
+};
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
   return (
     <>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>TV Shows!</div>
@@ -57,6 +77,17 @@ export default function TVShows() {
       <button onClick={printshows} className="btn btn-secondary">Print Show Suggestion State</button>
       <button onClick={saveSuggestion}>Save Show</button>
       </section>
+      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}}>
+        <FormGroup>
+          <Label htmlFor="Category">TV Show Type</Label>
+          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange}>
+            <option value="">⬇️ Select A Type of TV Show</option>
+            {categories.map((category) => (
+              <option key={category?.id} value={category?.name}>{category?.name}</option>
+            ))}
+            </Input>
+        </FormGroup>
+      </Form>
     </>
 
   );

@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { discogsTest, getallmusic } from "../Managers/APIManager";
 import { addSuggestion } from "../Managers/SuggestionManager";
+import { getCategoryByContentType } from "../Managers/CategoryManager";
+import { Form, FormGroup, Input, Label } from "reactstrap";
 
 export default function Music() {
 
@@ -8,7 +10,7 @@ export default function Music() {
   const decideifyUserObject = JSON.parse(localUserProfile);
 
   const [musicSuggestions, setMusicSuggestions] = useState([]);
-  const [cover, setCover] = useState();
+  const [categories, setCategories] = useState([]);
   const [suggestion, setSuggestion] = useState({
     ContentType: "Music",
     Title: "",
@@ -22,6 +24,10 @@ export default function Music() {
     ExternalLink: "n/a",
     ExternalId: "n/a"
   });
+
+  const getCategories = () => {
+    getCategoryByContentType("music").then((thesecategories) => setCategories(thesecategories));
+  };
 
   const getmusic = () => {
     getallmusic().then((thismusic) => setMusicSuggestions(thismusic));
@@ -51,7 +57,20 @@ export default function Music() {
     suggestion.ExternalLink = "n/a"
     console.log(suggestion)
     addSuggestion(suggestion);
-  }
+  };
+
+  const handleControlledInputChange = (e) => {
+
+    const newSuggestion = { ...suggestion }
+
+    newSuggestion[`${e.target.name}`] = e.target.value
+
+    setSuggestion(newSuggestion);
+};
+
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   return (
     <>
@@ -61,6 +80,17 @@ export default function Music() {
       <button onClick={printmusic} className="btn btn-secondary">Print Music Suggestion State</button>
       <button onClick={saveSuggestion} className="btn btn-primary">Save Suggestion</button>
       </section>
+      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}}>
+        <FormGroup>
+          <Label htmlFor="Category">Music Type</Label>
+          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange}>
+            <option value="">⬇️ Select A Type of Music</option>
+            {categories.map((category) => (
+              <option key={category?.id} value={category?.name}>{category?.name}</option>
+            ))}
+            </Input>
+        </FormGroup>
+      </Form>
     </>
 
   );

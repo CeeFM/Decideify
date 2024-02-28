@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getallbooks } from "../Managers/APIManager";
 import { addSuggestion } from "../Managers/SuggestionManager";
+import { Form, FormGroup, Input, Label } from "reactstrap";
+import { getCategoryByContentType } from "../Managers/CategoryManager";
 
 export default function Books() {
   
@@ -8,6 +10,7 @@ export default function Books() {
   const decideifyUserObject = JSON.parse(localUserProfile);
 
   const [bookSuggestions, setBookSuggestions] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [suggestion, setSuggestion] = useState({
     ContentType: "Book",
     Title: "",
@@ -16,11 +19,17 @@ export default function Books() {
     ImageLocation: "",
     UserProfileId: decideifyUserObject.id,
     ReleaseDate: new Date(),
-    CategoryId: 1,
+    CategoryId: "",
     IsRecommended: false,
     ExternalLink: "n/a",
     ExternalId: "n/a"
   });
+
+  let book = "book";
+
+  const getCategories = () => {
+    getCategoryByContentType(book).then((thesecategories) => setCategories(thesecategories));
+  };
 
   const getbooks = () => {
     getallbooks().then((thesebooks) => setBookSuggestions(thesebooks));
@@ -36,6 +45,7 @@ export default function Books() {
     const filterTest = bookSuggestions?.results?.lists.filter((NYTList) => NYTList?.display_name.includes("Children"));
     console.log(bookSuggestions);
     console.log(filterTest);
+    console.log(categories);
     console.log(bookSuggestions?.results?.lists[randomList]?.books[randomBook]);
     thisSuggestion = bookSuggestions?.results?.lists[randomList]?.books[randomBook];
   };
@@ -47,8 +57,20 @@ export default function Books() {
     suggestion.ImageLocation = thisSuggestion?.book_image;
     console.log(suggestion)
     addSuggestion(suggestion);
-  }
+  };
 
+  const handleControlledInputChange = (e) => {
+
+    const newSuggestion = { ...suggestion }
+
+    newSuggestion[`${e.target.name}`] = e.target.value
+
+    setSuggestion(newSuggestion);
+}
+
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   return (
     <>
@@ -57,8 +79,18 @@ export default function Books() {
       <button onClick={getbooks} className="btn btn-secondary">Test The Book API</button>
       <button onClick={printbooks} className="btn btn-secondary">Print Books</button>
       <button onClick={saveSuggestion} className="btn btn-primary">Save Book</button>
-      {/* <button onClick={dateCreator}>Date Checker</button> */}
       </section>
+      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}}>
+        <FormGroup>
+          <Label htmlFor="Category">Book Type</Label>
+          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange}>
+            <option value="">⬇️ Select A Type of Book</option>
+            {categories.map((category) => (
+              <option key={category?.id} value={category?.name}>{category?.name}</option>
+            ))}
+            </Input>
+        </FormGroup>
+      </Form>
     </>
 
   );
