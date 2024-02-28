@@ -4,8 +4,34 @@ const googleAPIkey = `AIzaSyBXJVmtx7PzY99EHDLGlIYoYrJtIHOVUx0`;
 const googleSEID = `a5032a5040e67488f`;
 const tmbdImageUrl = `https://image.tmdb.org/t/p/w500`;
 
+let start = new Date(2008, 5, 8)
+let end = new Date()
+
+const randomDate = () => {
+  let randomYear = Math.floor(Math.random() * (2024 - 2008 + 1)) + 2008;
+  let randomMonth = Math.floor(Math.random() * (12)) + 1;
+  let randomDay = Math.floor(Math.random() * (28)) + 1;
+  let newRandomDate = new Date(randomYear, randomMonth, randomDay);
+  let allGood = false;
+  while (allGood === false) {
+    if (start < newRandomDate && end > newRandomDate) {
+      allGood = true;
+    } else {
+      randomYear = Math.floor(Math.random() * (2024 - 2008 + 1)) + 2008;
+      randomMonth = Math.floor(Math.random() * (12)) + 1;
+      randomDay = Math.floor(Math.random() * (28)) + 1;
+      newRandomDate = new Date(randomYear, randomMonth, randomDay);
+    }
+  };
+
+  return newRandomDate.toISOString().split('T')[0];
+}
+
+
 export const getallbooks = () => {
-    return fetch(`https://api.nytimes.com/svc/books/v3/lists/full-overview.json?api-key=${bookapikey}`)
+  let bookAPIDate = randomDate();
+
+    return fetch(`https://api.nytimes.com/svc/books/v3/lists/full-overview.json?published_date=${bookAPIDate}&api-key=${bookapikey}`)
       .then((res) => res.json())
   };
 
