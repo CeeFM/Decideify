@@ -1,4 +1,4 @@
-﻿insert into Category ([Name], ContentType, ExternalId) values ('Action & Adventure', 'TV Show', 10759);
+﻿﻿insert into Category ([Name], ContentType, ExternalId) values ('Action & Adventure', 'TV Show', 10759);
 insert into Category ([Name], ContentType, ExternalId) values ('Animation', 'TV Show', 16);
 insert into Category ([Name], ContentType, ExternalId) values ('Comedy', 'TV Show', 35);
 insert into Category ([Name], ContentType, ExternalId) values ('Crime', 'TV Show', 80);
@@ -46,3 +46,11 @@ insert into Category ([Name], ContentType, ExternalId) values ('Pop', 'Music', 0
 insert into Category ([Name], ContentType, ExternalId) values ('Reggae', 'Music', 0);
 insert into Category ([Name], ContentType, ExternalId) values ('Rock', 'Music', 0);
 insert into Category ([Name], ContentType, ExternalId) values ('Stage & Screen', 'Music', 0);
+
+INSERT INTO [Category] ([Name], [ContentType], [ExternalId])
+VALUES
+  ('Fiction', 'Book', 0),
+  ('Nonfiction', 'Book', 0),
+  ('Childrens', 'Book', 0),
+  ('Advice', 'Book', 0),
+  ('Other', 'Book', 0);
