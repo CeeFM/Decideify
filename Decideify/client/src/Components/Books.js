@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getallbooks } from "../Managers/APIManager";
 import { addSuggestion } from "../Managers/SuggestionManager";
-import { Form, FormGroup, Input, Label } from "reactstrap";
-import { getCategoryByContentType } from "../Managers/CategoryManager";
+import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { getCategoryByContentType, getCategoryById } from "../Managers/CategoryManager";
 
 export default function Books() {
   
@@ -11,6 +11,7 @@ export default function Books() {
 
   const [bookSuggestions, setBookSuggestions] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [userCategory, setUserCategory] = useState();
   const [suggestion, setSuggestion] = useState({
     ContentType: "Book",
     Title: "",
@@ -66,7 +67,16 @@ export default function Books() {
     newSuggestion[`${e.target.name}`] = e.target.value
 
     setSuggestion(newSuggestion);
+
+    getCategoryById(newSuggestion?.CategoryId).then((thiscategory) => setUserCategory(thiscategory));
 }
+
+const submitTest = (e) => {
+  e.preventDefault();
+  console.log(suggestion);
+  console.log(userCategory);
+};
+
 
   useEffect(() => {
     getCategories();
@@ -80,15 +90,18 @@ export default function Books() {
       <button onClick={printbooks} className="btn btn-secondary">Print Books</button>
       <button onClick={saveSuggestion} className="btn btn-primary">Save Book</button>
       </section>
-      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}}>
+      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest}>
         <FormGroup>
           <Label htmlFor="Category">Book Type</Label>
           <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange}>
             <option value="">⬇️ Select A Type of Book</option>
             {categories.map((category) => (
-              <option key={category?.id} value={category?.name}>{category?.name}</option>
+              <option key={category?.id} value={category?.id}>{category?.name}</option>
             ))}
             </Input>
+        </FormGroup>
+        <FormGroup>
+          <Button>Submit This Test</Button>
         </FormGroup>
       </Form>
     </>

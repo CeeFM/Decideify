@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { discogsTest, getallmusic } from "../Managers/APIManager";
 import { addSuggestion } from "../Managers/SuggestionManager";
-import { getCategoryByContentType } from "../Managers/CategoryManager";
-import { Form, FormGroup, Input, Label } from "reactstrap";
+import { getCategoryByContentType, getCategoryById } from "../Managers/CategoryManager";
+import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 
 export default function Music() {
 
@@ -11,6 +11,7 @@ export default function Music() {
 
   const [musicSuggestions, setMusicSuggestions] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [userCategory, setUserCategory] = useState();
   const [suggestion, setSuggestion] = useState({
     ContentType: "Music",
     Title: "",
@@ -66,6 +67,14 @@ export default function Music() {
     newSuggestion[`${e.target.name}`] = e.target.value
 
     setSuggestion(newSuggestion);
+
+    getCategoryById(newSuggestion?.CategoryId).then((thiscategory) => setUserCategory(thiscategory));
+};
+
+const submitTest = (e) => {
+  e.preventDefault();
+  console.log(suggestion);
+  console.log(userCategory);
 };
 
   useEffect(() => {
@@ -80,16 +89,17 @@ export default function Music() {
       <button onClick={printmusic} className="btn btn-secondary">Print Music Suggestion State</button>
       <button onClick={saveSuggestion} className="btn btn-primary">Save Suggestion</button>
       </section>
-      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}}>
+      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest}>
         <FormGroup>
           <Label htmlFor="Category">Music Type</Label>
           <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange}>
             <option value="">⬇️ Select A Type of Music</option>
             {categories.map((category) => (
-              <option key={category?.id} value={category?.name}>{category?.name}</option>
+              <option key={category?.id} value={category?.id}>{category?.name}</option>
             ))}
             </Input>
         </FormGroup>
+        <Button>Test Music Category</Button>
       </Form>
     </>
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getalltv } from "../Managers/APIManager";
 import { addSuggestion } from "../Managers/SuggestionManager";
-import { getCategoryByContentType } from "../Managers/CategoryManager";
-import { Form, FormGroup, Input, Label } from "reactstrap";
+import { getCategoryByContentType, getCategoryById } from "../Managers/CategoryManager";
+import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 
 export default function TVShows() {
 
@@ -11,6 +11,7 @@ export default function TVShows() {
 
   const [showSuggestions, setShowSuggestions] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [userCategory, setUserCategory] = useState();
   const [suggestion, setSuggestion] = useState({
     ContentType: "TV Show",
     Title: "",
@@ -63,6 +64,15 @@ export default function TVShows() {
     newSuggestion[`${e.target.name}`] = e.target.value
 
     setSuggestion(newSuggestion);
+
+    getCategoryById(newSuggestion?.CategoryId).then((thiscategory) => setUserCategory(thiscategory));
+
+};
+
+const submitTest = (e) => {
+  e.preventDefault();
+  console.log(suggestion);
+  console.log(userCategory);
 };
 
   useEffect(() => {
@@ -77,15 +87,18 @@ export default function TVShows() {
       <button onClick={printshows} className="btn btn-secondary">Print Show Suggestion State</button>
       <button onClick={saveSuggestion}>Save Show</button>
       </section>
-      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}}>
+      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest}>
         <FormGroup>
           <Label htmlFor="Category">TV Show Type</Label>
           <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange}>
             <option value="">⬇️ Select A Type of TV Show</option>
             {categories.map((category) => (
-              <option key={category?.id} value={category?.name}>{category?.name}</option>
+              <option key={category?.id} value={category?.id}>{category?.name}</option>
             ))}
             </Input>
+        </FormGroup>
+        <FormGroup>
+          <Button>Test TV Show Category</Button>
         </FormGroup>
       </Form>
     </>
