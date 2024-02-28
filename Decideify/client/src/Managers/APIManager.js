@@ -27,6 +27,9 @@ const randomDate = () => {
   return newRandomDate.toISOString().split('T')[0];
 }
 
+const movieSorting = ["popularity.desc", "popularity.asc", "original_title.asc", "original_title.desc", "revenue.asc", "revenue.desc", "primary_release_date.asc", "primary_release_date.desc", "title.asc", "title.desc", "vote_average.asc", "vote_average.desc", "vote_count.asc", "vote_count.desc"];
+const tvSorting = ["popularity.desc", "popularity.asc", "original_name.asc", "original_name.desc", "name.asc", "name.desc", "first_air_date.asc", "first_air_date.desc", "vote_average.asc", "vote_average.desc", "vote_count.asc", "vote_count.desc"];
+
 
 export const getallbooks = () => {
   let bookAPIDate = randomDate();
@@ -37,6 +40,7 @@ export const getallbooks = () => {
 
 export const getallmovies = () => {
     const randomNumber = Math.floor(Math.random() * 500) + 1;
+    const randomSort = Math.floor(Math.random() * movieSorting.length);
 
     const options = {
         method: 'GET',
@@ -46,12 +50,13 @@ export const getallmovies = () => {
         }
       };
       
-      return fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&with_genres=37&page=1&sort_by=popularity.desc`, options)
+      return fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&with_genres=37&page=1&sort_by=${movieSorting[randomSort]}`, options)
         .then(response => response.json())
   };
 
   export const getalltv = () => {
     const randomNumber = Math.floor(Math.random() * 500) + 1;
+    const randomSort = Math.floor(Math.random() * tvSorting.length);
 
     const options = {
         method: 'GET',
@@ -61,7 +66,7 @@ export const getallmovies = () => {
         }
       };
       
-      return fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&with_genres=37&without_genres=10763%7C10767&sort_by=popularity.desc`, options)
+      return fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&with_genres=37&without_genres=10763%7C10767&sort_by=${tvSorting[randomSort]}`, options)
         .then(response => response.json())
   };
 
