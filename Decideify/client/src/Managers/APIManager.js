@@ -8,18 +8,18 @@ let start = new Date(2008, 5, 8)
 let end = new Date()
 
 const randomDate = () => {
-  let randomYear = Math.floor(Math.random() * (17)) + 2008;
-  let randomMonth = Math.floor(Math.random() * (12)) + 1;
-  let randomDay = Math.floor(Math.random() * (28)) + 1;
+  let randomYear = Math.floor(Math.random() * 17) + 2008;
+  let randomMonth = Math.floor(Math.random() * 12) + 1;
+  let randomDay = Math.floor(Math.random() * 28) + 1;
   let newRandomDate = new Date(randomYear, randomMonth, randomDay);
   let allGood = false;
   while (allGood === false) {
     if (start < newRandomDate && end > newRandomDate) {
       allGood = true;
     } else {
-      randomYear = Math.floor(Math.random() * (2024 - 2008 + 1)) + 2008;
-      randomMonth = Math.floor(Math.random() * (12)) + 1;
-      randomDay = Math.floor(Math.random() * (28)) + 1;
+      randomYear = Math.floor(Math.random() * 17) + 2008;
+      randomMonth = Math.floor(Math.random() * 12) + 1;
+      randomDay = Math.floor(Math.random() * 28) + 1;
       newRandomDate = new Date(randomYear, randomMonth, randomDay);
     }
   };
@@ -99,37 +99,4 @@ export const getallmovies = () => {
         .then(response => response.json())
   };
 
-
-  // export const getalbumcover = (albumid) => {
-  //   // const options = {
-  //   //   method: 'GET',
-  //   //   headers: {
-  //   //     accept: 'application/json',
-  //   //     'User-Agent': 'Decideify/1.0 (colinfm88@gmail.com)',
-  //   //   },
-  //   // };
-  
-  //   return fetch(`https://coverartarchive.org/release/${albumid}`, {
-  //     method: 'GET',
-  //     headers: {
-  //       accept: 'application/json',
-  //       host: 'coverartarchive.org'
-  //     }
-  //   })
-  //     .then(res => {
-  //       if (res.status === 307) {
-  //         const redirectUrl = res.headers.get('Location');
-  //         return fetch(redirectUrl, {
-  //           method: 'GET',
-  //           headers: {
-  //             accept: 'application/json',
-  //             host: 'archive.org'
-  //           },
-  //         });
-  //       } else if (!res.ok) {
-  //         throw new Error(`HTTP error! Status: ${res.status}`)
-  //       }
-  //       return res.json();
-  //     });
-  // };
   
