@@ -3,6 +3,7 @@ import { getallbooks } from "../Managers/APIManager";
 import { addSuggestion } from "../Managers/SuggestionManager";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { getCategoryByContentType, getCategoryById } from "../Managers/CategoryManager";
+import bookLoading from "../Images/booksuggestion1.jpg"
 
 export default function Books() {
   
@@ -39,15 +40,18 @@ export default function Books() {
   let thisSuggestion;
   let randomList;
   let randomBook;
+  let bookForm = document.getElementById("book-form");
+  let bookRender = document.getElementById("book-render");
 
   const printbooks = () => {
     randomList = Math.floor(Math.random() * bookSuggestions?.results?.lists?.length);
     randomBook = Math.floor(Math.random() * bookSuggestions?.results?.lists[randomList]?.books?.length);
-    const filterTest = bookSuggestions?.results?.lists.filter((NYTList) => NYTList?.display_name.includes("Children"));
-    console.log(bookSuggestions);
+    const filterTest = bookSuggestions?.results?.lists.filter((NYTList) => NYTList?.display_name.includes(userCategory?.name));
+    let randomFilteredList = Math.floor(Math.random() * filterTest?.length);
+    let randomFilteredBook = Math.floor(Math.random() * filterTest[randomFilteredList]?.books?.length);
     console.log(filterTest);
-    console.log(categories);
-    console.log(bookSuggestions?.results?.lists[randomList]?.books[randomBook]);
+    console.log(filterTest[randomFilteredList]?.books[randomFilteredBook]);
+    // console.log(bookSuggestions?.results?.lists[randomList]?.books[randomBook]);
     thisSuggestion = bookSuggestions?.results?.lists[randomList]?.books[randomBook];
   };
 
@@ -73,6 +77,9 @@ export default function Books() {
 
 const submitTest = (e) => {
   e.preventDefault();
+  getbooks();
+  bookForm.style.display = "none";
+  bookRender.style.display = "block";
   console.log(suggestion);
   console.log(userCategory);
 };
@@ -86,11 +93,10 @@ const submitTest = (e) => {
     <>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Books!</div>
       <section className="text-center">
-      <button onClick={getbooks} className="btn btn-secondary">Test The Book API</button>
-      <button onClick={printbooks} className="btn btn-secondary">Print Books</button>
-      <button onClick={saveSuggestion} className="btn btn-primary">Save Book</button>
+
       </section>
-      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest}>
+      <div id="book-container">
+      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest} id="book-form">
         <FormGroup>
           <Label htmlFor="Category">Book Type</Label>
           <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange}>
@@ -104,6 +110,12 @@ const submitTest = (e) => {
           <Button>Submit This Test</Button>
         </FormGroup>
       </Form>
+      <div id="book-render" style={{display: "none"}}>
+      <img src={bookLoading} style={{width: "7.5vw", paddingTop: "10rem", paddingBottom: "2.5rem"}} alt="A big treasure chest, covered in gold and encrusted with diamonds, as well as gold and diamond encrusted books, and it says YOUR NEW FAVORITE BOOK"/>
+      <button onClick={printbooks} className="btn btn-secondary">Show Me A Book Suggestion!</button>
+      <button onClick={saveSuggestion} className="btn btn-primary">Save Book</button>
+      </div>
+      </div>
     </>
 
   );
