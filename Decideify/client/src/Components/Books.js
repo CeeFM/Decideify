@@ -42,7 +42,7 @@ export default function Books() {
   // let randomBook;
   let bookForm = document.getElementById("book-form");
   let bookRender = document.getElementById("book-render");
-  let bookImage = document.getElementById("book-img");
+  let bookDetails = document.getElementById("book-details");
   let bookShow = document.getElementById("book-show");
   let bookSave = document.getElementById("book-save");
 
@@ -57,7 +57,13 @@ export default function Books() {
     // console.log(bookSuggestions?.results?.lists[randomList]?.books[randomBook]);
     // thisSuggestion = bookSuggestions?.results?.lists[randomList]?.books[randomBook];
     thisSuggestion = filterTest[randomFilteredList]?.books[randomFilteredBook];
-    bookImage.innerHTML = `<img src=${thisSuggestion?.book_image} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="Book cover for ${thisSuggestion?.title}"/>`;
+    bookDetails.innerHTML = `<img src=${thisSuggestion?.book_image} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="Book cover for ${thisSuggestion?.title}"/>
+    <br />
+    <p>Title: <strong>${thisSuggestion?.title}</strong></p>
+    <br />
+    <p> Written By: ${thisSuggestion?.author}</p>
+    <br />
+    <p>Description: ${thisSuggestion?.description}</p>`;
     bookShow.style.display = "none";
     bookSave.style.display = "block";
   };
@@ -118,7 +124,7 @@ const submitTest = (e) => {
         </FormGroup>
       </Form>
       <div className="text-center" id="book-render" style={{display: "none"}}>
-      <section id="book-img">
+      <section id="book-details">
       <img src={bookLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A big treasure chest, covered in gold and encrusted with diamonds, as well as gold and diamond encrusted books, and it says YOUR NEW FAVORITE BOOK"/>
       </section>
       <br />

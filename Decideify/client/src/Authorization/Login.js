@@ -14,7 +14,7 @@ export default function Login({setIsLoggedIn}) {
     e.preventDefault();
     login({email, password})
       .then(r =>{
-      if(r.email === email && r.password === password) {
+      if(r && r.email === email && r.password === password) {
       setIsLoggedIn(true)
       navigate('/')
       }
