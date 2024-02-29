@@ -21,7 +21,7 @@ export default function Movies() {
     UserProfileId: decideifyUserObject.id,
     ReleaseDate: new Date(),
     CategoryId: 1,
-    IsRecommended: false,
+    IsRecommended: null,
     ExternalLink: "n/a",
     ExternalId: "n/a"
   });
