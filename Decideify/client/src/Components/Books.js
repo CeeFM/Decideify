@@ -21,7 +21,7 @@ export default function Books() {
     UserProfileId: decideifyUserObject.id,
     ReleaseDate: new Date(),
     CategoryId: "",
-    IsRecommended: false,
+    IsRecommended: null,
     ExternalLink: "n/a",
     ExternalId: "n/a"
   });

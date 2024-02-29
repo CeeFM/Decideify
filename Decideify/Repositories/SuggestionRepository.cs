@@ -62,7 +62,7 @@ namespace Decideify.Repositories
                     cmd.Parameters.AddWithValue("@ImageLocation", suggestion.ImageLocation);
                     cmd.Parameters.AddWithValue("@CategoryId", suggestion.CategoryId);
                     cmd.Parameters.AddWithValue("@UserProfileId", suggestion.UserProfileId);
-                    cmd.Parameters.AddWithValue("@IsRecommended", suggestion.IsRecommended);
+                    cmd.Parameters.AddWithValue("@IsRecommended", DbUtils.ValueOrDBNull(suggestion.IsRecommended));
                     cmd.Parameters.AddWithValue("@ExternalLink", suggestion.ExternalLink);
                     cmd.Parameters.AddWithValue("@ExternalId", suggestion.ExternalId);
 
