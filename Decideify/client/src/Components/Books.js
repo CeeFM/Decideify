@@ -38,21 +38,28 @@ export default function Books() {
   };
 
   let thisSuggestion;
-  let randomList;
-  let randomBook;
+  // let randomList;
+  // let randomBook;
   let bookForm = document.getElementById("book-form");
   let bookRender = document.getElementById("book-render");
+  let bookImage = document.getElementById("book-img");
+  let bookShow = document.getElementById("book-show");
+  let bookSave = document.getElementById("book-save");
 
   const printbooks = () => {
-    randomList = Math.floor(Math.random() * bookSuggestions?.results?.lists?.length);
-    randomBook = Math.floor(Math.random() * bookSuggestions?.results?.lists[randomList]?.books?.length);
+    // randomList = Math.floor(Math.random() * bookSuggestions?.results?.lists?.length);
+    // randomBook = Math.floor(Math.random() * bookSuggestions?.results?.lists[randomList]?.books?.length);
     const filterTest = bookSuggestions?.results?.lists.filter((NYTList) => NYTList?.display_name.includes(userCategory?.name));
     let randomFilteredList = Math.floor(Math.random() * filterTest?.length);
     let randomFilteredBook = Math.floor(Math.random() * filterTest[randomFilteredList]?.books?.length);
     console.log(filterTest);
     console.log(filterTest[randomFilteredList]?.books[randomFilteredBook]);
     // console.log(bookSuggestions?.results?.lists[randomList]?.books[randomBook]);
-    thisSuggestion = bookSuggestions?.results?.lists[randomList]?.books[randomBook];
+    // thisSuggestion = bookSuggestions?.results?.lists[randomList]?.books[randomBook];
+    thisSuggestion = filterTest[randomFilteredList]?.books[randomFilteredBook];
+    bookImage.innerHTML = `<img src=${thisSuggestion?.book_image} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="Book cover for ${thisSuggestion?.title}"/>`;
+    bookShow.style.display = "none";
+    bookSave.style.display = "block";
   };
 
   const saveSuggestion = () => {
@@ -110,10 +117,18 @@ const submitTest = (e) => {
           <Button>Submit This Test</Button>
         </FormGroup>
       </Form>
-      <div id="book-render" style={{display: "none"}}>
-      <img src={bookLoading} style={{width: "7.5vw", paddingTop: "10rem", paddingBottom: "2.5rem"}} alt="A big treasure chest, covered in gold and encrusted with diamonds, as well as gold and diamond encrusted books, and it says YOUR NEW FAVORITE BOOK"/>
-      <button onClick={printbooks} className="btn btn-secondary">Show Me A Book Suggestion!</button>
+      <div className="text-center" id="book-render" style={{display: "none"}}>
+      <section id="book-img">
+      <img src={bookLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A big treasure chest, covered in gold and encrusted with diamonds, as well as gold and diamond encrusted books, and it says YOUR NEW FAVORITE BOOK"/>
+      </section>
+      <br />
+      <section id="book-show">
+      <button onClick={printbooks} className="btn btn-secondary">Show Me My Book Suggestion!</button>
+      </section>
+      <section id="book-save" style={{display: "none"}}>
       <button onClick={saveSuggestion} className="btn btn-primary">Save Book</button>
+      <button onClick={printbooks} className="btn btn-secondary">Show Me Another Book Suggestion!</button>
+      </section>
       </div>
       </div>
     </>
