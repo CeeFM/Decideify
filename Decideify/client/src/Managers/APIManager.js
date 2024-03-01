@@ -171,7 +171,7 @@ export const getallmovies = (category) => {
         }
       };
       
-      return fetch(`https://api.discogs.com/database/search?genre=${category?.shortName}&format=album&per_page=100&page=${randomPage}`, options)
+      return fetch(`https://api.discogs.com/database/search?genre=${genreUrl}&format=album&per_page=100&page=${randomPage}`, options)
         .then(response => response.json())
   };
 

@@ -41,22 +41,34 @@ export default function Music() {
 
 
   let thisSuggestion;
+  let musicForm = document.getElementById("music-form");
+  let musicRender = document.getElementById("music-render");
+  let musicDetails = document.getElementById("music-details");
+  let musicShow = document.getElementById("music-show");
+  let musicSave = document.getElementById("music-save");
 
   const printmusic = () => {
     console.log(musicSuggestions);
-    // const randomNumber = Math.floor(Math.random() * musicSuggestions?.["release-groups"]?.length);
-    // console.log(randomNumber);
-    // console.log(musicSuggestions?.["release-groups"][parseInt(randomNumber)]);
-    // thisSuggestion = musicSuggestions?.["release-groups"][parseInt(randomNumber)];
+    const randomNumber = Math.floor(Math.random() * musicSuggestions?.results?.length);
+    console.log(randomNumber);
+    console.log(musicSuggestions?.results[randomNumber]);
+    thisSuggestion = musicSuggestions?.results[randomNumber];
+    musicDetails.innerHTML = `<img src=${thisSuggestion?.cover_image} style={{width: "18.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="Album cover for ${thisSuggestion?.title}"/>
+    <br />
+    <p>Title: <strong>${thisSuggestion?.title}</strong></p>
+    <br />
+    <a href="https://www.discogs.com${thisSuggestion?.uri}" target="_blank" className="btn btn-primary">More details</a>`;
+    musicShow.style.display = "none";
+    musicSave.style.display = "block";
   }
 
   const saveSuggestion = () => {
     suggestion.Title =  thisSuggestion?.title;
-    suggestion.Creator = thisSuggestion?.["artist-credit"][0]?.name;
-    suggestion.Details = `${thisSuggestion?.["primary-type"]}`;
-    suggestion.ImageLocation = "n/a";
-    suggestion.ExternalId = thisSuggestion?.id;
-    suggestion.ExternalLink = "n/a"
+    suggestion.Creator = "n/a";
+    suggestion.Details = "n/a";
+    suggestion.ImageLocation = thisSuggestion?.cover_image;
+    suggestion.ExternalId = thisSuggestion?.id.toString();
+    suggestion.ExternalLink = `https://www.discogs.com${thisSuggestion?.uri}`
     console.log(suggestion)
     addSuggestion(suggestion);
   };
@@ -79,6 +91,8 @@ const submitTest = (e) => {
     return
   } else {
     getdiscogs();
+    musicForm.style.display = "none";
+    musicRender.style.display = "block";
   }
 };
 
@@ -90,7 +104,7 @@ const submitTest = (e) => {
     <>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Music!</div>
       <div id="music-container">
-      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest}>
+      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest} id="music-form">
         <FormGroup>
           <Label htmlFor="Category">Music Type</Label>
           <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange}>

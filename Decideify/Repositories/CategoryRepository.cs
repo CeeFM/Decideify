@@ -26,6 +26,7 @@ namespace Decideify.Repositories
                             ContentType = DbUtils.GetString(reader, "ContentType"),
                             ExternalId = DbUtils.GetInt(reader, "ExternalId"),
                             ResultsCount = DbUtils.GetInt(reader, "ResultsCount"),
+                            ShortName = DbUtils.GetString(reader, "ShortName"),
 
                         });
                     }
@@ -56,6 +57,7 @@ namespace Decideify.Repositories
                             ContentType = DbUtils.GetString(reader, "ContentType"),
                             ExternalId = DbUtils.GetInt(reader, "ExternalId"),
                             ResultsCount = DbUtils.GetInt(reader, "ResultsCount"),
+                            ShortName = DbUtils.GetString(reader, "ShortName"),
 
                         });
                     }
@@ -87,7 +89,7 @@ namespace Decideify.Repositories
                             ContentType = DbUtils.GetString(reader, "ContentType"),
                             ExternalId = DbUtils.GetInt(reader, "ExternalId"),
                             ResultsCount = DbUtils.GetInt(reader, "ResultsCount"),
-
+                            ShortName = DbUtils.GetString(reader, "ShortName"),
                         };
                     }
                     reader.Close();
