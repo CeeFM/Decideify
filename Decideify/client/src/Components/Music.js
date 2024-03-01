@@ -73,8 +73,12 @@ export default function Music() {
 
 const submitTest = (e) => {
   e.preventDefault();
-  console.log(suggestion);
-  console.log(userCategory);
+  if (suggestion?.CategoryId === 0) {
+    window.alert("Sorry, you need to choose a genre to continue!");
+    return
+  } else {
+    getdiscogs();
+  }
 };
 
   useEffect(() => {

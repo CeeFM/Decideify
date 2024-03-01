@@ -66,6 +66,8 @@ let tvGenres = [
   [10768, 90]
 ];
 
+let musicGenres = ["blues", "brass", "children", "classical", "electronic", "folk", "funk", "hip", "jazz", "latin", "non", "pop", "reggae", "rock", "stage"]
+
 
 export const getallbooks = () => {
   let bookAPIDate = randomDate();
@@ -150,6 +152,8 @@ export const getallmovies = (category) => {
   };
 
   export const discogsTest = () => {
+    let randomPage = Math.floor(Math.random() * 100) + 1;
+
 
     const options = {
         method: 'GET',
@@ -160,7 +164,7 @@ export const getallmovies = (category) => {
         }
       };
       
-      return fetch(`https://api.discogs.com/database/search?style=Rocksteady&format=album&per_page=100&page=1`, options)
+      return fetch(`https://api.discogs.com/database/search?genre=non&format=album&per_page=100&page=1`, options)
         .then(response => response.json())
   };
 
