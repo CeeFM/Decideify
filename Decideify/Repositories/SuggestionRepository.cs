@@ -14,7 +14,9 @@ namespace Decideify.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT * FROM Suggestion";
+                    cmd.CommandText = @"SELECT * FROM Suggestion
+                                        WHERE UserProfileId = @Id";
+                    DbUtils.AddParameter(cmd, "@Id", id);
                     var reader = cmd.ExecuteReader();
                     var suggestions = new List<Suggestion>();
                     while (reader.Read())
@@ -32,7 +34,7 @@ namespace Decideify.Repositories
                             ExternalId = DbUtils.GetString(reader, "ExternalId"),
                             CategoryId = DbUtils.GetInt(reader, "CategoryId"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
-                            IsRecommended = reader.GetBoolean(reader.GetOrdinal("IsRecommended"))
+                            IsRecommended = reader.IsDBNull(reader.GetOrdinal("IsRecommended")) ? null : reader.GetBoolean(reader.GetOrdinal("IsRecommended"))
                         });
                     }
                     reader.Close();
