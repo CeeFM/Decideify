@@ -48,7 +48,7 @@ export default function Movies() {
     console.log(randomNumber);
     console.log(movieSuggestions?.results[randomNumber])
     thisSuggestion = movieSuggestions?.results[randomNumber];
-    movieDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${thisSuggestion?.poster_path}" style={{width: "18.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="Book cover for ${thisSuggestion?.title}"/>
+    movieDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${thisSuggestion?.poster_path}" style={{width: "18.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="Movie poster for ${thisSuggestion?.title}"/>
     <br />
     <p>Title: <strong>${thisSuggestion?.title}</strong></p>
     <br />
@@ -101,11 +101,6 @@ const submitTest = (e) => {
   return (
     <>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Movies!</div>
-      <section className="text-center">
-      <button onClick={getmovies} className="btn btn-secondary">Test The Movie API</button>
-      <button onClick={printmovies} className="btn btn-secondary">Print Show Suggestion State</button>
-      <button onClick={saveSuggestion}>Save Suggestion</button>
-      </section>
       <div id="movie-container">
       <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest} id="movie-form">
         <FormGroup>

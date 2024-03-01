@@ -50,6 +50,21 @@ let movieGenres = [
   [37, 18]
 ];
 const tvSorting = ["popularity.desc", "popularity.asc", "original_name.asc", "original_name.desc", "name.asc", "name.desc", "first_air_date.asc", "first_air_date.desc", "vote_average.asc", "vote_average.desc", "vote_count.asc", "vote_count.desc"];
+let tvGenres = [
+  [10759, 368],
+  [16, 500],
+  [35, 500],
+  [80, 372],
+  [99, 500],
+  [18, 500],
+  [10751, 344],
+  [10762, 219],
+  [9648, 271],
+  [10764, 500],
+  [10765, 320],
+  [10766, 106],
+  [10768, 90]
+];
 
 
 export const getallbooks = () => {
@@ -89,9 +104,21 @@ export const getallmovies = (category) => {
         .then(response => response.json())
   };
 
-  export const getalltv = () => {
-    const randomNumber = Math.floor(Math.random() * 500) + 1;
+  export const getalltv = (category) => {
     const randomSort = Math.floor(Math.random() * tvSorting.length);
+    let tvUrl = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&without_genres=10763%7C10767&sort_by=${tvSorting[randomSort]}`
+
+    if (category?.id !== 57 && category?.resultsCount < 500) {
+      let randomPage = Math.floor(Math.random() * category?.resultsCount) + 1;
+      tvUrl += `&with_genres=${category?.externalId}&page=${randomPage}`
+    } else if (category?.id !== 57 && category?.resultsCount > 500) {
+      let randomPage = Math.floor(Math.random() * 500) + 1;
+      tvUrl += `&with_genres=${category?.externalId}&page=${randomPage}`
+    } else if (category?.id === 57) {
+      let randomNumber = Math.floor(Math.random() * movieGenres.length);
+      let randomGenre = tvGenres[randomNumber];
+      tvUrl += `&with_genres=${randomGenre[0]}&page=${randomGenre[1]}`
+    };
 
     const options = {
         method: 'GET',
@@ -100,8 +127,10 @@ export const getallmovies = (category) => {
           Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYWExMTZlMzE4ZjY1MTBlMzE4N2Y1YTE0ZGQyODZjNCIsInN1YiI6IjY1YmJkN2U4MmI4YTQzMDE3YjFjMTkxMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fwxuyXsDPLTWtEDFMV1M5vKy_Y8WCyJrbRofqGr1do4'
         }
       };
+
+      console.log(tvUrl);
       
-      return fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&without_genres=10763%7C10767&sort_by=${tvSorting[randomSort]}`, options)
+      return fetch(tvUrl, options)
         .then(response => response.json())
   };
 
