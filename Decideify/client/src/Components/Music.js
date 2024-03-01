@@ -3,6 +3,7 @@ import { discogsTest, getallmusic } from "../Managers/APIManager";
 import { addSuggestion } from "../Managers/SuggestionManager";
 import { getCategoryByContentType, getCategoryById } from "../Managers/CategoryManager";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import musicLoading from "../Images/musicsuggestion1.jpg"
 
 export default function Music() {
 
@@ -35,7 +36,7 @@ export default function Music() {
   }
 
   const getdiscogs = () => {
-    discogsTest().then((discogsdata) => setMusicSuggestions(discogsdata));
+    discogsTest(userCategory).then((discogsdata) => setMusicSuggestions(discogsdata));
   }
 
 
@@ -88,11 +89,7 @@ const submitTest = (e) => {
   return (
     <>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Music!</div>
-      <section className="text-center">
-      <button onClick={getdiscogs} className="btn btn-secondary">Test The Music API</button>
-      <button onClick={printmusic} className="btn btn-secondary">Print Music Suggestion State</button>
-      <button onClick={saveSuggestion} className="btn btn-primary">Save Suggestion</button>
-      </section>
+      <div id="music-container">
       <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest}>
         <FormGroup>
           <Label htmlFor="Category">Music Type</Label>
@@ -105,6 +102,20 @@ const submitTest = (e) => {
         </FormGroup>
         <Button>DECIDEIFY MUSIC FOR ME</Button>
       </Form>
+      </div>
+      <div className="text-center" id="music-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>
+      <section id="music-details">
+      <img src={musicLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A record player, covered in gold and encrusted with diamonds, and there's a gold and diamond encrused record sitting on the record player that says YOUR NEW FAVORITE ALBUM"/>
+      </section>
+      <br />
+      <section id="music-show">
+      <button onClick={printmusic} className="btn btn-secondary">Show Me My Music Suggestion!</button>
+      </section>
+      <section id="music-save" style={{display: "none"}}>
+      <button onClick={saveSuggestion} className="btn btn-primary">Save Music</button>
+      <button onClick={printmusic} className="btn btn-secondary">Show Me Another Music Suggestion!</button>
+      </section>
+      </div>
     </>
 
   );
