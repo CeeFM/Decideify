@@ -113,7 +113,7 @@ const submitTest = (e) => {
             </Input>
         </FormGroup>
         <FormGroup>
-          <Button>Test TV Show Category</Button>
+          <Button>DECIDEIFY A TV SHOW FOR ME</Button>
         </FormGroup>
       </Form>
       <div className="text-center" id="tv-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>

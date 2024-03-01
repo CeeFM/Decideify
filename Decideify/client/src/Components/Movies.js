@@ -113,7 +113,7 @@ const submitTest = (e) => {
             </Input>
         </FormGroup>
         <FormGroup>
-          <Button>Test the Movie Category</Button>
+          <Button>DECIDEIFY A MOVIE FOR ME</Button>
         </FormGroup>
       </Form>
       <div className="text-center" id="movie-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>

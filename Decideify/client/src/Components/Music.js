@@ -20,7 +20,7 @@ export default function Music() {
     ImageLocation: "",
     UserProfileId: decideifyUserObject.id,
     ReleaseDate: new Date(),
-    CategoryId: 1,
+    CategoryId: 0,
     IsRecommended: null,
     ExternalLink: "n/a",
     ExternalId: "n/a"
@@ -99,7 +99,7 @@ const submitTest = (e) => {
             ))}
             </Input>
         </FormGroup>
-        <Button>Test Music Category</Button>
+        <Button>DECIDEIFY MUSIC FOR ME</Button>
       </Form>
     </>
 
