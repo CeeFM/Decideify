@@ -21,7 +21,7 @@ export default function Books() {
     ImageLocation: "",
     UserProfileId: decideifyUserObject.id,
     ReleaseDate: new Date(),
-    CategoryId: "",
+    CategoryId: 0,
     IsRecommended: null,
     ExternalLink: "n/a",
     ExternalId: "n/a"
@@ -62,7 +62,7 @@ export default function Books() {
       thisSuggestion = filterTest[randomFilteredList]?.books[randomFilteredBook];
     }
 
-    bookDetails.innerHTML = `<img src=${thisSuggestion?.book_image} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="Book cover for ${thisSuggestion?.title}"/>
+    bookDetails.innerHTML = `<img src=${thisSuggestion?.book_image} style={{width: "18.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="Book cover for ${thisSuggestion?.title}"/>
     <br />
     <p>Title: <strong>${thisSuggestion?.title}</strong></p>
     <br />
@@ -95,9 +95,14 @@ export default function Books() {
 
 const submitCategory = (e) => {
   e.preventDefault();
+  if (suggestion?.CategoryId === 0) {
+    window.alert("Sorry, you need to choose a genre to continue!");
+    return
+  } else {
   getbooks();
   bookForm.style.display = "none";
   bookRender.style.display = "block";
+  }
 };
 
 
@@ -116,7 +121,7 @@ const submitCategory = (e) => {
         <FormGroup>
           <Label htmlFor="Category">Book Type</Label>
           <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange}>
-            <option value="1">⬇️ Select A Type of Book</option>
+            <option value="0">⬇️ Select A Type of Book</option>
             {categories.map((category) => (
               <option key={category?.id} value={category?.id}>{category?.name}</option>
             ))}
