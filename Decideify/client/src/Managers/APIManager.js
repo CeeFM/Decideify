@@ -28,7 +28,43 @@ const randomDate = () => {
 };
 
 const movieSorting = ["popularity.desc", "popularity.asc", "original_title.asc", "original_title.desc", "revenue.asc", "revenue.desc", "primary_release_date.asc", "primary_release_date.desc", "title.asc", "title.desc", "vote_average.asc", "vote_average.desc", "vote_count.asc", "vote_count.desc"];
+let movieGenres = [
+  [28, 500],
+  [12, 500],
+  [16, 500],
+  [35, 500],
+  [80, 372],
+  [99, 500],
+  [18, 500],
+  [10751, 344],
+  [14, 500],
+  [36, 500],
+  [27, 500],
+  [10402, 500],
+  [9648, 271],
+  [10749, 500],
+  [878, 500],
+  [10770, 500],
+  [53, 500],
+  [10752, 500],
+  [37, 18]
+];
 const tvSorting = ["popularity.desc", "popularity.asc", "original_name.asc", "original_name.desc", "name.asc", "name.desc", "first_air_date.asc", "first_air_date.desc", "vote_average.asc", "vote_average.desc", "vote_count.asc", "vote_count.desc"];
+let tvGenres = [
+  [10759, 368],
+  [16, 500],
+  [35, 500],
+  [80, 372],
+  [99, 500],
+  [18, 500],
+  [10751, 344],
+  [10762, 219],
+  [9648, 271],
+  [10764, 500],
+  [10765, 320],
+  [10766, 106],
+  [10768, 90]
+];
 
 
 export const getallbooks = () => {
@@ -38,9 +74,21 @@ export const getallbooks = () => {
       .then((res) => res.json())
   };
 
-export const getallmovies = () => {
-    const randomNumber = Math.floor(Math.random() * 500) + 1;
-    const randomSort = Math.floor(Math.random() * movieSorting.length);
+export const getallmovies = (category) => {
+    let randomSort = Math.floor(Math.random() * movieSorting.length);
+    let movieUrl = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&sort_by=${movieSorting[randomSort]}`
+
+    if (category?.id !== 55 && category?.resultsCount < 500) {
+      let randomPage = Math.floor(Math.random() * category?.resultsCount) + 1;
+      movieUrl += `&with_genres=${category?.externalId}&page=${randomPage}`
+    } else if (category?.id !== 55 && category?.resultsCount > 500) {
+      let randomPage = Math.floor(Math.random() * 500) + 1;
+      movieUrl += `&with_genres=${category?.externalId}&page=${randomPage}`
+    } else if (category?.id === 55) {
+      let randomNumber = Math.floor(Math.random() * movieGenres.length);
+      let randomGenre = movieGenres[randomNumber];
+      movieUrl += `&with_genres=${randomGenre[0]}&page=${randomGenre[1]}`
+    };
 
     const options = {
         method: 'GET',
@@ -49,14 +97,28 @@ export const getallmovies = () => {
           Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYWExMTZlMzE4ZjY1MTBlMzE4N2Y1YTE0ZGQyODZjNCIsInN1YiI6IjY1YmJkN2U4MmI4YTQzMDE3YjFjMTkxMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fwxuyXsDPLTWtEDFMV1M5vKy_Y8WCyJrbRofqGr1do4'
         }
       };
+
+      console.log(movieUrl);
       
-      return fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=${movieSorting[randomSort]}`, options)
+      return fetch(movieUrl, options)
         .then(response => response.json())
   };
 
-  export const getalltv = () => {
-    const randomNumber = Math.floor(Math.random() * 500) + 1;
+  export const getalltv = (category) => {
     const randomSort = Math.floor(Math.random() * tvSorting.length);
+    let tvUrl = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&without_genres=10763%7C10767&sort_by=${tvSorting[randomSort]}`
+
+    if (category?.id !== 57 && category?.resultsCount < 500) {
+      let randomPage = Math.floor(Math.random() * category?.resultsCount) + 1;
+      tvUrl += `&with_genres=${category?.externalId}&page=${randomPage}`
+    } else if (category?.id !== 57 && category?.resultsCount > 500) {
+      let randomPage = Math.floor(Math.random() * 500) + 1;
+      tvUrl += `&with_genres=${category?.externalId}&page=${randomPage}`
+    } else if (category?.id === 57) {
+      let randomNumber = Math.floor(Math.random() * movieGenres.length);
+      let randomGenre = tvGenres[randomNumber];
+      tvUrl += `&with_genres=${randomGenre[0]}&page=${randomGenre[1]}`
+    };
 
     const options = {
         method: 'GET',
@@ -65,8 +127,10 @@ export const getallmovies = () => {
           Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYWExMTZlMzE4ZjY1MTBlMzE4N2Y1YTE0ZGQyODZjNCIsInN1YiI6IjY1YmJkN2U4MmI4YTQzMDE3YjFjMTkxMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fwxuyXsDPLTWtEDFMV1M5vKy_Y8WCyJrbRofqGr1do4'
         }
       };
+
+      console.log(tvUrl);
       
-      return fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&without_genres=10763%7C10767&sort_by=${tvSorting[randomSort]}`, options)
+      return fetch(tvUrl, options)
         .then(response => response.json())
   };
 
@@ -79,6 +143,7 @@ export const getallmovies = () => {
         'User-Agent': 'Decideify/1.0 (colinfm88@gmail.com)',
       },
     };
+    
   
     return fetch(`https://musicbrainz.org/ws/2/release-group?query=abbey&limit=100&fmt=json`)
       .then((res) => res.json());
