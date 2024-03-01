@@ -1,18 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { getallmovies } from "../Managers/APIManager";
-import { addSuggestion } from "../Managers/SuggestionManager";
+import { addSuggestion, getSuggestionsByUser } from "../Managers/SuggestionManager";
 import { getCategoryByContentType, getCategoryById } from "../Managers/CategoryManager";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import movieLoading from "../Images/moviesuggestion2.jpg"
+import Suggestion from "./Suggestion";
 
 export default function Movies() {
 
   const localUserProfile = localStorage.getItem("userProfile");
   const decideifyUserObject = JSON.parse(localUserProfile);
+  let thisSuggestion;
+  let filteredSuggestions;
+  let movieForm = document.getElementById("movie-form");
+  let movieRender = document.getElementById("movie-render");
+  let movieDetails = document.getElementById("movie-details");
+  let movieShow = document.getElementById("movie-show");
+  let movieSave = document.getElementById("movie-save");
 
   const [movieSuggestions, setMovieSuggestions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [userCategory, setUserCategory] = useState();
+  const [userSuggestions, setUserSuggestions] = useState([]);
   const [suggestion, setSuggestion] = useState({
     ContentType: "Movie",
     Title: "",
@@ -31,16 +40,17 @@ export default function Movies() {
     getCategoryByContentType("movie").then((thesecategories) => setCategories(thesecategories));
   };
 
+  const getUserSuggestions = () => {
+    getSuggestionsByUser(decideifyUserObject?.id).then((thesesuggestions) => setUserSuggestions(thesesuggestions));
+  };
+
   const getmovies = () => {
     getallmovies(userCategory).then((thesemovies) => setMovieSuggestions(thesemovies));
   };
 
-  let thisSuggestion;
-  let movieForm = document.getElementById("movie-form");
-  let movieRender = document.getElementById("movie-render");
-  let movieDetails = document.getElementById("movie-details");
-  let movieShow = document.getElementById("movie-show");
-  let movieSave = document.getElementById("movie-save");
+  const printUserSuggestions = () => {
+    console.log(userSuggestions);
+  }
 
   const printmovies = () => {
     console.log(movieSuggestions);
@@ -96,6 +106,7 @@ const submitTest = (e) => {
 
   useEffect(() => {
     getCategories();
+    getUserSuggestions();
   }, []);
 
   return (
@@ -131,7 +142,7 @@ const submitTest = (e) => {
       </div>
       </div>
       <div id="my-movies">
-        
+        <button onClick={printUserSuggestions}>Test User Suggestions Loading</button>
       </div>
     </>
 
