@@ -29,24 +29,24 @@ const randomDate = () => {
 
 const movieSorting = ["popularity.desc", "popularity.asc", "original_title.asc", "original_title.desc", "revenue.asc", "revenue.desc", "primary_release_date.asc", "primary_release_date.desc", "title.asc", "title.desc", "vote_average.asc", "vote_average.desc", "vote_count.asc", "vote_count.desc"];
 let movieGenres = [
-  [28, 1950],
-  [12, 1067],
-  [16, 551],
-  [35, 1165],
+  [28, 500],
+  [12, 500],
+  [16, 500],
+  [35, 500],
   [80, 372],
-  [99, 1125],
-  [18, 1754],
+  [99, 500],
+  [18, 500],
   [10751, 344],
-  [14, 1016],
-  [36, 792],
-  [27, 2375],
-  [10402, 1915],
+  [14, 500],
+  [36, 500],
+  [27, 500],
+  [10402, 500],
   [9648, 271],
-  [10749, 2441],
-  [878, 954],
-  [10770, 1198],
-  [53, 2156],
-  [10752, 505],
+  [10749, 500],
+  [878, 500],
+  [10770, 500],
+  [53, 500],
+  [10752, 500],
   [37, 18]
 ];
 const tvSorting = ["popularity.desc", "popularity.asc", "original_name.asc", "original_name.desc", "name.asc", "name.desc", "first_air_date.asc", "first_air_date.desc", "vote_average.asc", "vote_average.desc", "vote_count.asc", "vote_count.desc"];
@@ -63,8 +63,11 @@ export const getallmovies = (category) => {
     let randomSort = Math.floor(Math.random() * movieSorting.length);
     let movieUrl = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&sort_by=${movieSorting[randomSort]}`
 
-    if (category?.id !== 55) {
+    if (category?.id !== 55 && category?.resultsCount < 500) {
       let randomPage = Math.floor(Math.random() * category?.resultsCount) + 1;
+      movieUrl += `&with_genres=${category?.externalId}&page=${randomPage}`
+    } else if (category?.id !== 55 && category?.resultsCount > 500) {
+      let randomPage = Math.floor(Math.random() * 500) + 1;
       movieUrl += `&with_genres=${category?.externalId}&page=${randomPage}`
     } else if (category?.id === 55) {
       let randomNumber = Math.floor(Math.random() * movieGenres.length);
@@ -79,6 +82,8 @@ export const getallmovies = (category) => {
           Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYWExMTZlMzE4ZjY1MTBlMzE4N2Y1YTE0ZGQyODZjNCIsInN1YiI6IjY1YmJkN2U4MmI4YTQzMDE3YjFjMTkxMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fwxuyXsDPLTWtEDFMV1M5vKy_Y8WCyJrbRofqGr1do4'
         }
       };
+
+      console.log(movieUrl);
       
       return fetch(movieUrl, options)
         .then(response => response.json())
