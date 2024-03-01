@@ -9,3 +9,8 @@ export const addSuggestion = (suggestion) => {
       body: JSON.stringify(suggestion),
     });
   };  
+
+export const getSuggestionsByUser = (userId) => {
+  return fetch (`${apiUrl}/api/suggestion/${userId}`)
+    .then((r) => r.json());
+};

@@ -16,12 +16,6 @@ namespace Decideify.Controllers
         {
             _suggestionRepository = suggestionRepository;
         }
-        // GET: api/<SuggestionController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
 
         // GET api/<SuggestionController>/5
         [HttpGet("{id}")]
