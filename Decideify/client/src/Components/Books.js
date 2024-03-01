@@ -38,8 +38,6 @@ export default function Books() {
   };
 
   let thisSuggestion;
-  // let randomList;
-  // let randomBook;
   let bookForm = document.getElementById("book-form");
   let bookRender = document.getElementById("book-render");
   let bookDetails = document.getElementById("book-details");
@@ -47,16 +45,23 @@ export default function Books() {
   let bookSave = document.getElementById("book-save");
 
   const printbooks = () => {
-    // randomList = Math.floor(Math.random() * bookSuggestions?.results?.lists?.length);
-    // randomBook = Math.floor(Math.random() * bookSuggestions?.results?.lists[randomList]?.books?.length);
-    const filterTest = bookSuggestions?.results?.lists.filter((NYTList) => NYTList?.display_name.includes(userCategory?.name));
-    let randomFilteredList = Math.floor(Math.random() * filterTest?.length);
-    let randomFilteredBook = Math.floor(Math.random() * filterTest[randomFilteredList]?.books?.length);
-    console.log(filterTest);
-    console.log(filterTest[randomFilteredList]?.books[randomFilteredBook]);
-    // console.log(bookSuggestions?.results?.lists[randomList]?.books[randomBook]);
-    // thisSuggestion = bookSuggestions?.results?.lists[randomList]?.books[randomBook];
-    thisSuggestion = filterTest[randomFilteredList]?.books[randomFilteredBook];
+
+    if (userCategory?.name === "Random"){
+      let randomList = Math.floor(Math.random() * bookSuggestions?.results?.lists?.length);
+      let randomBook = Math.floor(Math.random() * bookSuggestions?.results?.lists[randomList]?.books?.length);
+      thisSuggestion = bookSuggestions?.results?.lists[randomList]?.books[randomBook];
+    } else if (userCategory?.name === "Other") {
+      let filterTest = bookSuggestions?.results?.lists.filter((NYTList) => !NYTList?.display_name.includes("Fiction") && !NYTList?.display_name.includes("Nonfiction") && !NYTList?.display_name.includes("Children") && !NYTList?.display_name.includes("Advice"));
+      let randomFilteredList = Math.floor(Math.random() * filterTest?.length);
+      let randomFilteredBook = Math.floor(Math.random() * filterTest[randomFilteredList]?.books?.length);
+      thisSuggestion = filterTest[randomFilteredList]?.books[randomFilteredBook];
+    } else {
+      let filterTest = bookSuggestions?.results?.lists.filter((NYTList) => NYTList?.display_name.includes(userCategory?.name));
+      let randomFilteredList = Math.floor(Math.random() * filterTest?.length);
+      let randomFilteredBook = Math.floor(Math.random() * filterTest[randomFilteredList]?.books?.length);
+      thisSuggestion = filterTest[randomFilteredList]?.books[randomFilteredBook];
+    }
+
     bookDetails.innerHTML = `<img src=${thisSuggestion?.book_image} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="Book cover for ${thisSuggestion?.title}"/>
     <br />
     <p>Title: <strong>${thisSuggestion?.title}</strong></p>
@@ -88,13 +93,11 @@ export default function Books() {
     getCategoryById(newSuggestion?.CategoryId).then((thiscategory) => setUserCategory(thiscategory));
 }
 
-const submitTest = (e) => {
+const submitCategory = (e) => {
   e.preventDefault();
   getbooks();
   bookForm.style.display = "none";
   bookRender.style.display = "block";
-  console.log(suggestion);
-  console.log(userCategory);
 };
 
 
@@ -104,16 +107,16 @@ const submitTest = (e) => {
 
   return (
     <>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Books!</div>
+      <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>Books!</div>
       <section className="text-center">
 
       </section>
       <div id="book-container">
-      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest} id="book-form">
+      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitCategory} id="book-form">
         <FormGroup>
           <Label htmlFor="Category">Book Type</Label>
           <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange}>
-            <option value="">⬇️ Select A Type of Book</option>
+            <option value="1">⬇️ Select A Type of Book</option>
             {categories.map((category) => (
               <option key={category?.id} value={category?.id}>{category?.name}</option>
             ))}
@@ -123,7 +126,7 @@ const submitTest = (e) => {
           <Button>Submit This Test</Button>
         </FormGroup>
       </Form>
-      <div className="text-center" id="book-render" style={{display: "none"}}>
+      <div className="text-center" id="book-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>
       <section id="book-details">
       <img src={bookLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A big treasure chest, covered in gold and encrusted with diamonds, as well as gold and diamond encrusted books, and it says YOUR NEW FAVORITE BOOK"/>
       </section>
