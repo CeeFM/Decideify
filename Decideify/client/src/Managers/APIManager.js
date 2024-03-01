@@ -151,9 +151,16 @@ export const getallmovies = (category) => {
       .then((res) => res.json());
   };
 
-  export const discogsTest = () => {
+  export const discogsTest = (category) => {
     let randomPage = Math.floor(Math.random() * 100) + 1;
+    let genreUrl;
 
+    if (category?.shortName === "random") {
+      let genrePicker = Math.floor(Math.random() * musicGenres.length);
+      genreUrl = musicGenres[genrePicker];
+    } else {
+      genreUrl = category?.shortName;
+    }
 
     const options = {
         method: 'GET',
@@ -164,7 +171,7 @@ export const getallmovies = (category) => {
         }
       };
       
-      return fetch(`https://api.discogs.com/database/search?genre=non&format=album&per_page=100&page=1`, options)
+      return fetch(`https://api.discogs.com/database/search?genre=${genreUrl}&format=album&per_page=100&page=${randomPage}`, options)
         .then(response => response.json())
   };
 
