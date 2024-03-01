@@ -3,6 +3,7 @@ import { getalltv } from "../Managers/APIManager";
 import { addSuggestion } from "../Managers/SuggestionManager";
 import { getCategoryByContentType, getCategoryById } from "../Managers/CategoryManager";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import tvLoading from "../Images/tvsuggestion1.jpg"
 
 export default function TVShows() {
 
@@ -20,7 +21,7 @@ export default function TVShows() {
     ImageLocation: "",
     UserProfileId: decideifyUserObject.id,
     ReleaseDate: new Date(),
-    CategoryId: 1,
+    CategoryId: 0,
     IsRecommended: null,
     ExternalLink: "n/a",
     ExternalId: "n/a"
@@ -31,10 +32,15 @@ export default function TVShows() {
   };
 
   const getshows = () => {
-    getalltv().then((theseshows) => setShowSuggestions(theseshows));
+    getalltv(userCategory).then((theseshows) => setShowSuggestions(theseshows));
   };
 
   let currentSuggestion;
+  let tvForm = document.getElementById("tv-form");
+  let tvRender = document.getElementById("tv-render");
+  let tvDetails = document.getElementById("tv-details");
+  let tvShow = document.getElementById("tv-show");
+  let tvSave = document.getElementById("tv-save");
 
   const printshows = () => {
     console.log(showSuggestions);
@@ -42,8 +48,15 @@ export default function TVShows() {
     console.log(randomNumber);
     console.log(showSuggestions?.results[randomNumber]);
     currentSuggestion = showSuggestions?.results[randomNumber];
-    console.log(currentSuggestion?.id.toString());
-    console.log(typeof currentSuggestion?.id.toString());
+    tvDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${currentSuggestion?.poster_path}" style={{width: "18.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="TV Show poster for ${currentSuggestion?.name}"/>
+    <br />
+    <p>Title: <strong>${currentSuggestion?.name}</strong></p>
+    <br />
+    <p>Description: ${currentSuggestion?.overview}</p>
+    <br />
+    <p>Released: ${currentSuggestion?.first_air_date}`;
+    tvShow.style.display = "none";
+    tvSave.style.display = "block";
   };
 
   const saveSuggestion = () => {
@@ -71,8 +84,14 @@ export default function TVShows() {
 
 const submitTest = (e) => {
   e.preventDefault();
-  console.log(suggestion);
-  console.log(userCategory);
+  if (suggestion?.CategoryId === 0) {
+    window.alert("Sorry, you need to choose a genre to continue!");
+    return
+  } else {
+    getshows();
+    tvForm.style.display = "none";
+    tvRender.style.display = "block";
+  }
 };
 
   useEffect(() => {
@@ -82,12 +101,8 @@ const submitTest = (e) => {
   return (
     <>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>TV Shows!</div>
-      <section className="text-center">
-      <button onClick={getshows} className="btn btn-secondary">Test The TV API</button>
-      <button onClick={printshows} className="btn btn-secondary">Print Show Suggestion State</button>
-      <button onClick={saveSuggestion}>Save Show</button>
-      </section>
-      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest}>
+      <div id="tv-container">
+      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest} id="tv-form">
         <FormGroup>
           <Label htmlFor="Category">TV Show Type</Label>
           <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange}>
@@ -101,6 +116,20 @@ const submitTest = (e) => {
           <Button>Test TV Show Category</Button>
         </FormGroup>
       </Form>
+      <div className="text-center" id="tv-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>
+      <section id="tv-details">
+      <img src={tvLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A big TV, covered in gold and encrusted with diamonds, and on the big screen it says COMING UP: YOUR NEW FAVORITE SHOW"/>
+      </section>
+      <br />
+      <section id="tv-show">
+      <button onClick={printshows} className="btn btn-secondary">Show Me My TV Show Suggestion!</button>
+      </section>
+      <section id="tv-save" style={{display: "none"}}>
+      <button onClick={saveSuggestion} className="btn btn-primary">Save TV Show</button>
+      <button onClick={printshows} className="btn btn-secondary">Show Me Another TV Show Suggestion!</button>
+      </section>
+      </div>
+      </div>
     </>
 
   );

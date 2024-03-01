@@ -113,9 +113,6 @@ const submitCategory = (e) => {
   return (
     <>
       <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>Books!</div>
-      <section className="text-center">
-
-      </section>
       <div id="book-container">
       <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitCategory} id="book-form">
         <FormGroup>
