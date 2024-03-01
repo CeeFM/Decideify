@@ -20,7 +20,7 @@ export default function Movies() {
     ImageLocation: "",
     UserProfileId: decideifyUserObject.id,
     ReleaseDate: new Date(),
-    CategoryId: 1,
+    CategoryId: 0,
     IsRecommended: null,
     ExternalLink: "n/a",
     ExternalId: "n/a"
@@ -31,7 +31,7 @@ export default function Movies() {
   };
 
   const getmovies = () => {
-    getallmovies().then((thesemovies) => setMovieSuggestions(thesemovies));
+    getallmovies(userCategory).then((thesemovies) => setMovieSuggestions(thesemovies));
   };
 
   let thisSuggestion;
@@ -69,6 +69,10 @@ export default function Movies() {
 
 const submitTest = (e) => {
   e.preventDefault();
+  if (suggestion?.CategoryId === 0) {
+    window.alert("Sorry, you need to choose a genre to continue!");
+    return
+  };
   console.log(suggestion);
   console.log(userCategory);
 };
@@ -89,7 +93,7 @@ const submitTest = (e) => {
         <FormGroup>
           <Label htmlFor="Category">Movie Type</Label>
           <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange}>
-            <option value="">⬇️ Select A Type of Movie</option>
+            <option value="0">⬇️ Select A Type of Movie</option>
             {categories.map((category) => (
               <option key={category?.id} value={category?.id}>{category?.name}</option>
             ))}
