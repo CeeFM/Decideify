@@ -147,6 +147,8 @@ const submitTest = (e) => {
       <button onClick={printshows} className="btn btn-secondary">Show Me Another TV Show Suggestion!</button>
       </section>
       </div>
+      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>My TV Shows!</div>
+
       <div id="my-tv" className="container">
         <div className="row">
       {filteredSuggestions.map((suggestion) => (

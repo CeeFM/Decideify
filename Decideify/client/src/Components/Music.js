@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { discogsTest, getallmusic } from "../Managers/APIManager";
-import { addSuggestion } from "../Managers/SuggestionManager";
+import { addSuggestion, getSuggestionsByUser } from "../Managers/SuggestionManager";
 import { getCategoryByContentType, getCategoryById } from "../Managers/CategoryManager";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import musicLoading from "../Images/musicsuggestion1.jpg"
+import Suggestion from "./Suggestion";
 
 export default function Music() {
 
@@ -13,6 +14,8 @@ export default function Music() {
   const [musicSuggestions, setMusicSuggestions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [userCategory, setUserCategory] = useState();
+  const [userSuggestions, setUserSuggestions] = useState([]);
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [suggestion, setSuggestion] = useState({
     ContentType: "Music",
     Title: "",
@@ -38,6 +41,15 @@ export default function Music() {
   const getdiscogs = () => {
     discogsTest(userCategory).then((discogsdata) => setMusicSuggestions(discogsdata));
   }
+
+  const getUserSuggestions = () => {
+    getSuggestionsByUser(decideifyUserObject?.id)
+      .then((suggs) => {
+        setUserSuggestions(suggs);
+        let filter = suggs.filter((s) => s.contentType === "Music");
+        setFilteredSuggestions(filter);
+      });
+  };
 
 
   let thisSuggestion;
@@ -100,6 +112,10 @@ const submitTest = (e) => {
     getCategories();
   }, []);
 
+  useEffect(() => {
+    getUserSuggestions();
+  }, []);
+
   return (
     <>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Music!</div>
@@ -129,6 +145,15 @@ const submitTest = (e) => {
       <button onClick={saveSuggestion} className="btn btn-primary">Save Music</button>
       <button onClick={printmusic} className="btn btn-secondary">Show Me Another Music Suggestion!</button>
       </section>
+      </div>
+      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>My Music!</div>
+
+      <div id="my-music" className="container">
+        <div className="row">
+      {filteredSuggestions.map((suggestion) => (
+        <Suggestion key={suggestion.id} userSugg={suggestion} />
+      ))}
+          </div>
       </div>
     </>
 
