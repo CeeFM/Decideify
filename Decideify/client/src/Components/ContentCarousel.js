@@ -10,7 +10,14 @@ export default function ContentCarousel({ filteredSuggestions }) {
 
   const next = () => setIndex((prevIndex) => ((prevIndex + 1) * 5) >= filteredSuggestions.length ? 0 : prevIndex + 1);
 
-  const previous = () => setIndex((prevIndex) => (prevIndex - 1) < 0 ? Math.floor(filteredSuggestions.length / itemsPerPage) : prevIndex - 1);
+  const previous = () => {
+    if (filteredSuggestions.length % 5 === 0) {
+      setIndex((prevIndex) => (prevIndex - 1) < 0 ? Math.floor(filteredSuggestions.length / itemsPerPage) - 1 : prevIndex - 1);
+    }
+    else {
+      setIndex((prevIndex) => (prevIndex - 1) < 0 ? Math.floor(filteredSuggestions.length / itemsPerPage) : prevIndex - 1);
+    }
+  }
 
   return (
     <Carousel interval={null} activeIndex={index} onSelect={handleSelect} className="container">
