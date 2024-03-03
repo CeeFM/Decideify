@@ -4,7 +4,7 @@ import { addSuggestion, getSuggestionsByUser } from "../Managers/SuggestionManag
 import { getCategoryByContentType, getCategoryById } from "../Managers/CategoryManager";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import movieLoading from "../Images/moviesuggestion2.jpg"
-import Suggestion from "./Suggestion";
+import ContentCarousel from "./ContentCarousel";
 
 export default function Movies() {
 
@@ -150,11 +150,11 @@ const submitTest = (e) => {
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>My Movies!</div>
 
       <div id="my-movies" className="container">
-        <div className="row">
-      {filteredSuggestions.map((suggestion) => (
-        <Suggestion key={suggestion.id} userSugg={suggestion} />
-      ))}
-          </div>
+      {filteredSuggestions.length === 0 ?
+      <p className="text-center">No movie suggestions added yet! Add some and they'll appear here!</p>
+      :
+      <ContentCarousel filteredSuggestions={filteredSuggestions} />
+    }
       </div>
     </>
 

@@ -5,6 +5,7 @@ import { getCategoryByContentType, getCategoryById } from "../Managers/CategoryM
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import musicLoading from "../Images/musicsuggestion1.jpg"
 import Suggestion from "./Suggestion";
+import ContentCarousel from "./ContentCarousel";
 
 export default function Music() {
 
@@ -149,11 +150,11 @@ const submitTest = (e) => {
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>My Music!</div>
 
       <div id="my-music" className="container">
-        <div className="row">
-      {filteredSuggestions.map((suggestion) => (
-        <Suggestion key={suggestion.id} userSugg={suggestion} />
-      ))}
-          </div>
+      {filteredSuggestions.length === 0 ?
+      <p className="text-center">No music suggestions added yet! Add some and they'll appear here!</p>
+      :
+      <ContentCarousel filteredSuggestions={filteredSuggestions} />
+    }
       </div>
     </>
 
