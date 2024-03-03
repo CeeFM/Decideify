@@ -8,19 +8,19 @@ export default function ContentCarousel({ filteredSuggestions }) {
 
   const handleSelect = (selectedIndex, e) => setIndex(selectedIndex);
 
-  const next = () => setIndex((prevIndex) => prevIndex + 1);
+  const next = () => setIndex((prevIndex) => ((prevIndex + 1) * 5) > filteredSuggestions.length ? 0 : prevIndex + 1);
 
-  const previous = () => setIndex((prevIndex) => prevIndex - 1);
+  const previous = () => setIndex((prevIndex) => (prevIndex - 1) < 0 ? Math.floor(filteredSuggestions.length / itemsPerPage) : prevIndex - 1);
 
   return (
     <Carousel interval={null} activeIndex={index} onSelect={handleSelect} className="container">
       {Array.from(
         { length: Math.ceil(filteredSuggestions.length / itemsPerPage) },
-        (_, pageIndex) => (
-          <CarouselItem key={pageIndex}>
+        (_, carouselPage) => (
+          <CarouselItem key={carouselPage}>
             <div className="row">
               {filteredSuggestions
-                .slice(pageIndex * itemsPerPage, (pageIndex + 1) * itemsPerPage)
+                .slice(carouselPage * itemsPerPage, (carouselPage + 1) * itemsPerPage)
                 .map((suggestion) => (
                   <div className="col" key={suggestion.id}>
                     <Suggestion userSugg={suggestion} />

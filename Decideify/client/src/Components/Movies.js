@@ -150,7 +150,11 @@ const submitTest = (e) => {
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>My Movies!</div>
 
       <div id="my-movies" className="container">
-        <ContentCarousel filteredSuggestions={filteredSuggestions} />
+      {filteredSuggestions.length === 0 ?
+      <p className="text-center">No movie suggestions added yet! Add some and they'll appear here!</p>
+      :
+      <ContentCarousel filteredSuggestions={filteredSuggestions} />
+    }
       </div>
     </>
 
