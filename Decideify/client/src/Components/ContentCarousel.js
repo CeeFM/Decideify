@@ -8,7 +8,7 @@ export default function ContentCarousel({ filteredSuggestions }) {
 
   const handleSelect = (selectedIndex, e) => setIndex(selectedIndex);
 
-  const next = () => setIndex((prevIndex) => ((prevIndex + 1) * 5) > filteredSuggestions.length ? 0 : prevIndex + 1);
+  const next = () => setIndex((prevIndex) => ((prevIndex + 1) * 5) >= filteredSuggestions.length ? 0 : prevIndex + 1);
 
   const previous = () => setIndex((prevIndex) => (prevIndex - 1) < 0 ? Math.floor(filteredSuggestions.length / itemsPerPage) : prevIndex - 1);
 
