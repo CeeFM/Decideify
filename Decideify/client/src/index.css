@@ -22,3 +22,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.pulsing-glow {
+  animation: pulsate 2s infinite;
+  box-shadow: 0 0 10px 2px gold;
+}
+
+@keyframes pulsate {
+  0% {
+    box-shadow: 0 0 10px 2px gold;
+  }
+  50% {
+    box-shadow: 0 0 20px 4px gold;
+  }
+  100% {
+    box-shadow: 0 0 10px 2px gold;
+  }
+}

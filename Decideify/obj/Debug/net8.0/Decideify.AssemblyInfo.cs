@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Decideify")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+989056a78700de6ddf34e4494d8c3792daf65368")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1aaa3a1b4beded20de2ef167004f80ceba051012")]
 [assembly: System.Reflection.AssemblyProductAttribute("Decideify")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Decideify")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

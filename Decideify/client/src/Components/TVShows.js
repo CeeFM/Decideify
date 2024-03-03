@@ -136,7 +136,7 @@ const submitTest = (e) => {
       </Form>
       <div className="text-center" id="tv-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>
       <section id="tv-details">
-      <img src={tvLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A big TV, covered in gold and encrusted with diamonds, and on the big screen it says COMING UP: YOUR NEW FAVORITE SHOW"/>
+      <img className="pulsing-glow" src={tvLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A big TV, covered in gold and encrusted with diamonds, and on the big screen it says COMING UP: YOUR NEW FAVORITE SHOW"/>
       </section>
       <br />
       <section id="tv-show">

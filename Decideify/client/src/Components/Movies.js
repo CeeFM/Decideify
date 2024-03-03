@@ -135,7 +135,7 @@ const submitTest = (e) => {
       </Form>
       <div className="text-center" id="movie-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>
       <section id="movie-details">
-      <img src={movieLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="Inside of a big movie theather, covered in gold and encrusted with diamonds, and on the big screen it says NOW SHOWING: YOUR NEW FAVORITE MOVIE"/>
+      <img className="pulsing-glow" src={movieLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="Inside of a big movie theather, covered in gold and encrusted with diamonds, and on the big screen it says NOW SHOWING: YOUR NEW FAVORITE MOVIE"/>
       </section>
       <br />
       <section id="movie-show">

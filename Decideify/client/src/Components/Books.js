@@ -146,7 +146,7 @@ const submitCategory = (e) => {
       </Form>
       <div className="text-center" id="book-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>
       <section id="book-details">
-      <img src={bookLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A big treasure chest, covered in gold and encrusted with diamonds, as well as gold and diamond encrusted books, and it says YOUR NEW FAVORITE BOOK"/>
+      <img className="pulsing-glow" src={bookLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A big treasure chest, covered in gold and encrusted with diamonds, as well as gold and diamond encrusted books, and it says YOUR NEW FAVORITE BOOK"/>
       </section>
       <br />
       <section id="book-show">

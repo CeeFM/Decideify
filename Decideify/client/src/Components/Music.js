@@ -135,7 +135,7 @@ const submitTest = (e) => {
       </div>
       <div className="text-center" id="music-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>
       <section id="music-details">
-      <img src={musicLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A record player, covered in gold and encrusted with diamonds, and there's a gold and diamond encrused record sitting on the record player that says YOUR NEW FAVORITE ALBUM"/>
+      <img className="pulsing-glow" src={musicLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A record player, covered in gold and encrusted with diamonds, and there's a gold and diamond encrused record sitting on the record player that says YOUR NEW FAVORITE ALBUM"/>
       </section>
       <br />
       <section id="music-show">
