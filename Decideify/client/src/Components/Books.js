@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { getallbooks } from "../Managers/APIManager";
-import { addSuggestion } from "../Managers/SuggestionManager";
+import { addSuggestion, getSuggestionsByUser } from "../Managers/SuggestionManager";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { getCategoryByContentType, getCategoryById } from "../Managers/CategoryManager";
 import bookLoading from "../Images/booksuggestion1.jpg"
+import Suggestion from "./Suggestion";
 
 export default function Books() {
   
@@ -12,6 +13,8 @@ export default function Books() {
 
   const [bookSuggestions, setBookSuggestions] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [userSuggestions, setUserSuggestions] = useState([]);
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [userCategory, setUserCategory] = useState();
   const [suggestion, setSuggestion] = useState({
     ContentType: "Book",
@@ -31,6 +34,15 @@ export default function Books() {
 
   const getCategories = () => {
     getCategoryByContentType(book).then((thesecategories) => setCategories(thesecategories));
+  };
+
+  const getUserSuggestions = () => {
+    getSuggestionsByUser(decideifyUserObject?.id)
+      .then((suggs) => {
+        setUserSuggestions(suggs);
+        let filter = suggs.filter((s) => s.contentType === "Book");
+        setFilteredSuggestions(filter);
+      });
   };
 
   const getbooks = () => {
@@ -110,6 +122,10 @@ const submitCategory = (e) => {
     getCategories();
   }, []);
 
+  useEffect(() => {
+    getUserSuggestions();
+  }, []);
+
   return (
     <>
       <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>Books!</div>
@@ -142,6 +158,15 @@ const submitCategory = (e) => {
       </section>
       </div>
       </div>
+      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>My Books!</div>
+
+<div id="my-books" className="container">
+  <div className="row">
+{filteredSuggestions.map((suggestion) => (
+  <Suggestion key={suggestion.id} userSugg={suggestion} />
+))}
+    </div>
+</div>
     </>
 
   );

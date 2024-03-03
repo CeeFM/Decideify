@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { getalltv } from "../Managers/APIManager";
-import { addSuggestion } from "../Managers/SuggestionManager";
+import { addSuggestion, getSuggestionsByUser } from "../Managers/SuggestionManager";
 import { getCategoryByContentType, getCategoryById } from "../Managers/CategoryManager";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import tvLoading from "../Images/tvsuggestion1.jpg"
+import Suggestion from "./Suggestion";
 
 export default function TVShows() {
 
@@ -13,6 +14,8 @@ export default function TVShows() {
   const [showSuggestions, setShowSuggestions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [userCategory, setUserCategory] = useState();
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+  const [userSuggestions, setUserSuggestions] = useState([]);
   const [suggestion, setSuggestion] = useState({
     ContentType: "TV Show",
     Title: "",
@@ -26,6 +29,15 @@ export default function TVShows() {
     ExternalLink: "n/a",
     ExternalId: "n/a"
   });
+
+  const getUserSuggestions = () => {
+    getSuggestionsByUser(decideifyUserObject?.id)
+      .then((suggs) => {
+        setUserSuggestions(suggs);
+        let filter = suggs.filter((s) => s.contentType === "TV Show");
+        setFilteredSuggestions(filter);
+      });
+  };
 
   const getCategories = () => {
     getCategoryByContentType("tv show").then((thesecategories) => setCategories(thesecategories));
@@ -41,6 +53,8 @@ export default function TVShows() {
   let tvDetails = document.getElementById("tv-details");
   let tvShow = document.getElementById("tv-show");
   let tvSave = document.getElementById("tv-save");
+  let myTV = document.getElementById("my-tv");
+
 
   const printshows = () => {
     console.log(showSuggestions);
@@ -98,6 +112,10 @@ const submitTest = (e) => {
     getCategories();
   }, []);
 
+  useEffect(() => {
+    getUserSuggestions();
+  }, []);
+
   return (
     <>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>TV Shows!</div>
@@ -128,6 +146,15 @@ const submitTest = (e) => {
       <button onClick={saveSuggestion} className="btn btn-primary">Save TV Show</button>
       <button onClick={printshows} className="btn btn-secondary">Show Me Another TV Show Suggestion!</button>
       </section>
+      </div>
+      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>My TV Shows!</div>
+
+      <div id="my-tv" className="container">
+        <div className="row">
+      {filteredSuggestions.map((suggestion) => (
+        <Suggestion key={suggestion.id} userSugg={suggestion} />
+      ))}
+          </div>
       </div>
       </div>
     </>
