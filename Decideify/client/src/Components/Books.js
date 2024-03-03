@@ -30,11 +30,22 @@ export default function Books() {
     ExternalLink: "n/a",
     ExternalId: "n/a"
   });
-
-  let book = "book";
+  const [addEntry, setAddEntry] = useState({
+    ContentType: "Book",
+    Title: "",
+    Details: "",
+    Creator: "",
+    ImageLocation: "",
+    UserProfileId: decideifyUserObject.id,
+    ReleaseDate: new Date(),
+    CategoryId: 0,
+    IsRecommended: null,
+    ExternalLink: "n/a",
+    ExternalId: "n/a"
+  });
 
   const getCategories = () => {
-    getCategoryByContentType(book).then((thesecategories) => setCategories(thesecategories));
+    getCategoryByContentType("book").then((thesecategories) => setCategories(thesecategories));
   };
 
   const getUserSuggestions = () => {
@@ -95,6 +106,10 @@ export default function Books() {
     addSuggestion(suggestion);
   };
 
+  const addUserSuggestion = () => {
+    addSuggestion(addEntry);
+  }
+
   const handleControlledInputChange = (e) => {
 
     const newSuggestion = { ...suggestion }
@@ -104,6 +119,15 @@ export default function Books() {
     setSuggestion(newSuggestion);
 
     getCategoryById(newSuggestion?.CategoryId).then((thiscategory) => setUserCategory(thiscategory));
+}
+
+const handleAddFormChange = (e) => {
+
+  const newSuggestion = { ...addEntry }
+
+  newSuggestion[`${e.target.name}`] = e.target.value
+
+  setAddEntry(newSuggestion);
 }
 
 const submitCategory = (e) => {
@@ -168,6 +192,40 @@ const submitCategory = (e) => {
       <ContentCarousel filteredSuggestions={filteredSuggestions} />
     }
 </div>
+<div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Add A Book!</div>
+
+<Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} id="add-book-form" onSubmit={addUserSuggestion}>
+  <fieldset>
+        <FormGroup>
+          <Label htmlFor="Category">Book Type/Genre</Label>
+          <Input type="select" name="CategoryId" value={addEntry?.CategoryId} onChange={handleAddFormChange}>
+            <option value="0">⬇️ Select A Type of Book</option>
+            {categories.map((category) => (
+              <option key={category?.id} value={category?.id}>{category?.name}</option>
+            ))}
+            </Input>
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="Title">Book Title</Label>
+          <Input type="text" name="Title" value={addEntry?.Title} onChange={handleAddFormChange} />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="Creator">Book Author</Label>
+          <Input type="text" name="Creator" value={addEntry?.Creator} onChange={handleAddFormChange} />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="Details">Book Details</Label>
+          <Input type="textarea" name="Details" value={addEntry?.Details} onChange={handleAddFormChange} />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="ImageLocation">Book Cover Art URL</Label>
+          <Input type="text" name="ImageLocation" value={addEntry?.ImageLocation} onChange={handleAddFormChange} />
+        </FormGroup>
+        <FormGroup>
+          <Button>Add Book To My Library</Button>
+        </FormGroup>
+        </fieldset>
+      </Form>
     </>
 
   );
