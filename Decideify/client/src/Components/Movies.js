@@ -11,17 +11,18 @@ export default function Movies() {
   const localUserProfile = localStorage.getItem("userProfile");
   const decideifyUserObject = JSON.parse(localUserProfile);
   let thisSuggestion;
-  let filteredSuggestions;
   let movieForm = document.getElementById("movie-form");
   let movieRender = document.getElementById("movie-render");
   let movieDetails = document.getElementById("movie-details");
   let movieShow = document.getElementById("movie-show");
   let movieSave = document.getElementById("movie-save");
+  let myMovies = document.getElementById("my-movies");
 
   const [movieSuggestions, setMovieSuggestions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [userCategory, setUserCategory] = useState();
   const [userSuggestions, setUserSuggestions] = useState([]);
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [suggestion, setSuggestion] = useState({
     ContentType: "Movie",
     Title: "",
@@ -41,16 +42,17 @@ export default function Movies() {
   };
 
   const getUserSuggestions = () => {
-    getSuggestionsByUser(decideifyUserObject?.id).then((thesesuggestions) => setUserSuggestions(thesesuggestions));
+    getSuggestionsByUser(decideifyUserObject?.id)
+      .then((suggs) => {
+        setUserSuggestions(suggs);
+        let filter = suggs.filter((s) => s.contentType === "Movie");
+        setFilteredSuggestions(filter);
+      });
   };
 
   const getmovies = () => {
     getallmovies(userCategory).then((thesemovies) => setMovieSuggestions(thesemovies));
   };
-
-  const printUserSuggestions = () => {
-    console.log(userSuggestions);
-  }
 
   const printmovies = () => {
     console.log(movieSuggestions);
@@ -106,6 +108,10 @@ const submitTest = (e) => {
 
   useEffect(() => {
     getCategories();
+
+  }, []);
+
+  useEffect(() => {
     getUserSuggestions();
   }, []);
 
@@ -141,8 +147,14 @@ const submitTest = (e) => {
       </section>
       </div>
       </div>
-      <div id="my-movies">
-        <button onClick={printUserSuggestions}>Test User Suggestions Loading</button>
+      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>My Movies!</div>
+
+      <div id="my-movies" className="container">
+        <div className="row">
+      {filteredSuggestions.map((suggestion) => (
+        <Suggestion key={suggestion.id} userSugg={suggestion} />
+      ))}
+          </div>
       </div>
     </>
 
