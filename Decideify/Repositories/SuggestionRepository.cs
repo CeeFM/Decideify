@@ -74,6 +74,46 @@ namespace Decideify.Repositories
             }
         }
 
+        public void Edit(Suggestion suggestion)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Suggestion
+                        SET
+                            ContentType = @ContentType, 
+                            Title = @Title, 
+                            Details = @Details, 
+                            Creator = @Creator, 
+                            ReleaseDate = @ReleaseDate, 
+                            ImageLocation = @ImageLocation, 
+                            CategoryId = @CategoryId, 
+                            UserProfileId = @UserProfileId, 
+                            IsRecommended = @IsRecommended, 
+                            ExternalLink = @ExternalLink, 
+                            ExternalId = @ExternalId
+                        WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", suggestion.Id);
+                    cmd.Parameters.AddWithValue("@ContentType", suggestion.ContentType);
+                    cmd.Parameters.AddWithValue("@Title", suggestion.Title);
+                    cmd.Parameters.AddWithValue("@Creator", suggestion.Creator);
+                    cmd.Parameters.AddWithValue("@Details", suggestion.Details);
+                    cmd.Parameters.AddWithValue("@ReleaseDate", suggestion.ReleaseDate);
+                    cmd.Parameters.AddWithValue("@ImageLocation", suggestion.ImageLocation);
+                    cmd.Parameters.AddWithValue("@CategoryId", suggestion.CategoryId);
+                    cmd.Parameters.AddWithValue("@UserProfileId", suggestion.UserProfileId);
+                    cmd.Parameters.AddWithValue("@IsRecommended", DbUtils.ValueOrDBNull(suggestion.IsRecommended));
+                    cmd.Parameters.AddWithValue("@ExternalLink", suggestion.ExternalLink);
+                    cmd.Parameters.AddWithValue("@ExternalId", suggestion.ExternalId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public void Delete(int suggestionId)
         {
             using (SqlConnection conn = Connection)
