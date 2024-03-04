@@ -151,13 +151,14 @@ namespace Decideify.Repositories
                         UPDATE UserProfile
                         SET
                             FirstName = @FirstName,
-                            LastName = @LastName
-                            ImageLocation = @ImageLocation
-                            CreateDateTime = @CreateDateTime
-                            IsPublic = @IsPublic
-                            Bio = @Bio
-                            Password = @Password
-                            Email = @Email
+                            LastName = @LastName,
+                            ImageLocation = @ImageLocation,
+                            CreateDateTime = @CreateDateTime,
+                            IsPublic = @IsPublic,
+                            Bio = @Bio,
+                            Password = @Password,
+                            Email = @Email,
+                            Username = @Username
                         WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@Id", userProfile.Id);
                     cmd.Parameters.AddWithValue("@FirstName", userProfile.FirstName);

@@ -35,8 +35,8 @@ export default function MyLibrary() {
 
   return (
     <>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>My Library!</div>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>My Movies!</div>
+      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>{decideifyUserObject?.username}'s Library!</div>
+      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Movies!</div>
 
 <div id="my-movies-library" className="container">
 {movieSuggestions.length === 0 ?
@@ -45,7 +45,7 @@ export default function MyLibrary() {
       <ContentCarousel filteredSuggestions={movieSuggestions} />
     }
 </div>
-<div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>My TV Shows!</div>
+<div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s TV Shows!</div>
 
 <div id="my-tv-library" className="container">
     {tvSuggestions.length === 0 ?
@@ -54,7 +54,7 @@ export default function MyLibrary() {
       <ContentCarousel filteredSuggestions={tvSuggestions} />
     }
       </div>
-<div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>My Music!</div>
+<div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Music!</div>
 
       <div id="my-music-library" className="container">
       {musicSuggestions.length === 0 ?
@@ -63,7 +63,7 @@ export default function MyLibrary() {
       <ContentCarousel filteredSuggestions={musicSuggestions} />
     }
       </div>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>My Books!</div>
+      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Books!</div>
 
       <div id="my-books-library" className="container">
       {bookSuggestions.length === 0 ?

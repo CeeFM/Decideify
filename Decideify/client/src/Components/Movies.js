@@ -174,7 +174,7 @@ const submitTest = (e) => {
       </section>
       </div>
       </div>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>My Movies!</div>
+      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Movies!</div>
 
       <div id="my-movies" className="container">
       {filteredSuggestions.length === 0 ?

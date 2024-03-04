@@ -183,7 +183,7 @@ const submitCategory = (e) => {
       </section>
       </div>
       </div>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>My Books!</div>
+      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Books!</div>
 
 <div id="my-books" className="container">
 {filteredSuggestions.length === 0 ?
