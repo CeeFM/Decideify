@@ -26,7 +26,10 @@ export default function MyProfile() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(currentUser)
-  }).catch(error => `There was this error: ${error}`)
+  }).then(localStorage.setItem("userProfile", JSON.stringify(currentUser)))
+    .then(() => {
+      window.location.reload();
+    })
 };
 
   useEffect(() => {

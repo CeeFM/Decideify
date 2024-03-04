@@ -39,3 +39,9 @@ code {
     box-shadow: 0 0 10px 2px gold;
   }
 }
+.big-link {
+  margin-right: 1rem;
+}
+.big-link:hover {
+  box-shadow: 0 0 10px 2px #ff00bb;
+}
