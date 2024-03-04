@@ -11,8 +11,15 @@ export default function MyProfile() {
   const handleAddFormChange = (e) => {
 
     const updateUser = { ...currentUser }
-  
+
     updateUser[`${e.target.name}`] = e.target.value
+
+    if (e.target.value === "true" || e.target.value === "false") {
+      const booleanVersion = e.target.value.toLowerCase() === "true";
+      updateUser[`${e.target.name}`] = booleanVersion;    
+    };
+
+    console.log(updateUser);
 
     setCurrentUser(updateUser);
   }
@@ -72,13 +79,13 @@ export default function MyProfile() {
           <Label htmlFor="password">Password</Label>
           <Input type="password" name="password" value={currentUser?.password} onChange={handleAddFormChange} />
         </FormGroup>
-        {/* <FormGroup>
+        <FormGroup>
           <Label htmlFor="isPublic">Share My Suggestions Publicly?</Label>
           <Input type="select" name="isPublic" value={currentUser?.isPublic} onChange={handleAddFormChange}>
             <option value="true">Yes</option>
             <option value="false">No</option>
           </Input>
-        </FormGroup> */}
+        </FormGroup>
         <FormGroup>
           <Button>Update User Profile</Button>
         </FormGroup>
