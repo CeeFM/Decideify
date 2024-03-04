@@ -30,6 +30,19 @@ export default function Music() {
     ExternalLink: "n/a",
     ExternalId: "n/a"
   });
+  const [addEntry, setAddEntry] = useState({
+    ContentType: "Music",
+    Title: "",
+    Details: "",
+    Creator: "",
+    ImageLocation: "",
+    UserProfileId: decideifyUserObject.id,
+    ReleaseDate: new Date(),
+    CategoryId: 0,
+    IsRecommended: null,
+    ExternalLink: "n/a",
+    ExternalId: "n/a"
+  });
 
   const getCategories = () => {
     getCategoryByContentType("music").then((thesecategories) => setCategories(thesecategories));
@@ -109,6 +122,19 @@ const submitTest = (e) => {
   }
 };
 
+const handleAddFormChange = (e) => {
+
+  const newSuggestion = { ...addEntry }
+
+  newSuggestion[`${e.target.name}`] = e.target.value
+
+  setAddEntry(newSuggestion);
+}
+
+const addUserSuggestion = () => {
+  addSuggestion(addEntry);
+}
+
   useEffect(() => {
     getCategories();
   }, []);
@@ -156,6 +182,41 @@ const submitTest = (e) => {
       <ContentCarousel filteredSuggestions={filteredSuggestions} />
     }
       </div>
+      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Add An Album!</div>
+
+
+<Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} id="add-album-form" onSubmit={addUserSuggestion}>
+<fieldset>
+  <FormGroup>
+    <Label htmlFor="Category">Album Genre</Label>
+    <Input type="select" name="CategoryId" value={addEntry?.CategoryId} onChange={handleAddFormChange}>
+      <option value="0">⬇️ Select A Type of Album</option>
+      {categories.map((category) => (
+        <option key={category?.id} value={category?.id}>{category?.name}</option>
+      ))}
+      </Input>
+  </FormGroup>
+  <FormGroup>
+    <Label htmlFor="Title">Album Title</Label>
+    <Input type="text" name="Title" value={addEntry?.Title} onChange={handleAddFormChange} />
+  </FormGroup>
+  <FormGroup>
+    <Label htmlFor="Creator">Album Artist</Label>
+    <Input type="text" name="Creator" value={addEntry?.Creator} onChange={handleAddFormChange} />
+  </FormGroup>
+  <FormGroup>
+    <Label htmlFor="Details">Album Details</Label>
+    <Input type="textarea" name="Details" value={addEntry?.Details} onChange={handleAddFormChange} />
+  </FormGroup>
+  <FormGroup>
+    <Label htmlFor="ImageLocation">Album Cover Art URL</Label>
+    <Input type="text" name="ImageLocation" value={addEntry?.ImageLocation} onChange={handleAddFormChange} />
+  </FormGroup>
+  <FormGroup>
+    <Button>Add Album To My Library</Button>
+  </FormGroup>
+  </fieldset>
+</Form>
     </>
 
   );

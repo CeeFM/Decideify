@@ -37,6 +37,20 @@ export default function Movies() {
     ExternalId: "n/a"
   });
 
+  const [addEntry, setAddEntry] = useState({
+    ContentType: "Movie",
+    Title: "",
+    Details: "",
+    Creator: "",
+    ImageLocation: "",
+    UserProfileId: decideifyUserObject.id,
+    ReleaseDate: new Date(),
+    CategoryId: 0,
+    IsRecommended: null,
+    ExternalLink: "n/a",
+    ExternalId: "n/a"
+  });
+
   const getCategories = () => {
     getCategoryByContentType("movie").then((thesecategories) => setCategories(thesecategories));
   };
@@ -93,6 +107,19 @@ export default function Movies() {
     getCategoryById(newSuggestion?.CategoryId).then((thiscategory) => setUserCategory(thiscategory));
 
 };
+
+const handleAddFormChange = (e) => {
+
+  const newSuggestion = { ...addEntry }
+
+  newSuggestion[`${e.target.name}`] = e.target.value
+
+  setAddEntry(newSuggestion);
+}
+
+const addUserSuggestion = () => {
+  addSuggestion(addEntry);
+}
 
 const submitTest = (e) => {
   e.preventDefault();
@@ -156,6 +183,42 @@ const submitTest = (e) => {
       <ContentCarousel filteredSuggestions={filteredSuggestions} />
     }
       </div>
+
+      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Add A Movie!</div>
+
+
+      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} id="add-movie-form" onSubmit={addUserSuggestion}>
+  <fieldset>
+        <FormGroup>
+          <Label htmlFor="Category">Movie Type/Genre</Label>
+          <Input type="select" name="CategoryId" value={addEntry?.CategoryId} onChange={handleAddFormChange}>
+            <option value="0">⬇️ Select A Type of Movie</option>
+            {categories.map((category) => (
+              <option key={category?.id} value={category?.id}>{category?.name}</option>
+            ))}
+            </Input>
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="Title">Movie Title</Label>
+          <Input type="text" name="Title" value={addEntry?.Title} onChange={handleAddFormChange} />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="Creator">Movie Creator/Director</Label>
+          <Input type="text" name="Creator" value={addEntry?.Creator} onChange={handleAddFormChange} />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="Details">Movie Details</Label>
+          <Input type="textarea" name="Details" value={addEntry?.Details} onChange={handleAddFormChange} />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="ImageLocation">Movie Poster Art URL</Label>
+          <Input type="text" name="ImageLocation" value={addEntry?.ImageLocation} onChange={handleAddFormChange} />
+        </FormGroup>
+        <FormGroup>
+          <Button>Add Movie To My Library</Button>
+        </FormGroup>
+        </fieldset>
+      </Form>
     </>
 
   );
