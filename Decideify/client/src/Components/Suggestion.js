@@ -19,6 +19,25 @@ export default function Suggestion({ userSugg }) {
     window.location.reload();
   }
 
+  const updateSuggestion = (e, bool) => {
+    e.preventDefault();
+
+    const suggestionUpdate = {...editSuggestion};
+    suggestionUpdate.isRecommended = bool;
+
+    fetch(`https://localhost:5001/api/suggestion/${userSugg.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(suggestionUpdate)
+  });
+  
+  // .then(() => {
+  //     window.location.reload();
+  //   })
+};
+
   const toggle = () => setModal(!modal);
 
   return (
@@ -30,8 +49,8 @@ export default function Suggestion({ userSugg }) {
             <img src={userSugg?.imageLocation} style={{width: "10rem"}} alt={userSugg?.title} />
             <p>{userSugg?.title}</p>
             <div>Recommend?</div>
-            <button><img src={yes} alt="yes" style={{width: "3rem"}}/></button>
-            <button><img src={no} alt="yes" style={{width: "2.75rem"}}/></button>
+            <button onClick={(e) => updateSuggestion(e, true)}><img src={yes} alt="yes" style={{width: "3rem"}} value="true"/></button>
+            <button onClick={(e) => updateSuggestion(e, false)}><img src={no} alt="yes" style={{width: "2.75rem"}} value="false"/></button>
             </div>
             <Modal isOpen={modal} toggle={toggle} >
         <ModalHeader toggle={toggle}>CONFIRM DELETION</ModalHeader>

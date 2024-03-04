@@ -6,6 +6,7 @@ namespace Decideify.Repositories
     {
         void Add(Suggestion suggestion);
         void Delete(int suggestionId);
+        void Edit(Suggestion suggestion);
         List<Suggestion> GetByUserId(int id);
     }
 }

@@ -32,6 +32,18 @@ namespace Decideify.Controllers
              return NoContent();
         }
 
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Suggestion suggestion)
+        {
+            if (id != suggestion.Id)
+            {
+                return BadRequest();
+            }
+
+            _suggestionRepository.Edit(suggestion);
+            return NoContent();
+        }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
