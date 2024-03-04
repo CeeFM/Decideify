@@ -13,7 +13,7 @@ export default function MyProfile() {
     const updateUser = { ...currentUser }
   
     updateUser[`${e.target.name}`] = e.target.value
-  
+
     setCurrentUser(updateUser);
   }
   
@@ -72,6 +72,13 @@ export default function MyProfile() {
           <Label htmlFor="password">Password</Label>
           <Input type="password" name="password" value={currentUser?.password} onChange={handleAddFormChange} />
         </FormGroup>
+        {/* <FormGroup>
+          <Label htmlFor="isPublic">Share My Suggestions Publicly?</Label>
+          <Input type="select" name="isPublic" value={currentUser?.isPublic} onChange={handleAddFormChange}>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </Input>
+        </FormGroup> */}
         <FormGroup>
           <Button>Update User Profile</Button>
         </FormGroup>
