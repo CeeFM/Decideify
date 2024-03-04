@@ -1,5 +1,6 @@
 ﻿using Decideify.Models;
 using Decideify.Utils;
+using Microsoft.Data.SqlClient;
 
 namespace Decideify.Repositories
 {
@@ -69,6 +70,26 @@ namespace Decideify.Repositories
                     cmd.Parameters.AddWithValue("@ExternalId", suggestion.ExternalId);
 
                     suggestion.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void Delete(int suggestionId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            DELETE from Suggestion
+                            WHERE Id = @id
+                        ";
+
+                    cmd.Parameters.AddWithValue("@id", suggestionId);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

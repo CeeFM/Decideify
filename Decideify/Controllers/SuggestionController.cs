@@ -32,6 +32,13 @@ namespace Decideify.Controllers
              return NoContent();
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _suggestionRepository.Delete(id);
+            return NoContent();
+        }
+
         //// PUT api/<SuggestionController>/5
         //[HttpPut("{id}")]
         //public void Put(int id, [FromBody] string value)

@@ -8,7 +8,13 @@ export const addSuggestion = (suggestion) => {
       },
       body: JSON.stringify(suggestion),
     });
-  };  
+  };
+  
+  export const deleteSuggestion = (id) => {
+    return fetch(`${apiUrl}/api/suggestion/${id}`, {
+      method: "DELETE"
+    });
+  };
 
 export const getSuggestionsByUser = (userId) => {
   return fetch (`${apiUrl}/api/suggestion/${userId}`)
