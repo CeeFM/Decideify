@@ -139,5 +139,40 @@ namespace Decideify.Repositories
                 }
             }
         }
+
+        public void Edit(UserProfile userProfile)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE UserProfile
+                        SET
+                            FirstName = @FirstName,
+                            LastName = @LastName
+                            ImageLocation = @ImageLocation
+                            CreateDateTime = @CreateDateTime
+                            IsPublic = @IsPublic
+                            Bio = @Bio
+                            Password = @Password
+                            Email = @Email
+                        WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@Id", userProfile.Id);
+                    cmd.Parameters.AddWithValue("@FirstName", userProfile.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", userProfile.LastName);
+                    cmd.Parameters.AddWithValue("@ImageLocation", userProfile.ImageLocation);
+                    cmd.Parameters.AddWithValue("@CreateDateTime", userProfile.CreateDateTime);
+                    cmd.Parameters.AddWithValue("@IsPublic", userProfile.IsPublic);
+                    cmd.Parameters.AddWithValue("@Bio", userProfile.Bio);
+                    cmd.Parameters.AddWithValue("@Password", userProfile.Password);
+                    cmd.Parameters.AddWithValue("@Email", userProfile.Email);
+                    cmd.Parameters.AddWithValue("@Username", userProfile.Username);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

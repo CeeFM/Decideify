@@ -56,6 +56,17 @@ namespace Decideify.Controllers
                 userProfile);
         }
 
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, UserProfile userProfile)
+        {
+            if (id != userProfile.Id)
+            {
+                return BadRequest();
+            }
+
+            _userProfileRepository.Edit(userProfile);
+            return NoContent();
+        }
 
         //[HttpGet("{id}")]
         //public string Get(int id)
