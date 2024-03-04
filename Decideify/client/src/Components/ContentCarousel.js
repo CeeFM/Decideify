@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Carousel, CarouselItem, CarouselControl } from "reactstrap";
+import { Carousel, CarouselItem, CarouselControl, Button } from "reactstrap";
 import Suggestion from "./Suggestion";
 
 export default function ContentCarousel({ filteredSuggestions }) {
@@ -20,7 +20,8 @@ export default function ContentCarousel({ filteredSuggestions }) {
   }
 
   return (
-    <Carousel interval={null} activeIndex={index} onSelect={handleSelect} className="container">
+    <>
+    <Carousel interval={null} activeIndex={index} onSelect={handleSelect} className="container" next={next} previous={previous}>
       {Array.from(
         { length: Math.ceil(filteredSuggestions.length / itemsPerPage) },
         (_, carouselPage) => (
@@ -37,8 +38,11 @@ export default function ContentCarousel({ filteredSuggestions }) {
           </CarouselItem>
         )
       )}
-      <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-      <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+      {/* <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+      <CarouselControl direction="next" directionText="Next" onClickHandler={next} /> */}
     </Carousel>
+    <Button style={{marginTop: "2rem"}} onClick={previous}>PREVIOUS</Button>
+    <Button className="next-btn" style={{marginTop: "2rem"}} onClick={next}>NEXT</Button>
+    </>
   );
 }
