@@ -1,39 +1,36 @@
 ﻿using Decideify.Models;
 using Decideify.Utils;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Hosting;
 
 namespace Decideify.Repositories
 {
-    public class PostRepository : BaseRepository, IPostRepository
+    public class CommentRepository : BaseRepository, ICommentRepository
     {
+        public CommentRepository(IConfiguration configuration) : base(configuration) { }
 
-        public PostRepository(IConfiguration configuration) : base(configuration) { }
-
-        public List<Post> GetAll()
+        public List<Comment> GetAll()
         {
             using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT p.Id, p.Title, p.Content, p.CreateDateTime, p.ImageLocation, p.UserProfileId, p.IsApproved, u.Username, u.FirstName, u.LastName, u.Email, u.IsPublic, u.Bio, u.ImageLocation AS UserImage, u.CreateDateTime AS UserCreated
-                                        FROM Post p
+                    cmd.CommandText = @"SELECT c.Id, c.PostId, c.UserProfileId, c.Subject, c.Content, c.CreateDateTime, u.Username, u.FirstName, u.LastName, u.Email, u.IsPublic, u.Bio, u.ImageLocation AS UserImage, u.CreateDateTime AS UserCreated
+                                        FROM Comment c
                                         LEFT JOIN UserProfile u ON p.UserProfileId = u.Id";
 
                     var reader = cmd.ExecuteReader();
-                    var posts = new List<Post>();
+                    var comments = new List<Comment>();
                     while (reader.Read())
                     {
-                        posts.Add(new Post()
+                        comments.Add(new Comment()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            Title = DbUtils.GetString(reader, "Title"),
+                            Subject = DbUtils.GetString(reader, "Subject"),
                             Content = DbUtils.GetString(reader, "Content"),
                             CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
-                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            PostId = DbUtils.GetInt(reader, "PostId"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
-                            IsApproved = reader.IsDBNull(reader.GetOrdinal("IsApproved")) ? null : reader.GetBoolean(reader.GetOrdinal("IsApproved")),
                             UserProfile = new UserProfile()
                             {
                                 Id = DbUtils.GetInt(reader, "UserProfileId"),
@@ -51,36 +48,37 @@ namespace Decideify.Repositories
                         });
                     }
                     reader.Close();
-                    return posts;
+                    return comments;
                 }
             }
         }
 
-        public List<Post> GetByUserId(int id)
+        public List<Comment> GetByPostId(int postId)
         {
             using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT p.Id, p.Title, p.Content, p.CreateDateTime, p.ImageLocation, p.UserProfileId, p.IsApproved, u.Username, u.FirstName, u.LastName, u.Email, u.IsPublic, u.Bio, u.ImageLocation AS UserImage, u.CreateDateTime AS UserCreated
-                                        FROM Post p
+                    cmd.CommandText = @"SELECT c.Id, c.PostId, c.UserProfileId, c.Subject, c.Content, c.CreateDateTime, u.Username, u.FirstName, u.LastName, u.Email, u.IsPublic, u.Bio, u.ImageLocation AS UserImage, u.CreateDateTime AS UserCreated
+                                        FROM Comment c
                                         LEFT JOIN UserProfile u ON p.UserProfileId = u.Id
-                                        WHERE p.UserProfileId = @Id";
-                    DbUtils.AddParameter(cmd, "@Id", id);
+                                        WHERE c.PostId = @PostId";
+
+                    DbUtils.AddParameter(cmd, "@PostId", postId);
+
                     var reader = cmd.ExecuteReader();
-                    var posts = new List<Post>();
+                    var comments = new List<Comment>();
                     while (reader.Read())
                     {
-                        posts.Add(new Post()
+                        comments.Add(new Comment()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            Title = DbUtils.GetString(reader, "Title"),
+                            Subject = DbUtils.GetString(reader, "Subject"),
                             Content = DbUtils.GetString(reader, "Content"),
                             CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
-                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            PostId = DbUtils.GetInt(reader, "PostId"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
-                            IsApproved = reader.IsDBNull(reader.GetOrdinal("IsApproved")) ? null : reader.GetBoolean(reader.GetOrdinal("IsApproved")),
                             UserProfile = new UserProfile()
                             {
                                 Id = DbUtils.GetInt(reader, "UserProfileId"),
@@ -98,12 +96,12 @@ namespace Decideify.Repositories
                         });
                     }
                     reader.Close();
-                    return posts;
+                    return comments;
                 }
             }
         }
 
-        public void Add(Post post)
+        public void Add(Comment comment)
         {
             using (var conn = Connection)
             {
@@ -111,25 +109,24 @@ namespace Decideify.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Post (
-                            Title, Content, ImageLocation, CreateDateTime, IsApproved, UserProfileId )
+                        INSERT INTO Comment (
+                            PostId, UserProfileId, Subject, Content, CreateDateTime )
                         OUTPUT INSERTED.ID
                         VALUES (
-                            @Title, @Content, @ImageLocation, @CreateDateTime, @IsApproved, @UserProfileId)";
-                    cmd.Parameters.AddWithValue("@Content", post.Content);
-                    cmd.Parameters.AddWithValue("@Title", post.Title);
-                    cmd.Parameters.AddWithValue("@ImageLocation", post.ImageLocation);
-                    cmd.Parameters.AddWithValue("@CreateDateTime", post.CreateDateTime);
-                    cmd.Parameters.AddWithValue("@IsApproved", post.IsApproved);
-                    cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
+                            @PostId, @UserProfileId, @Subject, @Content, @CreateDateTime )";
+                    cmd.Parameters.AddWithValue("@Content", comment.Content);
+                    cmd.Parameters.AddWithValue("@Subject", comment.Subject);
+                    cmd.Parameters.AddWithValue("@PostId", comment.PostId);
+                    cmd.Parameters.AddWithValue("@CreateDateTime", comment.CreateDateTime);
+                    cmd.Parameters.AddWithValue("@UserProfileId", comment.UserProfileId);
 
 
-                    post.Id = (int)cmd.ExecuteScalar();
+                    comment.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }
 
-        public void Edit(Post post)
+        public void Edit(Comment comment)
         {
             using (var conn = Connection)
             {
@@ -137,29 +134,27 @@ namespace Decideify.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        UPDATE Post
+                        UPDATE Comment
                         SET
                             Content = @Content, 
-                            Title = @Title, 
-                            ImageLocation = @ImageLocation, 
+                            Subject = @Subject, 
                             UserProfileId = @UserProfileId, 
-                            IsApproved = @IsApproved, 
+                            PostId = @PostId, 
                             CreateDateTime = @CreateDateTime
                         WHERE Id = @id";
-                    cmd.Parameters.AddWithValue("@id", post.Id);
-                    cmd.Parameters.AddWithValue("@Content", post.Content);
-                    cmd.Parameters.AddWithValue("@Title", post.Title);
-                    cmd.Parameters.AddWithValue("@ImageLocation", post.ImageLocation);
-                    cmd.Parameters.AddWithValue("@CreateDateTime", post.CreateDateTime);
-                    cmd.Parameters.AddWithValue("@IsApproved", post.IsApproved);
-                    cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
+                    cmd.Parameters.AddWithValue("@id", comment.Id);
+                    cmd.Parameters.AddWithValue("@Content", comment.Content);
+                    cmd.Parameters.AddWithValue("@Subject", comment.Subject);
+                    cmd.Parameters.AddWithValue("@PostId", comment.PostId);
+                    cmd.Parameters.AddWithValue("@CreateDateTime", comment.CreateDateTime);
+                    cmd.Parameters.AddWithValue("@UserProfileId", comment.UserProfileId);
 
                     cmd.ExecuteNonQuery();
                 }
             }
         }
 
-        public void Delete(int postId)
+        public void Delete(int commentId)
         {
             using (SqlConnection conn = Connection)
             {
@@ -168,23 +163,16 @@ namespace Decideify.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                            DELETE from PostReaction
-                            WHERE PostId = @id;
-
-                            DELETE from PostTag
-                            WHERE PostId = @id;
-
-                            DELETE from Post
+                            DELETE from Comment
                             WHERE Id = @id
                         ";
 
-                    cmd.Parameters.AddWithValue("@id", postId);
+                    cmd.Parameters.AddWithValue("@id", commentId);
 
                     cmd.ExecuteNonQuery();
                 }
             }
         }
-
 
     }
 }
