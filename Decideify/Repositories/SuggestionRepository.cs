@@ -16,7 +16,8 @@ namespace Decideify.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT * FROM Suggestion
-                                        WHERE UserProfileId = @Id";
+                                        WHERE UserProfileId = @Id
+                                        ORDER BY ContentType, Title";
                     DbUtils.AddParameter(cmd, "@Id", id);
                     var reader = cmd.ExecuteReader();
                     var suggestions = new List<Suggestion>();
