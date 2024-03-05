@@ -15,6 +15,12 @@ namespace Decideify
             builder.Services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             builder.Services.AddTransient<ISuggestionRepository, SuggestionRepository>();
             builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddTransient<IPostRepository, PostRepository>();
+            builder.Services.AddTransient<ICommentRepository, CommentRepository>();
+            builder.Services.AddTransient<IReactionRepository, ReactionRepository>();
+            builder.Services.AddTransient<IPostReactionRepository, PostReactionRepository>();
+            builder.Services.AddTransient<ISubscriptionRepository, SubscriptionRepository>();
+            builder.Services.AddTransient<IPostTagRepository, PostTagRepository>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
