@@ -53,7 +53,7 @@ export default function Social() {
             <option value="0">⬇️ Select One Of Your Suggestions</option>
             {userSuggestions.map((sugg) => (
               <optgroup key={sugg?.contentType} label={sugg?.contentType}>
-              <option key={sugg?.id} value={sugg?.id}>{sugg?.title} - {sugg?.contentType}</option>
+              <option key={sugg?.id} value={sugg?.id}>{sugg?.title}</option>
               </optgroup>
             ))}
             </Input>
