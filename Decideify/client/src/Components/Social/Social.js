@@ -43,7 +43,7 @@ export default function Social() {
 
   const tagSuggestion = () => {
     const suggestionTagToAdd = {...suggestionTag};
-    suggestionTagToAdd.PostId = posts[posts.length - 1]?.id;
+    suggestionTagToAdd.PostId = posts[0]?.id;
     console.log(suggestionTagToAdd);
     addPostTag(suggestionTagToAdd)
       .then(() => {

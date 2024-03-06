@@ -66,7 +66,8 @@ namespace Decideify.Repositories
                     cmd.CommandText = @"SELECT p.Id, p.Title, p.Content, p.CreateDateTime, p.ImageLocation, p.UserProfileId, p.IsApproved, u.Username, u.FirstName, u.LastName, u.Email, u.IsPublic, u.Bio, u.ImageLocation AS UserImage, u.CreateDateTime AS UserCreated
                                         FROM Post p
                                         LEFT JOIN UserProfile u ON p.UserProfileId = u.Id
-                                        WHERE p.UserProfileId = @Id";
+                                        WHERE p.UserProfileId = @Id
+                                        ORDER BY p.CreateDateTime DESC";
                     DbUtils.AddParameter(cmd, "@Id", id);
                     var reader = cmd.ExecuteReader();
                     var posts = new List<Post>();
