@@ -26,7 +26,10 @@ namespace Decideify.Repositories
                                s.ImageLocation, 
                                s.CategoryId, 
                                s.UserProfileId, 
-                               s.IsRecommended
+                               s.IsRecommended,
+                               s.Id,
+                               s.ExternalLink,
+                               s.ExternalId
                         FROM PostTag pt
                         LEFT JOIN Suggestion s ON pt.SuggestionId = s.Id";
                     var reader = cmd.ExecuteReader();
@@ -140,12 +143,15 @@ namespace Decideify.Repositories
                                s.ImageLocation, 
                                s.CategoryId, 
                                s.UserProfileId, 
-                               s.IsRecommended
+                               s.IsRecommended,
+                               s.ExternalLink,
+                               s.ExternalId
                         FROM PostTag pt
                         LEFT JOIN Suggestion s ON pt.SuggestionId = s.Id
                         WHERE pt.PostId = @Id";
-                    var reader = cmd.ExecuteReader();
                     cmd.Parameters.AddWithValue("@Id", postId);
+                    var reader = cmd.ExecuteReader();
+
 
                     PostTag posttag = null;
 
@@ -160,7 +166,7 @@ namespace Decideify.Repositories
                                 SuggestionId = DbUtils.GetInt(reader, "SuggestionId"),
                                 Suggestion = new Suggestion()
                                 {
-                                    Id = DbUtils.GetInt(reader, "Id"),
+                                    Id = DbUtils.GetInt(reader, "SuggestionId"),
                                     ContentType = DbUtils.GetString(reader, "ContentType"),
                                     Title = DbUtils.GetString(reader, "Title"),
                                     Details = DbUtils.GetString(reader, "Details"),
