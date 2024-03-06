@@ -6,7 +6,7 @@ import Music from "../Components/Music";
 import Movies from "../Components/Movies";
 import TVShows from "../Components/TVShows";
 import MyProfile from "../Components/MyProfile";
-import Social from "../Components/Social";
+import Social from "../Components/Social/Social";
 import MyLibrary from "../Components/MyLibrary";
 
 export default function ApplicationViews() {
