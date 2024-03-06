@@ -3,15 +3,19 @@ import { getSuggestionsByUser } from "../../Managers/SuggestionManager";
 import { addPost, getAllPosts, getPostByUserId } from "../../Managers/PostManager";
 import { Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import { addPostTag } from "../../Managers/PostTagManager";
+import { Post } from "./Post";
 
 export default function Social() {
 
   const localUserProfile = localStorage.getItem("userProfile");
   const decideifyUserObject = JSON.parse(localUserProfile);
+  const postForm = document.getElementById("add-post-form");
+  const postToggle = document.getElementById("post-toggle-btn");
 
   const [modal, setModal] = useState(false);
   const [userSuggestions, setUserSuggestions] = useState([]);
   const [posts, setPosts] = useState([]);
+  const [postFeed, setPostFeed] = useState([]);
   const [suggestionTag, setSuggestionTag] = useState({
     SuggestionId: 0,
     PostId: 0
@@ -29,7 +33,20 @@ export default function Social() {
   getPostByUserId(decideifyUserObject.id).then((theseposts) => setPosts(theseposts));
  };
 
+ const allPosts = () => {
+  getAllPosts().then((theseposts) => setPostFeed(theseposts));
+ }
+
   const toggle = () => setModal(!modal);
+  const toggleForm = () => {
+    if(postForm.style.display === "none") {
+      postForm.style.display = "block";
+      postToggle.innerHTML = "Cancel"
+    } else {
+      postForm.style.display = "none"
+      postToggle.innerHTML = "Write a Post"
+    }
+  }
 
   const writePost = (e) => {
     e.preventDefault();
@@ -60,7 +77,7 @@ export default function Social() {
   }, [])
 
   useEffect(() => {
-    getAllPosts().then((theseposts) => setPosts(theseposts));
+    allPosts();
   }, [])
 
   const handleControlledInputChange = (e) => {
@@ -84,7 +101,10 @@ const handleModalInputChange = (e) => {
   return (
     <>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Social!</div>
-      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} id="add-post-form" onSubmit={writePost}>
+      <div className="text-center">
+      <button onClick={toggleForm} id="post-toggle-btn" className="btn btn-primary">Write a Post</button>
+      </div>
+      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", display: "none"}} id="add-post-form" onSubmit={writePost}>
   <fieldset>
         <FormGroup>
           <Label htmlFor="Title">Post Title</Label>
@@ -103,6 +123,15 @@ const handleModalInputChange = (e) => {
         </FormGroup>
         </fieldset>
       </Form>
+      <div className="container">
+      <div className="row justify-content-center">
+        <div className="cards-column">
+          {postFeed.map((post) => (
+            <Post key={post.id} thisPost={post}/>
+          ))}
+        </div>
+      </div>
+    </div>
       <Modal isOpen={modal} toggle={toggle} >
         <ModalHeader toggle={toggle}>Add Suggestion To Your Post?</ModalHeader>
         <ModalBody>
