@@ -185,7 +185,7 @@ const addUserSuggestion = () => {
       </div>
       </div>
 
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Add A TV Show!</div>
+      <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>Add A TV Show!</div>
 
 
 <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} id="add-tv-form" onSubmit={addUserSuggestion}>

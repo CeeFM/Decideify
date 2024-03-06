@@ -42,15 +42,14 @@ export default function Suggestion({ userSugg }) {
 
   return (
     <>
-            <div className="text-right">
-            <Button style={{padding: "none", borderRadius: "5rem"}} onClick={toggle}><img style={{width: "1.5rem"}} src={x} alt="a big neon red x that you can use as a delete button for saved suggestions"/></Button>
-            </div>
             <div className="text-center">
             <img src={userSugg?.imageLocation} style={{width: "10rem"}} alt={userSugg?.title} />
             <p>{userSugg?.title}</p>
             <div>Recommend?</div>
             <button onClick={(e) => updateSuggestion(e, true)}><img src={yes} alt="yes" style={{width: "3rem"}} value="true"/></button>
             <button onClick={(e) => updateSuggestion(e, false)}><img src={no} alt="yes" style={{width: "2.75rem"}} value="false"/></button>
+            <br />
+            <button style={{padding: "none", borderRadius: "5rem"}} onClick={toggle}><img style={{width: "1.5rem"}} src={x} alt="a big neon red x that you can use as a delete button for saved suggestions"/></button>
             </div>
             <Modal isOpen={modal} toggle={toggle} >
         <ModalHeader toggle={toggle}>CONFIRM DELETION</ModalHeader>

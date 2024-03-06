@@ -144,7 +144,7 @@ const submitTest = (e) => {
 
   return (
     <>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Movies!</div>
+      <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>Movies!</div>
       <div id="movie-container">
       <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest} id="movie-form">
         <FormGroup>

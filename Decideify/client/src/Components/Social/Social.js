@@ -100,7 +100,7 @@ const handleModalInputChange = (e) => {
 
   return (
     <>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Social!</div>
+      <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>Social!</div>
       <div className="text-center">
       <button onClick={toggleForm} id="post-toggle-btn" className="btn btn-primary">Write a Post</button>
       </div>
