@@ -45,7 +45,7 @@ export default function MyProfile() {
 
   return (
     <>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>{decideifyUserObject?.username}'s Profile!</div>
+      <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>{decideifyUserObject?.username}'s Profile!</div>
       <section className="text-center">
       <img src={decideifyUserObject?.imageLocation} alt={decideifyUserObject?.username} style={{width: "15rem", borderRadius: "5rem"}}/>
       </section>

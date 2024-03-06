@@ -35,7 +35,7 @@ export default function MyLibrary() {
 
   return (
     <>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>{decideifyUserObject?.username}'s Library!</div>
+      <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>{decideifyUserObject?.username}'s Library!</div>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Movies!</div>
 
 <div id="my-movies-library" className="container">

@@ -145,7 +145,7 @@ const addUserSuggestion = () => {
 
   return (
     <>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Music!</div>
+      <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>Music!</div>
       <div id="music-container">
       <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest} id="music-form">
         <FormGroup>

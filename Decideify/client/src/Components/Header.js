@@ -18,14 +18,14 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
 
   return (
     <div>
-      <Navbar light expand="md">
+      <Navbar light expand="md" style={{fontSize: "1.5rem"}}>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             { /* When isLoggedIn === true, we will render the Home link */}
             {isLoggedIn &&
               <>
-            <NavbarBrand tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/"><img src={myImage} style={{width: "5rem"}} /></NavbarBrand>
+            <NavbarBrand tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/"><img src={myImage} style={{width: "6rem", paddingTop: ".5rem"}} /></NavbarBrand>
                 <NavItem>
                   <NavLink style={{ color: '#F6F7F8'}} tag={RRNavLink} to="/">Home</NavLink>
                 </NavItem>
