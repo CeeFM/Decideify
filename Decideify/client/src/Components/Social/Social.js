@@ -9,6 +9,7 @@ export default function Social() {
 
   const localUserProfile = localStorage.getItem("userProfile");
   const decideifyUserObject = JSON.parse(localUserProfile);
+
   const postForm = document.getElementById("add-post-form");
   const postToggle = document.getElementById("post-toggle-btn");
 
@@ -80,6 +81,8 @@ export default function Social() {
     allPosts();
   }, [])
 
+
+
   const handleControlledInputChange = (e) => {
 
     const userPost = { ...newPost }
@@ -125,7 +128,7 @@ const handleModalInputChange = (e) => {
       </Form>
       <div className="container text-center" style={{width: "50vw", height: "auto"}}>
       <div className="row justify-content-center">
-        <div className="cards-column">
+        <div className="cards-column text-center">
           {postFeed.map((post) => (
             <Post key={post.id} thisPost={post}/>
           ))}

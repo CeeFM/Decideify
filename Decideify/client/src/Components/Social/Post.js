@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { getAllPostTags } from "../../Managers/PostTagManager";
 import { addComment, getCommentsByPostId } from "../../Managers/CommentManager";
 import { Comment } from "./Comment";
+import { getAllReactions } from "../../Managers/ReactionManager";
+import { PostReaction } from "./PostReaction";
 
 export const Post = ({ thisPost }) => {
 
@@ -13,6 +15,7 @@ export const Post = ({ thisPost }) => {
     const [thisTag, setThisTag] = useState();
     const [isVisible, setIsVisible] = useState(false);
     const [isVisibleToo, setIsVisibleToo] = useState(true);
+    const [reactions, setReactions] = useState([]);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState({
       Subject: "",
@@ -32,7 +35,11 @@ export const Post = ({ thisPost }) => {
 
     const getPostComments = () => {
       getCommentsByPostId(thisPost.id).then((theseComments) => setComments(theseComments));
-    }
+    };
+
+    const allReactions = () => {
+      getAllReactions().then((thesereactions) => setReactions(thesereactions));
+     }
 
     const tagTesting = () => {
         console.log(thisPost);
@@ -72,10 +79,13 @@ export const Post = ({ thisPost }) => {
       getPostComments();         
   }, [])
 
+  useEffect(() => {
+    allReactions();
+  }, [])
 
     return (
     <>
-        <Card className="m-5" style={{border:'none'}}>
+        <Card  style={{width: "40rem", margin: "2rem auto"}}>
           <CardBody>
             <h2 style={{color: "#ff00bb"}}>{thisPost.title}</h2>
             <h5 style={{color: "white"}}>{thisPost.content}</h5>
@@ -84,13 +94,19 @@ export const Post = ({ thisPost }) => {
               :
               <CardImg top src={thisTag?.suggestion?.imageLocation} style={{ width: '15.5rem' }} />
             }
-<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-center">
-  <p style={{ marginRight: '1rem' }}>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: "1rem"}} className="text-center">
+  <p style={{ marginRight: '1rem', marginTop: "1.5rem" }}>
     From: {thisPost?.userProfile?.username}
   </p>
   <img src={thisPost?.userProfile?.imageLocation} alt="the post author's picture" style={{ width: '5rem', borderRadius: '8rem' }}
   />
 </div>
+{reactions.map((reaction) => (
+  <>
+    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} />
+  </>
+))
+}
             </CardBody>
         </Card>
         { isVisible ?
