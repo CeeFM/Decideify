@@ -67,8 +67,12 @@ export const Post = ({ thisPost }) => {
   const writeComment = (e) => {
     e.preventDefault();
     const commentToAdd = {...newComment};
-    addComment(commentToAdd);
-    window.location.reload();
+    addComment(commentToAdd)
+      .then(r => r.json)
+      .then(() => {
+        return getCommentsByPostId(thisPost.id)
+      })
+      .then((theseComments) => setComments(theseComments));
   };
 
     useEffect(() => {
@@ -103,7 +107,7 @@ export const Post = ({ thisPost }) => {
 </div>
 {reactions.map((reaction) => (
   <>
-    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} />
+    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions}/>
   </>
 ))
 }
@@ -137,7 +141,7 @@ export const Post = ({ thisPost }) => {
               <button className="btn btn-primary" onClick={toggleComments}>Hide Comments</button>
               <p style={{marginTop: "1rem"}}>COMMENTS</p>
               {comments.map((comm) => (
-                <Comment key={comm?.id} comment={comm}/>
+                <Comment key={comm?.id} comment={comm} />
               ))}
               </CardBody>
             </>

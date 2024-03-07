@@ -64,7 +64,6 @@ export default function MyProfile() {
         <Label htmlFor="username">Username</Label>
         <Input type="text" name="username" value={currentUser?.username} onChange={handleAddFormChange} />
       </FormGroup>
-      {/* Add more form groups as needed */}
     </Col>
     <Col>
       <FormGroup>
@@ -79,7 +78,6 @@ export default function MyProfile() {
         <Label htmlFor="email">Email</Label>
         <Input type="text" name="email" value={currentUser?.email} onChange={handleAddFormChange} />
       </FormGroup>
-      {/* Add more form groups as needed */}
     </Col>
   </Row>
   <Row>
