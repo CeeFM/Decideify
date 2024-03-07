@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../Managers/UserProfileManager";
@@ -9,6 +9,19 @@ export default function Login({setIsLoggedIn}) {
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [word, setWord] = useState('Living');
+  const wordsList = ['Watching', 'Laughing', 'Thriving', 'Loving', 'Crying (but in a good way)', 'Listening', 'Reading', 'Enjoying', 'Thriving', 'Crying (again)', 'Jamming', 'Dancing', 'Doing Whatever You Want', 'Chilling', 'Doing Anything Else', 'Engaging'];
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const randomIndex = Math.floor(Math.random() * wordsList.length);
+      const newWord = wordsList[randomIndex];
+      setWord(newWord);
+    }, 4000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
 
   const loginSubmit = (e) => {
     e.preventDefault();
@@ -27,11 +40,11 @@ export default function Login({setIsLoggedIn}) {
   return (
     <>
     <div className="text-center" id="tagline">
-    <img src={myImage} style={{width: "25vw", paddingTop: "10rem", paddingBottom: "2.5rem"}}/>
-    <h2>Stop Wasting Time Deciding</h2>
-    <h2 style={{paddingBottom: "4rem"}}>Start Living</h2>
+    <img src={myImage} style={{width: "25vw", paddingTop: "5rem", paddingBottom: "2.5rem"}}/>
+    <h1>Stop Wasting Time Deciding</h1>
+    <h1 style={{paddingBottom: "4rem"}}>Start {word}</h1>
     </div>
-    <Form onSubmit={loginSubmit} style={{ width: "25vw", margin: "auto" }}>
+    <Form onSubmit={loginSubmit} style={{ width: "25vw", margin: "auto", fontSize: "1.5rem"}}>
       <fieldset>
         <FormGroup>
           <Label for="email">Email</Label>
@@ -41,8 +54,8 @@ export default function Login({setIsLoggedIn}) {
           <Label for="password">Password</Label>
           <Input id="password" type="password" onChange={e => setPassword(e.target.value)} />
         </FormGroup>
-        <FormGroup>
-          <Button>Login</Button>
+        <FormGroup >
+          <Button style={{fontSize: "1.5rem"}}>Login</Button>
         </FormGroup>
         <em>
           Not registered? <Link to="/register">Register</Link>

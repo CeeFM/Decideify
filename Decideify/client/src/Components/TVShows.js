@@ -76,7 +76,7 @@ export default function TVShows() {
     console.log(randomNumber);
     console.log(showSuggestions?.results[randomNumber]);
     currentSuggestion = showSuggestions?.results[randomNumber];
-    tvDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${currentSuggestion?.poster_path}" style={{width: "18.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="TV Show poster for ${currentSuggestion?.name}"/>
+    tvDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${currentSuggestion?.poster_path}" style={{width: "5.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="TV Show poster for ${currentSuggestion?.name}"/>
     <br />
     <p>Title: <strong>${currentSuggestion?.name}</strong></p>
     <br />
@@ -145,25 +145,25 @@ const addUserSuggestion = () => {
 
   return (
     <>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>TV Shows!</div>
+      <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>TV Shows!</div>
       <div id="tv-container">
       <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest} id="tv-form">
-        <FormGroup>
+        <FormGroup className="text-center" style={{fontSize: "2rem"}}>
           <Label htmlFor="Category">TV Show Type</Label>
-          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange}>
+          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange} style={{fontSize: "1.5rem"}}>
             <option value="">⬇️ Select A Type of TV Show</option>
             {categories.map((category) => (
               <option key={category?.id} value={category?.id}>{category?.name}</option>
             ))}
             </Input>
         </FormGroup>
-        <FormGroup>
-          <Button>DECIDEIFY A TV SHOW FOR ME</Button>
+        <FormGroup className="text-center">
+          <Button style={{fontSize: "1.25rem"}}>DECIDEIFY A TV SHOW FOR ME</Button>
         </FormGroup>
       </Form>
       <div className="text-center" id="tv-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>
       <section id="tv-details">
-      <img className="pulsing-glow" src={tvLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A big TV, covered in gold and encrusted with diamonds, and on the big screen it says COMING UP: YOUR NEW FAVORITE SHOW"/>
+      <img className="pulsing-glow" src={tvLoading} style={{width: "30vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A big TV, covered in gold and encrusted with diamonds, and on the big screen it says COMING UP: YOUR NEW FAVORITE SHOW"/>
       </section>
       <br />
       <section id="tv-show">
@@ -178,7 +178,7 @@ const addUserSuggestion = () => {
 
       <div id="my-tv" className="container">
       {filteredSuggestions.length === 0 ?
-      <p className="text-center">No TV suggestions added yet! Add some and they'll appear here!</p>
+      <p className="text-center" style={{fontSize: "1.5rem"}}>No TV suggestions added yet! Add some and they'll appear here!</p>
       :
       <ContentCarousel filteredSuggestions={filteredSuggestions} />
     }
@@ -188,11 +188,11 @@ const addUserSuggestion = () => {
       <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>Add A TV Show!</div>
 
 
-<Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} id="add-tv-form" onSubmit={addUserSuggestion}>
+<Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-tv-form" onSubmit={addUserSuggestion} className="text-center">
 <fieldset>
   <FormGroup>
     <Label htmlFor="Category">TV Show Type/Genre</Label>
-    <Input type="select" name="CategoryId" value={addEntry?.CategoryId} onChange={handleAddFormChange}>
+    <Input type="select" name="CategoryId" value={addEntry?.CategoryId} onChange={handleAddFormChange} style={{fontSize: "1.25rem"}}>
       <option value="0">⬇️ Select A Type of TV Show</option>
       {categories.map((category) => (
         <option key={category?.id} value={category?.id}>{category?.name}</option>

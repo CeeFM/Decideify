@@ -74,7 +74,7 @@ export default function Movies() {
     console.log(randomNumber);
     console.log(movieSuggestions?.results[randomNumber])
     thisSuggestion = movieSuggestions?.results[randomNumber];
-    movieDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${thisSuggestion?.poster_path}" style={{width: "18.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="Movie poster for ${thisSuggestion?.title}"/>
+    movieDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${thisSuggestion?.poster_path}" style={{width: "3.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="Movie poster for ${thisSuggestion?.title}"/>
     <br />
     <p>Title: <strong>${thisSuggestion?.title}</strong></p>
     <br />
@@ -147,22 +147,22 @@ const submitTest = (e) => {
       <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>Movies!</div>
       <div id="movie-container">
       <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest} id="movie-form">
-        <FormGroup>
-          <Label htmlFor="Category">Movie Type</Label>
-          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange}>
+        <FormGroup className="text-center">
+          <Label htmlFor="Category" style={{fontSize: "2rem"}}>Movie Type</Label>
+          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange} style={{fontSize: "1.5rem"}}>
             <option value="0">⬇️ Select A Type of Movie</option>
             {categories.map((category) => (
               <option key={category?.id} value={category?.id}>{category?.name}</option>
             ))}
             </Input>
         </FormGroup>
-        <FormGroup>
-          <Button>DECIDEIFY A MOVIE FOR ME</Button>
+        <FormGroup className="text-center">
+          <Button style={{fontSize: "1.25rem"}}>DECIDEIFY A MOVIE FOR ME</Button>
         </FormGroup>
       </Form>
       <div className="text-center" id="movie-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>
       <section id="movie-details">
-      <img className="pulsing-glow" src={movieLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="Inside of a big movie theather, covered in gold and encrusted with diamonds, and on the big screen it says NOW SHOWING: YOUR NEW FAVORITE MOVIE"/>
+      <img className="pulsing-glow" src={movieLoading} style={{width: "30vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="Inside of a big movie theather, covered in gold and encrusted with diamonds, and on the big screen it says NOW SHOWING: YOUR NEW FAVORITE MOVIE"/>
       </section>
       <br />
       <section id="movie-show">
@@ -178,7 +178,7 @@ const submitTest = (e) => {
 
       <div id="my-movies" className="container">
       {filteredSuggestions.length === 0 ?
-      <p className="text-center">No movie suggestions added yet! Add some and they'll appear here!</p>
+      <p className="text-center" style={{fontSize: "1.25rem"}}>No movie suggestions added yet! Add some and they'll appear here!</p>
       :
       <ContentCarousel filteredSuggestions={filteredSuggestions} />
     }
@@ -187,11 +187,11 @@ const submitTest = (e) => {
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Add A Movie!</div>
 
 
-      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} id="add-movie-form" onSubmit={addUserSuggestion}>
+      <Form className="text-center" style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-movie-form" onSubmit={addUserSuggestion}>
   <fieldset>
         <FormGroup>
           <Label htmlFor="Category">Movie Type/Genre</Label>
-          <Input type="select" name="CategoryId" value={addEntry?.CategoryId} onChange={handleAddFormChange}>
+          <Input type="select" name="CategoryId" value={addEntry?.CategoryId} onChange={handleAddFormChange} style={{fontSize: "1.25rem"}}>
             <option value="0">⬇️ Select A Type of Movie</option>
             {categories.map((category) => (
               <option key={category?.id} value={category?.id}>{category?.name}</option>
@@ -215,7 +215,7 @@ const submitTest = (e) => {
           <Input type="text" name="ImageLocation" value={addEntry?.ImageLocation} onChange={handleAddFormChange} />
         </FormGroup>
         <FormGroup>
-          <Button>Add Movie To My Library</Button>
+          <Button style={{fontSize: "1.25rem"}}>Add Movie To My Library</Button>
         </FormGroup>
         </fieldset>
       </Form>

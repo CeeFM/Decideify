@@ -27,7 +27,7 @@ const randomDate = () => {
   return newRandomDate.toISOString().split('T')[0];
 };
 
-const movieSorting = ["popularity.desc", "popularity.asc", "original_title.asc", "original_title.desc", "revenue.asc", "revenue.desc", "primary_release_date.asc", "primary_release_date.desc", "title.asc", "title.desc", "vote_average.asc", "vote_average.desc", "vote_count.asc", "vote_count.desc"];
+const movieSorting = ["popularity.desc", "original_title.asc", "original_title.desc", "revenue.desc", "title.asc", "title.desc", "vote_average.desc", "vote_count.desc"];
 let movieGenres = [
   [28, 500],
   [12, 500],
@@ -49,7 +49,7 @@ let movieGenres = [
   [10752, 500],
   [37, 18]
 ];
-const tvSorting = ["popularity.desc", "popularity.asc", "original_name.asc", "original_name.desc", "name.asc", "name.desc", "first_air_date.asc", "first_air_date.desc", "vote_average.asc", "vote_average.desc", "vote_count.asc", "vote_count.desc"];
+const tvSorting = ["popularity.desc", "original_name.asc", "original_name.desc", "name.asc", "name.desc", "vote_average.desc", "vote_count.desc"];
 let tvGenres = [
   [10759, 368],
   [16, 500],

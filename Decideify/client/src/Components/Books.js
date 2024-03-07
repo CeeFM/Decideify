@@ -86,7 +86,7 @@ export default function Books() {
       thisSuggestion = filterTest[randomFilteredList]?.books[randomFilteredBook];
     }
 
-    bookDetails.innerHTML = `<img src=${thisSuggestion?.book_image} style={{width: "18.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="Book cover for ${thisSuggestion?.title}"/>
+    bookDetails.innerHTML = `<img src=${thisSuggestion?.book_image} style={{width: "12.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="Book cover for ${thisSuggestion?.title}"/>
     <br />
     <p>Title: <strong>${thisSuggestion?.title}</strong></p>
     <br />
@@ -156,22 +156,22 @@ const submitCategory = (e) => {
       <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>Books!</div>
       <div id="book-container">
       <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitCategory} id="book-form">
-        <FormGroup>
+        <FormGroup className="text-center" style={{fontSize: "2rem"}}>
           <Label htmlFor="Category">Book Type</Label>
-          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange}>
+          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange} style={{fontSize: "1.25rem"}}>
             <option value="0">⬇️ Select A Type of Book</option>
             {categories.map((category) => (
               <option key={category?.id} value={category?.id}>{category?.name}</option>
             ))}
             </Input>
         </FormGroup>
-        <FormGroup>
-          <Button>DECIDEIFY A BOOK FOR ME</Button>
+        <FormGroup className="text-center">
+          <Button style={{fontSize: "1.25rem"}}>DECIDEIFY A BOOK FOR ME</Button>
         </FormGroup>
       </Form>
       <div className="text-center" id="book-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>
       <section id="book-details">
-      <img className="pulsing-glow" src={bookLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A big treasure chest, covered in gold and encrusted with diamonds, as well as gold and diamond encrusted books, and it says YOUR NEW FAVORITE BOOK"/>
+      <img className="pulsing-glow" src={bookLoading} style={{width: "30vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A big treasure chest, covered in gold and encrusted with diamonds, as well as gold and diamond encrusted books, and it says YOUR NEW FAVORITE BOOK"/>
       </section>
       <br />
       <section id="book-show">
@@ -187,18 +187,18 @@ const submitCategory = (e) => {
 
 <div id="my-books" className="container">
 {filteredSuggestions.length === 0 ?
-      <p className="text-center">No book suggestions added yet! Add some and they'll appear here!</p>
+      <p className="text-center" style={{fontSize: "1.5rem"}}>No book suggestions added yet! Add some and they'll appear here!</p>
       :
       <ContentCarousel filteredSuggestions={filteredSuggestions} />
     }
 </div>
 <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Add A Book!</div>
 
-<Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} id="add-book-form" onSubmit={addUserSuggestion}>
+<Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-book-form" onSubmit={addUserSuggestion} className="text-center">
   <fieldset>
         <FormGroup>
-          <Label htmlFor="Category">Book Type/Genre</Label>
-          <Input type="select" name="CategoryId" value={addEntry?.CategoryId} onChange={handleAddFormChange}>
+          <Label htmlFor="Category" style={{fontSize: "1.25rem"}}>Book Type/Genre</Label>
+          <Input type="select" name="CategoryId" value={addEntry?.CategoryId} onChange={handleAddFormChange} style={{fontSize: "1.25rem"}}>
             <option value="0">⬇️ Select A Type of Book</option>
             {categories.map((category) => (
               <option key={category?.id} value={category?.id}>{category?.name}</option>
@@ -222,7 +222,7 @@ const submitCategory = (e) => {
           <Input type="text" name="ImageLocation" value={addEntry?.ImageLocation} onChange={handleAddFormChange} />
         </FormGroup>
         <FormGroup>
-          <Button>Add Book To My Library</Button>
+          <Button style={{fontSize: "1.25rem"}}>Add Book To My Library</Button>
         </FormGroup>
         </fieldset>
       </Form>

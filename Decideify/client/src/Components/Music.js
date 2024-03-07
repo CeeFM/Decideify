@@ -79,7 +79,7 @@ export default function Music() {
     console.log(randomNumber);
     console.log(musicSuggestions?.results[randomNumber]);
     thisSuggestion = musicSuggestions?.results[randomNumber];
-    musicDetails.innerHTML = `<img src=${thisSuggestion?.cover_image} style={{width: "18.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="Album cover for ${thisSuggestion?.title}"/>
+    musicDetails.innerHTML = `<img src=${thisSuggestion?.cover_image} style={{width: "8.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="Album cover for ${thisSuggestion?.title}"/>
     <br />
     <p>Title: <strong>${thisSuggestion?.title}</strong></p>
     <br />
@@ -147,22 +147,24 @@ const addUserSuggestion = () => {
     <>
       <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>Music!</div>
       <div id="music-container">
-      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitTest} id="music-form">
-        <FormGroup>
+      <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "2rem"}} onSubmit={submitTest} id="music-form" >
+        <FormGroup className="text-center">
           <Label htmlFor="Category">Music Type</Label>
-          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange}>
+          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange} style={{fontSize: "1.25rem"}}>
             <option value="">⬇️ Select A Type of Music</option>
             {categories.map((category) => (
               <option key={category?.id} value={category?.id}>{category?.name}</option>
             ))}
             </Input>
         </FormGroup>
-        <Button>DECIDEIFY MUSIC FOR ME</Button>
+        <FormGroup className="text-center">
+        <Button style={{fontSize: "1.25rem"}}>DECIDEIFY MUSIC FOR ME</Button>
+        </FormGroup>
       </Form>
       </div>
       <div className="text-center" id="music-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>
       <section id="music-details">
-      <img className="pulsing-glow" src={musicLoading} style={{width: "18.5vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A record player, covered in gold and encrusted with diamonds, and there's a gold and diamond encrused record sitting on the record player that says YOUR NEW FAVORITE ALBUM"/>
+      <img className="pulsing-glow" src={musicLoading} style={{width: "30vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A record player, covered in gold and encrusted with diamonds, and there's a gold and diamond encrused record sitting on the record player that says YOUR NEW FAVORITE ALBUM"/>
       </section>
       <br />
       <section id="music-show">
@@ -177,7 +179,7 @@ const addUserSuggestion = () => {
 
       <div id="my-music" className="container">
       {filteredSuggestions.length === 0 ?
-      <p className="text-center">No music suggestions added yet! Add some and they'll appear here!</p>
+      <p className="text-center" style={{fontSize: "1.25rem"}}>No music suggestions added yet! Add some and they'll appear here!</p>
       :
       <ContentCarousel filteredSuggestions={filteredSuggestions} />
     }
@@ -185,7 +187,7 @@ const addUserSuggestion = () => {
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Add An Album!</div>
 
 
-<Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} id="add-album-form" onSubmit={addUserSuggestion}>
+<Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-album-form" onSubmit={addUserSuggestion}>
 <fieldset>
   <FormGroup>
     <Label htmlFor="Category">Album Genre</Label>

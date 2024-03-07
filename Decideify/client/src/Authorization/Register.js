@@ -33,9 +33,9 @@ export default function Register({setIsLoggedIn}) {
   return (
     <>
     <div className="text-center">
-    <img src={myImage} style={{width: "25vw", paddingTop: "9rem", paddingBottom: "2.5rem"}}/>
+    <img src={myImage} style={{width: "25vw", paddingTop: "2rem", paddingBottom: "2.5rem"}}/>
     </div>
-    <Form onSubmit={registerClick} style={{ width: "25vw", margin: "auto", paddingTop: "1vh" }}>
+    <Form onSubmit={registerClick} style={{ width: "25vw", margin: "auto", paddingTop: "1vh", fontSize: "1.5rem"}}>
       <fieldset>
         <FormGroup>
           <Label htmlFor="firstName">First Name</Label>
@@ -66,7 +66,7 @@ export default function Register({setIsLoggedIn}) {
           <Input id="confirmPassword" type="password" onChange={e => setConfirmPassword(e.target.value)} />
         </FormGroup>
         <FormGroup>
-          <Button>Register</Button>
+          <Button style={{fontSize: "1.5rem"}}>Register</Button>
         </FormGroup>
       </fieldset>
     </Form>

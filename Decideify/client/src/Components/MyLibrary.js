@@ -40,7 +40,7 @@ export default function MyLibrary() {
 
 <div id="my-movies-library" className="container">
 {movieSuggestions.length === 0 ?
-      <p className="text-center">No movie suggestions added yet! Add some and they'll appear here!</p>
+      <p className="text-center" style={{fontSize: "1.5rem"}}> No movie suggestions added yet! Add some and they'll appear here!</p>
       :
       <ContentCarousel filteredSuggestions={movieSuggestions} />
     }
@@ -49,7 +49,7 @@ export default function MyLibrary() {
 
 <div id="my-tv-library" className="container">
     {tvSuggestions.length === 0 ?
-      <p className="text-center">No TV suggestions added yet! Add some and they'll appear here!</p>
+      <p className="text-center" style={{fontSize: "1.5rem"}}>No TV suggestions added yet! Add some and they'll appear here!</p>
       :
       <ContentCarousel filteredSuggestions={tvSuggestions} />
     }
@@ -58,7 +58,7 @@ export default function MyLibrary() {
 
       <div id="my-music-library" className="container">
       {musicSuggestions.length === 0 ?
-      <p className="text-center">No music suggestions added yet! Add some and they'll appear here!</p>
+      <p className="text-center" style={{fontSize: "1.5rem"}}>No music suggestions added yet! Add some and they'll appear here!</p>
       :
       <ContentCarousel filteredSuggestions={musicSuggestions} />
     }
@@ -67,7 +67,7 @@ export default function MyLibrary() {
 
       <div id="my-books-library" className="container">
       {bookSuggestions.length === 0 ?
-      <p className="text-center">No book suggestions added yet! Add some and they'll appear here!</p>
+      <p className="text-center" style={{fontSize: "1.5rem"}}>No book suggestions added yet! Add some and they'll appear here!</p>
       :
       <ContentCarousel filteredSuggestions={bookSuggestions} />
     }
