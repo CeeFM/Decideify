@@ -63,7 +63,8 @@ namespace Decideify.Repositories
                     cmd.CommandText = @"SELECT c.Id, c.PostId, c.UserProfileId, c.Subject, c.Content, c.CreateDateTime, u.Username, u.FirstName, u.LastName, u.Email, u.IsPublic, u.Bio, u.ImageLocation AS UserImage, u.CreateDateTime AS UserCreated
                                         FROM Comment c
                                         LEFT JOIN UserProfile u ON c.UserProfileId = u.Id
-                                        WHERE c.PostId = @PostId";
+                                        WHERE c.PostId = @PostId
+                                        ORDER BY c.CreateDateTime DESC";
 
                     DbUtils.AddParameter(cmd, "@PostId", postId);
 
