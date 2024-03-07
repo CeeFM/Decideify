@@ -19,7 +19,7 @@ export const PostReaction = ({ post, reaction, setReactions }) => {
         console.log(postReactionsList);
     })
     .catch((error) => {
-        console.error("OOPS I FUCKED UP WITH THIS ERROR:" , error);
+        console.error("OOPS I BORKED IT WITH THIS ERROR:" , error);
     });
 };
 
@@ -39,8 +39,11 @@ export const PostReaction = ({ post, reaction, setReactions }) => {
       };
     
     const deleteReaction = () => {
-        deletePostReaction(userReactionCount[0].id);
-        window.location.reload();
+        deletePostReaction(userReactionCount[0].id)
+        .then(() => {
+            return getPostReactionsByPostId(post.id)
+        })
+        .then((thesePostReactions) => setPostReactionsList(thesePostReactions));
 
     }
 
