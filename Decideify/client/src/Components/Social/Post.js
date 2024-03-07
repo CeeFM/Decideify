@@ -2,7 +2,8 @@ import React from "react";
 import { Button, Card, CardBody, CardImg, Form, FormGroup, Input, Label } from "reactstrap";
 import { useState, useEffect } from 'react';
 import { getAllPostTags } from "../../Managers/PostTagManager";
-import { addComment } from "../../Managers/CommentManager";
+import { addComment, getCommentsByPostId } from "../../Managers/CommentManager";
+import { Comment } from "./Comment";
 
 export const Post = ({ thisPost }) => {
 
@@ -11,6 +12,8 @@ export const Post = ({ thisPost }) => {
     const [allTags, setAllTags] = useState([]);
     const [thisTag, setThisTag] = useState();
     const [isVisible, setIsVisible] = useState(false);
+    const [isVisibleToo, setIsVisibleToo] = useState(true);
+    const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState({
       Subject: "",
       Content: "",
@@ -26,6 +29,10 @@ export const Post = ({ thisPost }) => {
             setThisTag(isThereATagHere);
         });
     };
+
+    const getPostComments = () => {
+      getCommentsByPostId(thisPost.id).then((theseComments) => setComments(theseComments));
+    }
 
     const tagTesting = () => {
         console.log(thisPost);
@@ -46,41 +53,53 @@ export const Post = ({ thisPost }) => {
     setIsVisible(!isVisible);
   }
 
+  const toggleComments = () => {
+    setIsVisibleToo(!isVisibleToo);
+  }
+
   const writeComment = (e) => {
     e.preventDefault();
     const commentToAdd = {...newComment};
     addComment(commentToAdd);
+    window.location.reload();
   };
 
     useEffect(() => {
         getAllTags();         
     }, [])
 
+    useEffect(() => {
+      getPostComments();         
+  }, [])
+
+
     return (
     <>
-      <div className="container d-flex justify-content-center">
-        <Card className="m-4" >
+        <Card className="m-5" style={{border:'none'}}>
           <CardBody>
+            <h2 style={{color: "#ff00bb"}}>{thisPost.title}</h2>
+            <h5 style={{color: "white"}}>{thisPost.content}</h5>
             { thisTag === undefined ?
-              <CardImg top src={thisPost?.imageLocation} style={{ width: '30rem' }} />
+              <CardImg top src={thisPost?.imageLocation} style={{ width: '20rem' }} />
               :
-              <CardImg top src={thisTag?.suggestion?.imageLocation} style={{ width: '30rem' }} />
+              <CardImg top src={thisTag?.suggestion?.imageLocation} style={{ width: '15.5rem' }} />
             }
-            <p>
-            </p>
-            <h3 style={{color: "#ff00bb"}}>{thisPost.title}</h3>
-            <p>{thisPost.content}</p>
-            <p>
-                Written by: {thisPost?.userProfile?.username}
-            </p>
-            { isVisible ?
-            <button className="btn btn-primary" onClick={toggleCommentForm}>Cancel</button>
-            :
-            <button className="btn btn-primary" onClick={toggleCommentForm}>Add Comment</button>
-            }
+<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-center">
+  <p style={{ marginRight: '1rem' }}>
+    From: {thisPost?.userProfile?.username}
+  </p>
+  <img src={thisPost?.userProfile?.imageLocation} alt="the post author's picture" style={{ width: '5rem', borderRadius: '8rem' }}
+  />
+</div>
             </CardBody>
-            {isVisible && (
-          <Form style={{ width: "100%", margin: "auto" , paddingTop: "2rem", padding: "2rem"}} id="add-comment-form" onSubmit={writeComment}>
+        </Card>
+        { isVisible ?
+              <button className="btn btn-primary" onClick={toggleCommentForm}>Cancel</button>
+              :
+              <button className="btn btn-primary" onClick={toggleCommentForm}>Add Comment</button>
+            }
+        {isVisible && (
+          <Form style={{ width: "50%", margin: "auto" , paddingTop: "2rem", padding: "2rem"}} id="add-comment-form" onSubmit={writeComment}>
       <fieldset>
         <FormGroup>
           <Label htmlFor="Subject">Subject/Headline</Label>
@@ -96,8 +115,21 @@ export const Post = ({ thisPost }) => {
         </fieldset>
       </Form>
 )}
-        </Card>
-      </div>
+            { isVisibleToo ?
+            <>
+            <CardBody>
+              <button className="btn btn-primary" onClick={toggleComments}>Hide Comments</button>
+              <p style={{marginTop: "1rem"}}>COMMENTS</p>
+              {comments.map((comm) => (
+                <Comment key={comm?.id} comment={comm}/>
+              ))}
+              </CardBody>
+            </>
+              : 
+              <CardBody>
+              <button className="btn btn-primary" onClick={toggleComments}>Show Comments</button>
+              </CardBody>
+            }
       </>
     )
 }

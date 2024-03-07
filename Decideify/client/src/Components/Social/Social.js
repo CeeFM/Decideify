@@ -123,7 +123,7 @@ const handleModalInputChange = (e) => {
         </FormGroup>
         </fieldset>
       </Form>
-      <div className="container">
+      <div className="container text-center" style={{width: "50vw", height: "auto"}}>
       <div className="row justify-content-center">
         <div className="cards-column">
           {postFeed.map((post) => (
