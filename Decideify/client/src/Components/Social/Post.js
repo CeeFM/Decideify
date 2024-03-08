@@ -7,8 +7,9 @@ import { Comment } from "./Comment";
 import { getAllReactions } from "../../Managers/ReactionManager";
 import { PostReaction } from "./PostReaction";
 import x from "../../Images/X.png"
+import { Subscribe } from "./Subscribe";
 
-export const Post = ({ thisPost }) => {
+export const Post = ({ thisPost, setPostFeed }) => {
 
   const localUserProfile = localStorage.getItem("userProfile");
   const decideifyUserObject = JSON.parse(localUserProfile);
@@ -141,6 +142,7 @@ export const Post = ({ thisPost }) => {
           <div className="text-center">
         <Card  style={{width: "40rem", marginLeft: "-5.5rem"}}>
           <CardBody>
+          <Subscribe post={thisPost} setPostFeed={setPostFeed}/>
             <h2 style={{color: "#ff00bb"}}>{thisPost.title}</h2>
             <h5 style={{color: "white"}}>{thisPost.content}</h5>
             { thisTag === undefined ?
