@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { addPostReaction, deletePostReaction, getPostReactionsByPostId, getpostreactionsbypostid } from "../../Managers/PostReactionManager";
 
-export const PostReaction = ({ post, reaction, setReactions }) => {
+export const PostReaction = ({ post, reaction, modal }) => {
     const localUserProfile = localStorage.getItem("userProfile");
     const decideifyUserObject = JSON.parse(localUserProfile);
 
@@ -25,7 +25,7 @@ export const PostReaction = ({ post, reaction, setReactions }) => {
 
     useEffect(() => {
         getPostsReactions();
-      }, []);
+      }, [modal]);
 
     const addReaction = () => {
         const reactionToSend = {

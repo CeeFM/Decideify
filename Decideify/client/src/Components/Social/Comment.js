@@ -8,7 +8,7 @@ export const Comment = ({ comment }) => {
 
     return (
         <>
-        <div className="container" style={{border: "gray solid 1px", color: "#4cf7e6", width: "40%", height:"auto", borderRadius: "2rem", paddingTop: "2rem", marginTop: "1.5rem", paddingBottom: "1.5rem"}}>
+        <div className="container" style={{border: "gray solid 1px", color: "#4cf7e6", width: "100%", height:"auto", borderRadius: "2rem", paddingTop: "2rem", marginTop: "1.5rem", paddingBottom: "1.5rem"}}>
         
         <h4>{comment?.subject}</h4>
         <div>{comment?.content}</div>
