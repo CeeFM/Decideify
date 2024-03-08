@@ -104,16 +104,16 @@ export const Post = ({ thisPost }) => {
 
     return (
     <>
-        <Card style={{width: "40rem", margin: "2rem auto"}} onClick={toggle}>
+        <Card style={{width: "40rem", margin: "2rem auto"}}>
           <CardBody>
-            <h2 style={{color: "#ff00bb"}}>{truncateText(thisPost.title, 22)}</h2>
-            <h5 style={{color: "white"}}>{truncateText(thisPost.content, 37)}</h5>
+            <h2 style={{color: "#ff00bb"}} onClick={toggle}>{truncateText(thisPost.title, 22)}</h2>
+            <h5 style={{color: "white"}} onClick={toggle}>{truncateText(thisPost.content, 37)}</h5>
             { thisTag === undefined ?
-              <CardImg top src={thisPost?.imageLocation} style={{ height: '25vh', width: "auto" }} />
+              <CardImg top src={thisPost?.imageLocation} style={{ height: '25vh', width: "auto" }} onClick={toggle}/>
               :
-              <CardImg top src={thisTag?.suggestion?.imageLocation} style={{ height: '25vh', width: "auto" }} />
+              <CardImg top src={thisTag?.suggestion?.imageLocation} style={{ height: '25vh', width: "auto" }} onClick={toggle}/>
             }
-<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: "1rem"}} className="text-center">
+<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: "1rem"}} className="text-center" onClick={toggle}>
   <p style={{ marginRight: '1rem', marginTop: "1.5rem" }}>
     From: {thisPost?.userProfile?.username}
   </p>

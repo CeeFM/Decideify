@@ -78,7 +78,7 @@ export const getallbooks = () => {
 
 export const getallmovies = (category) => {
     let randomSort = Math.floor(Math.random() * movieSorting.length);
-    let movieUrl = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&sort_by=${movieSorting[randomSort]}`
+    let movieUrl = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&with_original_language=en&sort_by=${movieSorting[randomSort]}`
 
     if (category?.id !== 55 && category?.resultsCount < 500) {
       let randomPage = Math.floor(Math.random() * category?.resultsCount) + 1;
