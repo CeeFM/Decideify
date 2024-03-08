@@ -131,14 +131,14 @@ const handleModalInputChange = (e) => {
     <Col md={6}>
       <div className="text-center">
         {postFeed.slice(0, Math.ceil(postFeed.length / 2)).map((post) => (
-          <Post key={post.id} thisPost={post} setPostFeed={setPostFeed}/>
+          <Post key={post.id} thisPost={post} />
         ))}
       </div>
     </Col>
     <Col md={6}>
       <div className="text-center">
         {postFeed.slice(Math.ceil(postFeed.length / 2)).map((post) => (
-          <Post key={post.id} thisPost={post} setPostFeed={setPostFeed} />
+          <Post key={post.id} thisPost={post} />
         ))}
       </div>
     </Col>

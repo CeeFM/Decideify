@@ -103,11 +103,27 @@ export default function Books() {
     suggestion.Details = thisSuggestion?.description;
     suggestion.ImageLocation = thisSuggestion?.book_image;
     console.log(suggestion)
-    addSuggestion(suggestion);
+    addSuggestion(suggestion)
+    .then(() => {
+     return getSuggestionsByUser(decideifyUserObject?.id)
+      .then((suggs) => {
+        setUserSuggestions(suggs);
+        let filter = suggs.filter((s) => s.contentType === "Book");
+        setFilteredSuggestions(filter);
+      });
+    })
   };
 
   const addUserSuggestion = () => {
-    addSuggestion(addEntry);
+    addSuggestion(addEntry)
+    .then(() => {
+      getSuggestionsByUser(decideifyUserObject?.id)
+      .then((suggs) => {
+        setUserSuggestions(suggs);
+        let filter = suggs.filter((s) => s.contentType === "Movie");
+        setFilteredSuggestions(filter);
+      })
+    })
   }
 
   const handleControlledInputChange = (e) => {

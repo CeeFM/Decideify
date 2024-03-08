@@ -72,7 +72,7 @@ export default function MyProfile() {
       </FormGroup>
       <FormGroup>
         <Label htmlFor="bio">Bio</Label>
-        <Input type="textarea" name="bio" value={currentUser?.bio} onChange={handleAddFormChange} />
+        <Input type="text" name="bio" value={currentUser?.bio} onChange={handleAddFormChange} />
       </FormGroup>
       <FormGroup>
         <Label htmlFor="email">Email</Label>
@@ -89,7 +89,7 @@ export default function MyProfile() {
     </Col>
     <Col>
       <FormGroup>
-        <Label htmlFor="isPublic">Share My Suggestions Publicly?</Label>
+        <Label htmlFor="isPublic">Keep Profile Public?</Label>
         <Input type="select" name="isPublic" value={currentUser?.isPublic} onChange={handleAddFormChange}>
           <option value="true">Yes</option>
           <option value="false">No</option>
@@ -99,7 +99,7 @@ export default function MyProfile() {
   </Row>
   <Row>
     <Col>
-      <FormGroup>
+      <FormGroup className="text-center">
         <Button>Update User Profile</Button>
       </FormGroup>
     </Col>

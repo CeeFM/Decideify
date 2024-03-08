@@ -16,7 +16,6 @@ export const PostReaction = ({ post, reaction, modal }) => {
     const getPostsReactions = () => {
         getPostReactionsByPostId(post.id).then((postReactions) => {
         setPostReactionsList(postReactions);
-        console.log(postReactionsList);
     })
     .catch((error) => {
         console.error("OOPS I BORKED IT WITH THIS ERROR:" , error);
@@ -24,7 +23,8 @@ export const PostReaction = ({ post, reaction, modal }) => {
 };
 
     useEffect(() => {
-        getPostsReactions();
+        getPostReactionsByPostId(post.id)
+            .then((postReactions) => setPostReactionsList(postReactions))
       }, [modal]);
 
     const addReaction = () => {

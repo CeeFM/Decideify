@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { addSubscription, deleteSubscription, getAllSubscriptions, getSubscriptionsByUserId } from "../../Managers/SubscriptionManager";
 import { getAllPosts } from "../../Managers/PostManager";
 
-export const Subscribe = ({ post, setPostFeed }) => {
+export const Subscribe = ({ post }) => {
 
     const localUserProfile = localStorage.getItem("userProfile");
     const decideifyUserObject = JSON.parse(localUserProfile);

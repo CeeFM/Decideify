@@ -93,7 +93,15 @@ export default function Movies() {
     suggestion.ReleaseDate = thisSuggestion?.release_date;
     suggestion.ExternalId = thisSuggestion?.id.toString();
     console.log(suggestion)
-    addSuggestion(suggestion);
+    addSuggestion(suggestion)
+      .then(() => {
+         return getSuggestionsByUser(decideifyUserObject?.id)
+        .then((suggs) => {
+          setUserSuggestions(suggs);
+          let filter = suggs.filter((s) => s.contentType === "Movie");
+          setFilteredSuggestions(filter);
+        })
+      })
   };
 
   const handleControlledInputChange = (e) => {
@@ -118,7 +126,15 @@ const handleAddFormChange = (e) => {
 }
 
 const addUserSuggestion = () => {
-  addSuggestion(addEntry);
+  addSuggestion(addEntry)
+    .then(() => {
+      getSuggestionsByUser(decideifyUserObject?.id)
+      .then((suggs) => {
+        setUserSuggestions(suggs);
+        let filter = suggs.filter((s) => s.contentType === "Movie");
+        setFilteredSuggestions(filter);
+      })
+    })
 }
 
 const submitTest = (e) => {

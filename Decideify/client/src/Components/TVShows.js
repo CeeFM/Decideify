@@ -95,7 +95,15 @@ export default function TVShows() {
       suggestion.ReleaseDate = currentSuggestion?.first_air_date;
       suggestion.ExternalId = currentSuggestion?.id.toString();
       console.log(suggestion)
-      addSuggestion(suggestion);
+      addSuggestion(suggestion)
+      .then(() => {
+        getSuggestionsByUser(decideifyUserObject?.id)
+        .then((suggs) => {
+          setUserSuggestions(suggs);
+          let filter = suggs.filter((s) => s.contentType === "TV Show");
+          setFilteredSuggestions(filter);
+        });
+      })
   };
 
   const handleControlledInputChange = (e) => {
@@ -132,7 +140,15 @@ const handleAddFormChange = (e) => {
 }
 
 const addUserSuggestion = () => {
-  addSuggestion(addEntry);
+  addSuggestion(addEntry)
+  .then(() => {
+    getSuggestionsByUser(decideifyUserObject?.id)
+    .then((suggs) => {
+      setUserSuggestions(suggs);
+      let filter = suggs.filter((s) => s.contentType === "TV Show");
+      setFilteredSuggestions(filter);
+    });
+  })
 }
 
   useEffect(() => {
