@@ -7,6 +7,9 @@ import { deleteSuggestion } from "../Managers/SuggestionManager";
 
 export default function Suggestion({ userSugg }) {
 
+    const localUserProfile = localStorage.getItem("userProfile");
+  const decideifyUserObject = JSON.parse(localUserProfile);
+
   const [modal, setModal] = useState(false);
   const [modalTwo, setModalTwo] = useState(false);
   const [editSuggestion, setEditSuggestion] = useState({});
@@ -52,13 +55,31 @@ const truncateText = (text, limit) => {
   return (
     <>
             <div className="text-center">
-            <img src={userSugg?.imageLocation} style={{height: "15rem"}} alt={userSugg?.title} onClick={toggleTwo}/>
+            <img src={userSugg?.imageLocation} style={{height: "10rem"}} alt={userSugg?.title} onClick={toggleTwo}/>
             <p>{truncateText(userSugg?.title, 18)}</p>
-            <div>Recommend?</div>
-            <button onClick={(e) => updateSuggestion(e, true)}><img src={yes} alt="yes" style={{width: "3rem"}} value="true"/></button>
-            <button onClick={(e) => updateSuggestion(e, false)}><img src={no} alt="yes" style={{width: "2.75rem"}} value="false"/></button>
-            <br />
-            <button style={{padding: "none", borderRadius: "5rem"}} onClick={toggle}><img style={{width: "1.5rem"}} src={x} alt="a big neon red x that you can use as a delete button for saved suggestions"/></button>
+        
+            {decideifyUserObject.id === userSugg?.userProfileId && (
+  <>
+    <div>Recommend?</div>
+    <button onClick={(e) => updateSuggestion(e, true)}>
+      <img src={yes} alt="yes" style={{ width: "3rem" }} value="true" />
+    </button>
+    <button onClick={(e) => updateSuggestion(e, false)}>
+      <img src={no} alt="no" style={{ width: "2.75rem" }} value="false" />
+    </button>
+    <br />
+    <button
+      style={{ padding: "none", borderRadius: "5rem" }}
+      onClick={toggle}
+    >
+      <img
+        style={{ width: "1.5rem" }}
+        src={x}
+        alt="delete button"
+      />
+    </button>
+  </>
+)}
             </div>
             <Modal isOpen={modal} toggle={toggle} >
         <ModalHeader toggle={toggle}>CONFIRM DELETION</ModalHeader>
@@ -88,12 +109,28 @@ const truncateText = (text, limit) => {
             <h1 style={{color: "#ff00bb"}}>{userSugg?.title}</h1>
             <div style={{fontSize: "1.25rem", width: "50%", margin: "0 auto"}}>{userSugg?.details}</div>
             <br />
-            <h5 style={{color: "#4cf7e6"}}>Recommend?</h5>
-            <br />
-            <button onClick={(e) => updateSuggestion(e, true)}><img src={yes} alt="yes" style={{width: "3rem"}} value="true"/></button>
-            <button onClick={(e) => updateSuggestion(e, false)}><img src={no} alt="yes" style={{width: "2.75rem"}} value="false"/></button>
-            <br />
-            <button style={{padding: "none", borderRadius: "5rem"}} onClick={toggle}><img style={{width: "1.5rem"}} src={x} alt="a big neon red x that you can use as a delete button for saved suggestions"/></button>
+            {decideifyUserObject.id === userSugg?.userProfileId && (
+  <>
+    <h5>Recommend?</h5>
+    <button onClick={(e) => updateSuggestion(e, true)}>
+      <img src={yes} alt="yes" style={{ width: "3rem" }} value="true" />
+    </button>
+    <button onClick={(e) => updateSuggestion(e, false)}>
+      <img src={no} alt="no" style={{ width: "2.75rem" }} value="false" />
+    </button>
+    <br />
+    <button
+      style={{ padding: "none", borderRadius: "5rem" }}
+      onClick={toggle}
+    >
+      <img
+        style={{ width: "1.5rem" }}
+        src={x}
+        alt="delete button"
+      />
+    </button>
+  </>
+)}
             </div>
         </ModalBody>
 

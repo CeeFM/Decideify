@@ -142,7 +142,7 @@ export const Post = ({ thisPost }) => {
         <Card  style={{width: "40rem", marginLeft: "-5.5rem"}}>
           <CardBody>
           <Subscribe post={thisPost} />
-            <h2 style={{color: "#ff00bb"}}>{thisPost.title}</h2>
+            <h2 style={{color: "#ff00bb", marginTop: "1rem"}}>{thisPost.title}</h2>
             <h5 style={{color: "white"}}>{thisPost.content}</h5>
             { thisTag === undefined ?
               <CardImg top src={thisPost?.imageLocation} style={{ height: '25vh', width: "auto" }} />
