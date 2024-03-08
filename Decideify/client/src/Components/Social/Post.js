@@ -14,7 +14,7 @@ export const Post = ({ thisPost }) => {
     const [allTags, setAllTags] = useState([]);
     const [thisTag, setThisTag] = useState();
     const [isVisible, setIsVisible] = useState(false);
-    const [isVisibleToo, setIsVisibleToo] = useState(true);
+    const [isVisibleToo, setIsVisibleToo] = useState(false);
     const [reactions, setReactions] = useState([]);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState({
@@ -40,12 +40,6 @@ export const Post = ({ thisPost }) => {
     const allReactions = () => {
       getAllReactions().then((thesereactions) => setReactions(thesereactions));
      }
-
-    const tagTesting = () => {
-        console.log(thisPost);
-        console.log(allTags);
-        console.log(thisTag);
-    }
 
     const handleControlledInputChange = (e) => {
 
@@ -75,6 +69,13 @@ export const Post = ({ thisPost }) => {
       .then((theseComments) => setComments(theseComments));
   };
 
+  const truncateText = (text, limit) => {
+    if (text.length > limit) {
+      return text.substring(0, limit) + "...";
+    }
+    return text;
+  }
+
     useEffect(() => {
         getAllTags();         
     }, [])
@@ -89,20 +90,20 @@ export const Post = ({ thisPost }) => {
 
     return (
     <>
-        <Card  style={{width: "40rem", margin: "2rem auto"}}>
+        <Card style={{width: "40rem", margin: "2rem auto"}} onClick={() => console.log("shit")}>
           <CardBody>
-            <h2 style={{color: "#ff00bb"}}>{thisPost.title}</h2>
-            <h5 style={{color: "white"}}>{thisPost.content}</h5>
+            <h2 style={{color: "#ff00bb"}}>{truncateText(thisPost.title, 22)}</h2>
+            <h5 style={{color: "white"}}>{truncateText(thisPost.content, 37)}</h5>
             { thisTag === undefined ?
-              <CardImg top src={thisPost?.imageLocation} style={{ width: '20rem' }} />
+              <CardImg top src={thisPost?.imageLocation} style={{ height: '25vh', width: "auto" }} />
               :
-              <CardImg top src={thisTag?.suggestion?.imageLocation} style={{ width: '15.5rem' }} />
+              <CardImg top src={thisTag?.suggestion?.imageLocation} style={{ height: '25vh', width: "auto" }} />
             }
 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: "1rem"}} className="text-center">
   <p style={{ marginRight: '1rem', marginTop: "1.5rem" }}>
     From: {thisPost?.userProfile?.username}
   </p>
-  <img src={thisPost?.userProfile?.imageLocation} alt="the post author's picture" style={{ width: '5rem', borderRadius: '8rem' }}
+  <img src={thisPost?.userProfile?.imageLocation} alt="the post author's picture" style={{ height: '5rem', borderRadius: '8rem' }}
   />
 </div>
 {reactions.map((reaction) => (

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getSuggestionsByUser } from "../../Managers/SuggestionManager";
 import { addPost, getAllPosts, getPostByUserId } from "../../Managers/PostManager";
-import { Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { Button, Col, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "reactstrap";
 import { addPostTag } from "../../Managers/PostTagManager";
 import { Post } from "./Post";
 
@@ -126,15 +126,24 @@ const handleModalInputChange = (e) => {
         </FormGroup>
         </fieldset>
       </Form>
-      <div className="container text-center" style={{width: "50vw", height: "auto"}}>
-      <div className="row justify-content-center">
-        <div className="cards-column text-center">
-          {postFeed.map((post) => (
-            <Post key={post.id} thisPost={post}/>
-          ))}
-        </div>
+      <div className="container">
+  <Row>
+    <Col md={6}>
+      <div className="text-center">
+        {postFeed.slice(0, Math.ceil(postFeed.length / 2)).map((post) => (
+          <Post key={post.id} thisPost={post} />
+        ))}
       </div>
-    </div>
+    </Col>
+    <Col md={6}>
+      <div className="text-center">
+        {postFeed.slice(Math.ceil(postFeed.length / 2)).map((post) => (
+          <Post key={post.id} thisPost={post} />
+        ))}
+      </div>
+    </Col>
+  </Row>
+</div>
       <Modal isOpen={modal} toggle={toggle} >
         <ModalHeader toggle={toggle}>Add Suggestion To Your Post?</ModalHeader>
         <ModalBody>
