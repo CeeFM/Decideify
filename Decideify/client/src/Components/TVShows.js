@@ -76,9 +76,9 @@ export default function TVShows() {
     console.log(randomNumber);
     console.log(showSuggestions?.results[randomNumber]);
     currentSuggestion = showSuggestions?.results[randomNumber];
-    tvDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${currentSuggestion?.poster_path}" style={{width: "5.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="TV Show poster for ${currentSuggestion?.name}"/>
+    tvDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${currentSuggestion?.poster_path}" style="height: 50vh; marginBottom: 6.5rem; borderRadius: 5rem;" alt="TV Show poster for ${currentSuggestion?.name}"/>
     <br />
-    <p>Title: <strong>${currentSuggestion?.name}</strong></p>
+    <h1>Title: <strong>${currentSuggestion?.name}</strong></h1>
     <br />
     <p>Description: ${currentSuggestion?.overview}</p>
     <br />

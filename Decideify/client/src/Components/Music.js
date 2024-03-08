@@ -79,11 +79,11 @@ export default function Music() {
     console.log(randomNumber);
     console.log(musicSuggestions?.results[randomNumber]);
     thisSuggestion = musicSuggestions?.results[randomNumber];
-    musicDetails.innerHTML = `<img src=${thisSuggestion?.cover_image} style={{width: "8.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="Album cover for ${thisSuggestion?.title}"/>
+    musicDetails.innerHTML = `<img src=${thisSuggestion?.cover_image} style="height: 50vh; marginBottom: 6.5rem; borderRadius: 5rem;" alt="Album cover for ${thisSuggestion?.title}"/>
     <br />
-    <p>Title: <strong>${thisSuggestion?.title}</strong></p>
+    <h1>Title: <strong>${thisSuggestion?.title}</strong></h1>
     <br />
-    <a href="https://www.discogs.com${thisSuggestion?.uri}" target="_blank" className="btn btn-primary">More details</a>`;
+    <button className="btn btn-primary"><a href="https://www.discogs.com${thisSuggestion?.uri}" target="_blank" className="btn btn-primary">More details</a></button>`;
     musicShow.style.display = "none";
     musicSave.style.display = "block";
   }

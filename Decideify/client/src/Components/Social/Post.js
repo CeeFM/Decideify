@@ -132,7 +132,6 @@ export const Post = ({ thisPost }) => {
           isOpen={modal}
           toggle={toggle}
           backdrop="static"
-          keyboard={false}
         >
           <ModalBody>
           <>

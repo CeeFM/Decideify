@@ -8,6 +8,7 @@ import { deleteSuggestion } from "../Managers/SuggestionManager";
 export default function Suggestion({ userSugg }) {
 
   const [modal, setModal] = useState(false);
+  const [modalTwo, setModalTwo] = useState(false);
   const [editSuggestion, setEditSuggestion] = useState({});
 
   useEffect(() => {
@@ -38,13 +39,21 @@ export default function Suggestion({ userSugg }) {
   //   })
 };
 
+const truncateText = (text, limit) => {
+  if (text.length > limit) {
+    return text.substring(0, limit) + "...";
+  }
+  return text;
+}
+
   const toggle = () => setModal(!modal);
+  const toggleTwo = () => setModalTwo(!modalTwo);
 
   return (
     <>
             <div className="text-center">
-            <img src={userSugg?.imageLocation} style={{width: "10rem"}} alt={userSugg?.title} />
-            <p>{userSugg?.title}</p>
+            <img src={userSugg?.imageLocation} style={{height: "15rem"}} alt={userSugg?.title} onClick={toggleTwo}/>
+            <p>{truncateText(userSugg?.title, 18)}</p>
             <div>Recommend?</div>
             <button onClick={(e) => updateSuggestion(e, true)}><img src={yes} alt="yes" style={{width: "3rem"}} value="true"/></button>
             <button onClick={(e) => updateSuggestion(e, false)}><img src={no} alt="yes" style={{width: "2.75rem"}} value="false"/></button>
@@ -64,6 +73,30 @@ export default function Suggestion({ userSugg }) {
             Cancel
           </Button>
         </ModalFooter>
+      </Modal>
+      <Modal
+        isOpen={modalTwo}
+        toggle={toggleTwo}
+        fullscreen
+      >
+        <ModalBody >
+          <div className="text-center">
+        <button onClick={toggleTwo} style={{marginBottom: '2rem'}}>CLOSE</button>
+        </div>
+        <div className="text-center">
+            <img src={userSugg?.imageLocation} style={{height: "35rem", marginTop: "5rem"}} alt={userSugg?.title} />
+            <h1 style={{color: "#ff00bb"}}>{userSugg?.title}</h1>
+            <div style={{fontSize: "1.25rem", width: "50%", margin: "0 auto"}}>{userSugg?.details}</div>
+            <br />
+            <h5 style={{color: "#4cf7e6"}}>Recommend?</h5>
+            <br />
+            <button onClick={(e) => updateSuggestion(e, true)}><img src={yes} alt="yes" style={{width: "3rem"}} value="true"/></button>
+            <button onClick={(e) => updateSuggestion(e, false)}><img src={no} alt="yes" style={{width: "2.75rem"}} value="false"/></button>
+            <br />
+            <button style={{padding: "none", borderRadius: "5rem"}} onClick={toggle}><img style={{width: "1.5rem"}} src={x} alt="a big neon red x that you can use as a delete button for saved suggestions"/></button>
+            </div>
+        </ModalBody>
+
       </Modal>
     </>
 

@@ -86,9 +86,9 @@ export default function Books() {
       thisSuggestion = filterTest[randomFilteredList]?.books[randomFilteredBook];
     }
 
-    bookDetails.innerHTML = `<img src=${thisSuggestion?.book_image} style={{width: "12.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="Book cover for ${thisSuggestion?.title}"/>
+    bookDetails.innerHTML = `<img src=${thisSuggestion?.book_image} style="height: 50vh; marginBottom: 6.5rem; borderRadius: 5rem;" alt="Book cover for ${thisSuggestion?.title}"/>
     <br />
-    <p>Title: <strong>${thisSuggestion?.title}</strong></p>
+    <h1>Title: <strong>${thisSuggestion?.title}</strong></h1>
     <br />
     <p> Written By: ${thisSuggestion?.author}</p>
     <br />

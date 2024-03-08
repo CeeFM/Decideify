@@ -74,9 +74,9 @@ export default function Movies() {
     console.log(randomNumber);
     console.log(movieSuggestions?.results[randomNumber])
     thisSuggestion = movieSuggestions?.results[randomNumber];
-    movieDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${thisSuggestion?.poster_path}" style={{width: "3.5vw", marginBottom: "6.5rem", borderRadius: "5rem"}} alt="Movie poster for ${thisSuggestion?.title}"/>
+    movieDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${thisSuggestion?.poster_path}" style="height: 50vh; marginBottom: 6.5rem; borderRadius: 5rem;" alt="Movie poster for ${thisSuggestion?.title}"/>
     <br />
-    <p>Title: <strong>${thisSuggestion?.title}</strong></p>
+    <h1>Title: <strong>${thisSuggestion?.title}</strong></h1>
     <br />
     <p>Description: ${thisSuggestion?.overview}</p>
     <br />
