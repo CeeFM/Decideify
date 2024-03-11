@@ -78,11 +78,11 @@ export default function TVShows() {
     currentSuggestion = showSuggestions?.results[randomNumber];
     tvDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${currentSuggestion?.poster_path}" style="height: 50vh; marginBottom: 6.5rem; borderRadius: 5rem;" alt="TV Show poster for ${currentSuggestion?.name}"/>
     <br />
-    <h1>Title: <strong>${currentSuggestion?.name}</strong></h1>
+    <h1 style="font-family: 'Bebas Neue';">Title: <strong style="font-family: 'Bebas Neue';">${currentSuggestion?.name}</strong></h1>
     <br />
-    <p>Description: ${currentSuggestion?.overview}</p>
+    <h2 style="font-family: 'Bebas Neue';">Description: ${currentSuggestion?.overview}</h2>
     <br />
-    <p>Released: ${currentSuggestion?.first_air_date}`;
+    <p style="font-family: 'Bebas Neue';">Released: ${currentSuggestion?.first_air_date}`;
     tvShow.style.display = "none";
     tvSave.style.display = "block";
   };
@@ -179,11 +179,11 @@ const addUserSuggestion = () => {
       </Form>
       <div className="text-center" id="tv-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>
       <section id="tv-details">
-      <img className="pulsing-glow" src={tvLoading} style={{width: "30vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A big TV, covered in gold and encrusted with diamonds, and on the big screen it says COMING UP: YOUR NEW FAVORITE SHOW"/>
+      <img onClick={printshows} className="pulsing-glow" src={tvLoading} style={{width: "30vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A big TV, covered in gold and encrusted with diamonds, and on the big screen it says COMING UP: YOUR NEW FAVORITE SHOW"/>
       </section>
       <br />
       <section id="tv-show">
-      <button onClick={printshows} className="btn btn-secondary">Show Me My TV Show Suggestion!</button>
+      {/* <button onClick={printshows} className="btn btn-secondary">Show Me My TV Show Suggestion!</button> */}
       </section>
       <section id="tv-save" style={{display: "none"}}>
       <button onClick={saveSuggestion} className="btn btn-primary">Save TV Show</button>

@@ -81,9 +81,9 @@ export default function Music() {
     thisSuggestion = musicSuggestions?.results[randomNumber];
     musicDetails.innerHTML = `<img src=${thisSuggestion?.cover_image} style="height: 50vh; marginBottom: 6.5rem; borderRadius: 5rem;" alt="Album cover for ${thisSuggestion?.title}"/>
     <br />
-    <h1>Title: <strong>${thisSuggestion?.title}</strong></h1>
+    <h1 style="font-family: 'Bebas Neue';">Title: <strong style="font-family: 'Bebas Neue';">${thisSuggestion?.title}</strong></h1>
     <br />
-    <button className="btn btn-primary"><a href="https://www.discogs.com${thisSuggestion?.uri}" target="_blank" className="btn btn-primary">More details</a></button>`;
+    <button className="btn btn-primary" style="font-family: 'Bebas Neue';"><a href="https://www.discogs.com${thisSuggestion?.uri}" target="_blank" className="btn btn-primary">More details</a></button>`;
     musicShow.style.display = "none";
     musicSave.style.display = "block";
   }
@@ -180,11 +180,11 @@ const addUserSuggestion = () => {
       </div>
       <div className="text-center" id="music-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>
       <section id="music-details">
-      <img className="pulsing-glow" src={musicLoading} style={{width: "30vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A record player, covered in gold and encrusted with diamonds, and there's a gold and diamond encrused record sitting on the record player that says YOUR NEW FAVORITE ALBUM"/>
+      <img onClick={printmusic} className="pulsing-glow" src={musicLoading} style={{width: "30vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A record player, covered in gold and encrusted with diamonds, and there's a gold and diamond encrused record sitting on the record player that says YOUR NEW FAVORITE ALBUM"/>
       </section>
       <br />
       <section id="music-show">
-      <button onClick={printmusic} className="btn btn-secondary">Show Me My Music Suggestion!</button>
+      {/* <button onClick={printmusic} className="btn btn-secondary">Show Me My Music Suggestion!</button> */}
       </section>
       <section id="music-save" style={{display: "none"}}>
       <button onClick={saveSuggestion} className="btn btn-primary">Save Music</button>

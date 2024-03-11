@@ -107,7 +107,7 @@ export const Post = ({ thisPost }) => {
         <Card style={{width: "40rem", margin: "2rem auto"}}>
           <CardBody>
             <h2 style={{color: "#ff00bb"}} onClick={toggle}>{truncateText(thisPost.title, 22)}</h2>
-            <h5 style={{color: "white"}} onClick={toggle}>{truncateText(thisPost.content, 37)}</h5>
+            <h3 style={{color: "white", fontFamily: "Bebas Neue"}} onClick={toggle}>{truncateText(thisPost.content, 37)}</h3>
             { thisTag === undefined ?
               <CardImg top src={thisPost?.imageLocation} style={{ height: '25vh', width: "auto" }} onClick={toggle}/>
               :
@@ -143,7 +143,7 @@ export const Post = ({ thisPost }) => {
           <CardBody>
           <Subscribe post={thisPost} />
             <h2 style={{color: "#ff00bb", marginTop: "1rem"}}>{thisPost.title}</h2>
-            <h5 style={{color: "white"}}>{thisPost.content}</h5>
+            <h3 style={{color: "white", fontFamily: "Bebas Neue"}}>{thisPost.content}</h3>
             { thisTag === undefined ?
               <CardImg top src={thisPost?.imageLocation} style={{ height: '25vh', width: "auto" }} />
               :
