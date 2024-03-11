@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getallmovies } from "../Managers/APIManager";
 import { addSuggestion, getSuggestionsByUser } from "../Managers/SuggestionManager";
 import { getCategoryByContentType, getCategoryById } from "../Managers/CategoryManager";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import movieLoading from "../Images/moviesuggestion2.jpg"
 import ContentCarousel from "./ContentCarousel";
 
@@ -19,6 +19,8 @@ export default function Movies() {
   let myMovies = document.getElementById("my-movies");
 
   const [movieSuggestions, setMovieSuggestions] = useState([]);
+  const [randomSuggestion, setRandomSuggestion] = useState();
+  const [modal, setModal] = useState(false);
   const [categories, setCategories] = useState([]);
   const [userCategory, setUserCategory] = useState();
   const [userSuggestions, setUserSuggestions] = useState([]);
@@ -69,29 +71,23 @@ export default function Movies() {
   };
 
   const printmovies = () => {
-    console.log(movieSuggestions);
     const randomNumber = Math.floor(Math.random() * movieSuggestions?.results?.length);
-    console.log(randomNumber);
-    console.log(movieSuggestions?.results[randomNumber])
     thisSuggestion = movieSuggestions?.results[randomNumber];
+    setRandomSuggestion(thisSuggestion);
     movieDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${thisSuggestion?.poster_path}" style="height: 50vh; marginBottom: 6.5rem; borderRadius: 5rem;" alt="Movie poster for ${thisSuggestion?.title}"/>
     <br />
-    <h1 style="font-family: 'Bebas Neue';">Title: <strong style="font-family: 'Bebas Neue';">${thisSuggestion?.title}</strong></h1>
-    <br />
-    <h2 style="font-family: 'Bebas Neue';">Description: ${thisSuggestion?.overview}</h2>
-    <br />
-    <p style="font-family: 'Bebas Neue';">Released: ${thisSuggestion?.release_date}`;
+    <h1>${thisSuggestion?.title}</h1>`;
     movieShow.style.display = "none";
     movieSave.style.display = "block";
   }
 
   const saveSuggestion = () => {
-    suggestion.Title =  thisSuggestion?.title;
+    suggestion.Title =  randomSuggestion?.title;
     suggestion.Creator = "n/a";
-    suggestion.Details = thisSuggestion?.overview;
-    suggestion.ImageLocation = `https://image.tmdb.org/t/p/w500${thisSuggestion?.poster_path}`;
-    suggestion.ReleaseDate = thisSuggestion?.release_date;
-    suggestion.ExternalId = thisSuggestion?.id.toString();
+    suggestion.Details = randomSuggestion?.overview;
+    suggestion.ImageLocation = `https://image.tmdb.org/t/p/w500${randomSuggestion?.poster_path}`;
+    suggestion.ReleaseDate = randomSuggestion?.release_date;
+    suggestion.ExternalId = randomSuggestion?.id.toString();
     console.log(suggestion)
     addSuggestion(suggestion)
       .then(() => {
@@ -158,6 +154,8 @@ const submitTest = (e) => {
     getUserSuggestions();
   }, []);
 
+  let toggle = () => setModal(!modal);
+
   return (
     <>
       <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>Movies!</div>
@@ -185,12 +183,17 @@ const submitTest = (e) => {
       {/* <button onClick={printmovies} className="btn btn-secondary">Show Me My Movie Suggestion!</button> */}
       </section>
       <section id="movie-save" style={{display: "none"}}>
-      <button onClick={saveSuggestion} className="btn btn-primary">Save Movie</button>
+      <button onClick={toggle} className="btn btn-warning">More Details</button>
+      <br />
+      <br />
       <button onClick={printmovies} className="btn btn-secondary">Show Me Another Movie Suggestion!</button>
+      <br />
+      <br />
+      <button onClick={saveSuggestion} className="btn btn-primary">Save Movie</button>
       </section>
       </div>
       </div>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Movies!</div>
+      <div className="text-center" style={{paddingTop: "10vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Movies!</div>
 
       <div id="my-movies" className="container">
       {filteredSuggestions.length === 0 ?
@@ -235,6 +238,31 @@ const submitTest = (e) => {
         </FormGroup>
         </fieldset>
       </Form>
+      <Modal
+    isOpen={modal}
+    toggle={toggle}
+    fullscreen
+  >
+    <ModalBody >
+    { randomSuggestion && (
+      <>
+      <div className="text-center" style={{width: "50%", margin: "0 auto", paddingTop: "10rem"}}>
+    <img src={`https://image.tmdb.org/t/p/w500${randomSuggestion?.poster_path}`} style={{height: "50vh", marginBottom: "1.5rem", borderRadius: "2rem"}} alt={`Movie poster for ${randomSuggestion?.title}`}/>
+    <br />
+    <h1 style={{ fontFamily: "Bebas Neue" }}>Title: <strong style={{ fontFamily: "Bebas Neue" }}>{randomSuggestion?.title}</strong></h1>
+    <br />
+    <h2 style={{ fontFamily: "Bebas Neue" }}>Description: {randomSuggestion?.overview}</h2>
+    <br />
+    <p style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} >Released: {randomSuggestion?.release_date}</p>
+    </div>
+    </>
+    )}
+        <div className="text-center">
+    <button onClick={toggle} style={{marginBottom: '2rem'}} className="btn-danger btn">CLOSE</button>
+    </div>
+    </ModalBody>
+
+  </Modal>
     </>
 
   );
