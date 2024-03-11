@@ -76,11 +76,11 @@ export default function Movies() {
     thisSuggestion = movieSuggestions?.results[randomNumber];
     movieDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${thisSuggestion?.poster_path}" style="height: 50vh; marginBottom: 6.5rem; borderRadius: 5rem;" alt="Movie poster for ${thisSuggestion?.title}"/>
     <br />
-    <h1>Title: <strong>${thisSuggestion?.title}</strong></h1>
+    <h1 style="font-family: 'Bebas Neue';">Title: <strong style="font-family: 'Bebas Neue';">${thisSuggestion?.title}</strong></h1>
     <br />
-    <p>Description: ${thisSuggestion?.overview}</p>
+    <h2 style="font-family: 'Bebas Neue';">Description: ${thisSuggestion?.overview}</h2>
     <br />
-    <p>Released: ${thisSuggestion?.release_date}`;
+    <p style="font-family: 'Bebas Neue';">Released: ${thisSuggestion?.release_date}`;
     movieShow.style.display = "none";
     movieSave.style.display = "block";
   }
@@ -178,11 +178,11 @@ const submitTest = (e) => {
       </Form>
       <div className="text-center" id="movie-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>
       <section id="movie-details">
-      <img className="pulsing-glow" src={movieLoading} style={{width: "30vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="Inside of a big movie theather, covered in gold and encrusted with diamonds, and on the big screen it says NOW SHOWING: YOUR NEW FAVORITE MOVIE"/>
+      <img onClick={printmovies} className="pulsing-glow" src={movieLoading} style={{width: "30vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="Inside of a big movie theather, covered in gold and encrusted with diamonds, and on the big screen it says NOW SHOWING: YOUR NEW FAVORITE MOVIE"/>
       </section>
       <br />
       <section id="movie-show">
-      <button onClick={printmovies} className="btn btn-secondary">Show Me My Movie Suggestion!</button>
+      {/* <button onClick={printmovies} className="btn btn-secondary">Show Me My Movie Suggestion!</button> */}
       </section>
       <section id="movie-save" style={{display: "none"}}>
       <button onClick={saveSuggestion} className="btn btn-primary">Save Movie</button>

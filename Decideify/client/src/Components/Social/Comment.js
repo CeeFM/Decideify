@@ -8,14 +8,14 @@ export const Comment = ({ comment }) => {
 
     return (
         <>
-        <div className="container" style={{border: "gray solid 1px", color: "#4cf7e6", width: "100%", height:"auto", borderRadius: "2rem", paddingTop: "2rem", marginTop: "1.5rem", paddingBottom: "1.5rem"}}>
+        <div className="container" style={{border: "gray solid 1px", color: "#4cf7e6", width: "100%", height:"auto", borderRadius: "2rem", paddingTop: "2rem", marginTop: "1.5rem", paddingBottom: "1.5rem", fontFamily: "Bebas Neue"}}>
         
         <h4>{comment?.subject}</h4>
-        <div>{comment?.content}</div>
+        <div style={{fontFamily: "Bebas Neue", fontSize: "1.5rem"}}>{comment?.content}</div>
        
-        <div style={{marginTop: "1rem"}}>{commentDate}</div>
+        <div style={{marginTop: "1rem", fontFamily: "Bebas Neue"}}>{commentDate}</div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} className="text-center">
-  <p style={{ marginRight: '1rem' }}>
+  <p style={{ marginRight: '1rem', fontFamily: "Bebas Neue" }}>
     From: {comment?.userProfile?.username}
   </p>
   <img src={comment?.userProfile?.imageLocation} alt="the post author's picture" style={{ width: '3rem', borderRadius: '8rem', marginBottom: "1rem" }}

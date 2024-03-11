@@ -53,17 +53,17 @@ export const PostReaction = ({ post, reaction, modal }) => {
     return <>
         {reactionCount.length === 0 || userReactionCount.length === 0 ? (
             <>
-                <button className="btn btn-secondary m-1" onClick={addReaction}>
+                <button className="btn btn-secondary m-1" onClick={addReaction} style={{fontFamily: "Bebas Neue"}}>
                 <img className="reaction-btn" alt={reaction.name} src={reaction.imageLocation} />
                 <br />
-                <span className="h6 m-3">{reactionCount.length}</span>
+                {reactionCount.length}
                 </button>
             </>
         ) : (
-            <button className="btn btn-primary m-1" id="reacted" onClick={deleteReaction}>
+            <button className="btn btn-primary m-1" id="reacted" onClick={deleteReaction} style={{fontFamily: "Bebas Neue"}}>
             <img className="reaction-btn" alt={reaction.name} src={reaction.imageLocation} />
             <br />
-            <span className="h6 m-3">{reactionCount.length}</span>
+            {reactionCount.length}
             </button> 
         )}
         </>

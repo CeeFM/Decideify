@@ -61,6 +61,7 @@ code {
   border-radius: 1rem;
 }
 
-#reacted:hover {
-  background-color: rgba(255, 0, 0, 0.442);
+#reacted:hover,
+.prspan:hover {
+  background-color: #ff000071;
 }

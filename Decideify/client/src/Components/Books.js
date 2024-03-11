@@ -88,11 +88,11 @@ export default function Books() {
 
     bookDetails.innerHTML = `<img src=${thisSuggestion?.book_image} style="height: 50vh; marginBottom: 6.5rem; borderRadius: 5rem;" alt="Book cover for ${thisSuggestion?.title}"/>
     <br />
-    <h1>Title: <strong>${thisSuggestion?.title}</strong></h1>
+    <h1 style="font-family: 'Bebas Neue';">Title: <strong style="font-family: 'Bebas Neue';">${thisSuggestion?.title}</strong></h1>
     <br />
-    <p> Written By: ${thisSuggestion?.author}</p>
+    <h2 style="font-family: 'Bebas Neue';"> Written By: ${thisSuggestion?.author}</h2>
     <br />
-    <p>Description: ${thisSuggestion?.description}</p>`;
+    <p style="font-family: 'Bebas Neue';">Description: ${thisSuggestion?.description}</p>`;
     bookShow.style.display = "none";
     bookSave.style.display = "block";
   };
@@ -187,11 +187,11 @@ const submitCategory = (e) => {
       </Form>
       <div className="text-center" id="book-render" style={{display: "none", width: "50vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}}>
       <section id="book-details">
-      <img className="pulsing-glow" src={bookLoading} style={{width: "30vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A big treasure chest, covered in gold and encrusted with diamonds, as well as gold and diamond encrusted books, and it says YOUR NEW FAVORITE BOOK"/>
+      <img onClick={printbooks} className="pulsing-glow" src={bookLoading} style={{width: "30vw", marginBottom: "2.5rem", borderRadius: "5rem"}} alt="A big treasure chest, covered in gold and encrusted with diamonds, as well as gold and diamond encrusted books, and it says YOUR NEW FAVORITE BOOK"/>
       </section>
       <br />
       <section id="book-show">
-      <button onClick={printbooks} className="btn btn-secondary">Show Me My Book Suggestion!</button>
+      {/* <button onClick={printbooks} className="btn btn-secondary">Show Me My Book Suggestion!</button> */}
       </section>
       <section id="book-save" style={{display: "none"}}>
       <button onClick={saveSuggestion} className="btn btn-primary">Save Book</button>

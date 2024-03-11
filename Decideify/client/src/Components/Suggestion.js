@@ -56,11 +56,11 @@ const truncateText = (text, limit) => {
     <>
             <div className="text-center">
             <img src={userSugg?.imageLocation} style={{height: "10rem"}} alt={userSugg?.title} onClick={toggleTwo}/>
-            <p>{truncateText(userSugg?.title, 18)}</p>
+            <p style={{fontFamily: "Bebas Neue", fontSize: "1.25rem"}}>{truncateText(userSugg?.title, 18)}</p>
         
             {decideifyUserObject.id === userSugg?.userProfileId && (
   <>
-    <div>Recommend?</div>
+    <div style={{fontFamily: "Bebas Neue", fontSize: "1.25rem"}}>Recommend?</div>
     <button onClick={(e) => updateSuggestion(e, true)}>
       <img src={yes} alt="yes" style={{ width: "3rem" }} value="true" />
     </button>
@@ -83,14 +83,14 @@ const truncateText = (text, limit) => {
             </div>
             <Modal isOpen={modal} toggle={toggle} >
         <ModalHeader toggle={toggle}>CONFIRM DELETION</ModalHeader>
-        <ModalBody>
-        You sure about that? You really wanna delete <strong>{editSuggestion?.title}</strong> from your {editSuggestion?.contentType} suggestions? For realzies?
+        <ModalBody style={{fontFamily: "Bebas Neue", fontSize: "1.75rem"}}>
+        You sure about that? You really wanna delete <strong style={{fontFamily: "Bebas Neue"}}>{editSuggestion?.title}</strong> from your {editSuggestion?.contentType} suggestions? For realzies?
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={deleteMe}>
+          <Button color="danger" onClick={deleteMe} style={{fontFamily: "Bebas Neue", fontSize: "1.25rem"}}>
             Confirm (for realzies)
           </Button>{' '}
-          <Button color="secondary" onClick={toggle}>
+          <Button color="secondary" onClick={toggle} style={{fontFamily: "Bebas Neue", fontSize: "1.25rem"}}>
             Cancel
           </Button>
         </ModalFooter>
@@ -107,7 +107,10 @@ const truncateText = (text, limit) => {
         <div className="text-center">
             <img src={userSugg?.imageLocation} style={{height: "35rem", marginTop: "5rem"}} alt={userSugg?.title} />
             <h1 style={{color: "#ff00bb"}}>{userSugg?.title}</h1>
-            <div style={{fontSize: "1.25rem", width: "50%", margin: "0 auto"}}>{userSugg?.details}</div>
+
+            {userSugg?.contentType !== "Music" && (
+              <div style={{fontSize: "1.25rem", width: "50%", margin: "0 auto"}}>{userSugg?.details}</div>
+            )}
             <br />
             {decideifyUserObject.id === userSugg?.userProfileId && (
   <>

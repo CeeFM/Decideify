@@ -68,8 +68,8 @@ export default function Register({setIsLoggedIn}) {
           <FormGroup>
         <Label htmlFor="isPublic">Share My Suggestions Publicly?</Label>
         <Input type="select" name="isPublic" onChange={e => setIsPublic(e.target.value)}>
-          <option value="true">Yes</option>
           <option value="false">No</option>
+          <option value="true">Yes</option>
         </Input>
       </FormGroup>
         </fieldset>
