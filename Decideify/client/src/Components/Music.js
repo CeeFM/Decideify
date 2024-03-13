@@ -84,9 +84,7 @@ export default function Music() {
     setRandomSuggestion(thisSuggestion);
     musicDetails.innerHTML = `<img src=${thisSuggestion?.cover_image} style="height: 50vh; marginBottom: 6.5rem; borderRadius: 5rem;" alt="Album cover for ${thisSuggestion?.title}"/>
     <br />
-    <h1 style="font-family: 'Bebas Neue';">Title: <strong style="font-family: 'Bebas Neue';">${thisSuggestion?.title}</strong></h1>
-    <br />
-    <button className="btn btn-primary" style="font-family: 'Bebas Neue';"><a href="https://www.discogs.com${thisSuggestion?.uri}" target="_blank" className="btn btn-primary">More details</a></button>`;
+    <h1 style="font-family: 'Bebas Neue';">Title: <strong style="font-family: 'Bebas Neue';">${thisSuggestion?.title}</strong></h1>`;
     musicShow.style.display = "none";
     musicSave.style.display = "block";
   }
