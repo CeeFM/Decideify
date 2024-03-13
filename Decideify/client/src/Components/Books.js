@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getallbooks } from "../Managers/APIManager";
 import { addSuggestion, getSuggestionsByUser } from "../Managers/SuggestionManager";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import { getCategoryByContentType, getCategoryById } from "../Managers/CategoryManager";
 import bookLoading from "../Images/booksuggestion1.jpg"
 import Suggestion from "./Suggestion";
@@ -11,7 +11,8 @@ export default function Books() {
   
   const localUserProfile = localStorage.getItem("userProfile");
   const decideifyUserObject = JSON.parse(localUserProfile);
-
+  const [randomSuggestion, setRandomSuggestion] = useState();
+  const [modal, setModal] = useState(false);
   const [bookSuggestions, setBookSuggestions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [userSuggestions, setUserSuggestions] = useState([]);
@@ -86,22 +87,21 @@ export default function Books() {
       thisSuggestion = filterTest[randomFilteredList]?.books[randomFilteredBook];
     }
 
+    setRandomSuggestion(thisSuggestion);
+
     bookDetails.innerHTML = `<img src=${thisSuggestion?.book_image} style="height: 50vh; marginBottom: 6.5rem; borderRadius: 5rem;" alt="Book cover for ${thisSuggestion?.title}"/>
     <br />
     <h1 style="font-family: 'Bebas Neue';">Title: <strong style="font-family: 'Bebas Neue';">${thisSuggestion?.title}</strong></h1>
-    <br />
-    <h2 style="font-family: 'Bebas Neue';"> Written By: ${thisSuggestion?.author}</h2>
-    <br />
-    <p style="font-family: 'Bebas Neue';">Description: ${thisSuggestion?.description}</p>`;
+    <br />`;
     bookShow.style.display = "none";
     bookSave.style.display = "block";
   };
 
   const saveSuggestion = () => {
-    suggestion.Title =  thisSuggestion?.title;
-    suggestion.Creator = thisSuggestion?.author;
-    suggestion.Details = thisSuggestion?.description;
-    suggestion.ImageLocation = thisSuggestion?.book_image;
+    suggestion.Title =  randomSuggestion?.title;
+    suggestion.Creator = randomSuggestion?.author;
+    suggestion.Details = randomSuggestion?.description;
+    suggestion.ImageLocation = randomSuggestion?.book_image;
     console.log(suggestion)
     addSuggestion(suggestion)
     .then(() => {
@@ -167,6 +167,8 @@ const submitCategory = (e) => {
     getUserSuggestions();
   }, []);
 
+  let toggle = () => setModal(!modal);
+
   return (
     <>
       <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>Books!</div>
@@ -194,8 +196,13 @@ const submitCategory = (e) => {
       {/* <button onClick={printbooks} className="btn btn-secondary">Show Me My Book Suggestion!</button> */}
       </section>
       <section id="book-save" style={{display: "none"}}>
-      <button onClick={saveSuggestion} className="btn btn-primary">Save Book</button>
+      <button onClick={toggle} className="btn btn-warning">More Details</button>
+      <br />
+      <br />
       <button onClick={printbooks} className="btn btn-secondary">Show Me Another Book Suggestion!</button>
+      <br />
+      <br />
+      <button onClick={saveSuggestion} className="btn btn-primary">Save Book</button>
       </section>
       </div>
       </div>
@@ -242,6 +249,31 @@ const submitCategory = (e) => {
         </FormGroup>
         </fieldset>
       </Form>
+      <Modal
+    isOpen={modal}
+    toggle={toggle}
+    fullscreen
+  >
+    <ModalBody >
+    { randomSuggestion && (
+      <>
+      <div className="text-center" style={{width: "50%", margin: "0 auto", paddingTop: "10rem"}}>
+    <img src={`${randomSuggestion?.book_image}`} style={{height: "50vh", marginBottom: "1.5rem", borderRadius: "2rem"}} alt={`Movie poster for ${randomSuggestion?.title}`}/>
+    <br />
+    <h1 style={{ fontFamily: "Bebas Neue" }}>Title: <strong style={{ fontFamily: "Bebas Neue" }}>{randomSuggestion?.title}</strong></h1>
+    <br />
+    <h2 style={{ fontFamily: "Bebas Neue" }}>Description: {randomSuggestion?.description}</h2>
+    <br />
+    <p style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} >Written By: {randomSuggestion?.author}</p>
+    </div>
+    </>
+    )}
+        <div className="text-center">
+    <button onClick={toggle} style={{marginBottom: '2rem'}} className="btn-danger btn">CLOSE</button>
+    </div>
+    </ModalBody>
+
+  </Modal>
     </>
 
   );
