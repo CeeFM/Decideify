@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getalltv } from "../Managers/APIManager";
 import { addSuggestion, getSuggestionsByUser } from "../Managers/SuggestionManager";
 import { getCategoryByContentType, getCategoryById } from "../Managers/CategoryManager";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label, Modal, ModalBody } from "reactstrap";
 import tvLoading from "../Images/tvsuggestion1.jpg"
 import Suggestion from "./Suggestion";
 import ContentCarousel from "./ContentCarousel";
@@ -12,6 +12,8 @@ export default function TVShows() {
   const localUserProfile = localStorage.getItem("userProfile");
   const decideifyUserObject = JSON.parse(localUserProfile);
 
+  const [randomSuggestion, setRandomSuggestion] = useState();
+  const [modal, setModal] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [userCategory, setUserCategory] = useState();
@@ -76,24 +78,21 @@ export default function TVShows() {
     console.log(randomNumber);
     console.log(showSuggestions?.results[randomNumber]);
     currentSuggestion = showSuggestions?.results[randomNumber];
+    setRandomSuggestion(currentSuggestion);
     tvDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${currentSuggestion?.poster_path}" style="height: 50vh; marginBottom: 6.5rem; borderRadius: 5rem;" alt="TV Show poster for ${currentSuggestion?.name}"/>
     <br />
-    <h1 style="font-family: 'Bebas Neue';">Title: <strong style="font-family: 'Bebas Neue';">${currentSuggestion?.name}</strong></h1>
-    <br />
-    <h2 style="font-family: 'Bebas Neue';">Description: ${currentSuggestion?.overview}</h2>
-    <br />
-    <p style="font-family: 'Bebas Neue';">Released: ${currentSuggestion?.first_air_date}`;
+    <h1 style="font-family: 'Bebas Neue';">Title: <strong style="font-family: 'Bebas Neue';">${currentSuggestion?.name}</strong></h1>`;
     tvShow.style.display = "none";
     tvSave.style.display = "block";
   };
 
   const saveSuggestion = () => {
-      suggestion.Title =  currentSuggestion?.name;
+      suggestion.Title =  randomSuggestion?.name;
       suggestion.Creator = "n/a"
-      suggestion.Details = currentSuggestion?.overview;
-      suggestion.ImageLocation = `https://image.tmdb.org/t/p/w500${currentSuggestion?.poster_path}`;     
-      suggestion.ReleaseDate = currentSuggestion?.first_air_date;
-      suggestion.ExternalId = currentSuggestion?.id.toString();
+      suggestion.Details = randomSuggestion?.overview;
+      suggestion.ImageLocation = `https://image.tmdb.org/t/p/w500${randomSuggestion?.poster_path}`;     
+      suggestion.ReleaseDate = randomSuggestion?.first_air_date;
+      suggestion.ExternalId = randomSuggestion?.id.toString();
       console.log(suggestion)
       addSuggestion(suggestion)
       .then(() => {
@@ -159,6 +158,8 @@ const addUserSuggestion = () => {
     getUserSuggestions();
   }, []);
 
+  let toggle = () => setModal(!modal);
+
   return (
     <>
       <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>TV Shows!</div>
@@ -186,8 +187,13 @@ const addUserSuggestion = () => {
       {/* <button onClick={printshows} className="btn btn-secondary">Show Me My TV Show Suggestion!</button> */}
       </section>
       <section id="tv-save" style={{display: "none"}}>
-      <button onClick={saveSuggestion} className="btn btn-primary">Save TV Show</button>
+      <button onClick={toggle} className="btn btn-warning">More Details</button>
+      <br />
+      <br />
       <button onClick={printshows} className="btn btn-secondary">Show Me Another TV Show Suggestion!</button>
+      <br />
+      <br />
+      <button onClick={saveSuggestion} className="btn btn-primary">Save TV Show</button>
       </section>
       </div>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s TV Shows!</div>
@@ -236,7 +242,31 @@ const addUserSuggestion = () => {
   </FormGroup>
   </fieldset>
 </Form>
+<Modal
+    isOpen={modal}
+    toggle={toggle}
+    fullscreen
+  >
+    <ModalBody >
+    { randomSuggestion && (
+      <>
+      <div className="text-center" style={{width: "50%", margin: "0 auto", paddingTop: "5rem"}}>
+    <img src={`https://image.tmdb.org/t/p/w500${randomSuggestion?.poster_path}`} style={{height: "50vh", marginBottom: "1.5rem", borderRadius: "2rem"}} alt={`TV Show poster for ${randomSuggestion?.name}`}/>
+    <br />
+    <h1 style={{ fontFamily: "Bebas Neue" }}>Title: <strong style={{ fontFamily: "Bebas Neue" }}>{randomSuggestion?.name}</strong></h1>
+    <br />
+    <h2 style={{ fontFamily: "Bebas Neue" }}>Description: {randomSuggestion?.overview}</h2>
+    <br />
+    <p style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} >Released: {randomSuggestion?.first_air_date}</p>
+    </div>
     </>
+    )}
+        <div className="text-center">
+    <button onClick={toggle} style={{marginBottom: '2rem'}} className="btn-danger btn">CLOSE</button>
+    </div>
+    </ModalBody>
 
+  </Modal>
+    </>
   );
 }
