@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { discogsTest, getallmusic } from "../Managers/APIManager";
 import { addSuggestion, getSuggestionsByUser } from "../Managers/SuggestionManager";
 import { getCategoryByContentType, getCategoryById } from "../Managers/CategoryManager";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label, Modal, ModalBody } from "reactstrap";
 import musicLoading from "../Images/musicsuggestion1.jpg"
 import Suggestion from "./Suggestion";
 import ContentCarousel from "./ContentCarousel";
@@ -12,6 +12,8 @@ export default function Music() {
   const localUserProfile = localStorage.getItem("userProfile");
   const decideifyUserObject = JSON.parse(localUserProfile);
 
+  const [randomSuggestion, setRandomSuggestion] = useState();
+  const [modal, setModal] = useState(false);
   const [musicSuggestions, setMusicSuggestions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [userCategory, setUserCategory] = useState();
@@ -79,6 +81,7 @@ export default function Music() {
     console.log(randomNumber);
     console.log(musicSuggestions?.results[randomNumber]);
     thisSuggestion = musicSuggestions?.results[randomNumber];
+    setRandomSuggestion(thisSuggestion);
     musicDetails.innerHTML = `<img src=${thisSuggestion?.cover_image} style="height: 50vh; marginBottom: 6.5rem; borderRadius: 5rem;" alt="Album cover for ${thisSuggestion?.title}"/>
     <br />
     <h1 style="font-family: 'Bebas Neue';">Title: <strong style="font-family: 'Bebas Neue';">${thisSuggestion?.title}</strong></h1>
@@ -89,12 +92,12 @@ export default function Music() {
   }
 
   const saveSuggestion = () => {
-    suggestion.Title =  thisSuggestion?.title;
+    suggestion.Title =  randomSuggestion?.title;
     suggestion.Creator = "n/a";
     suggestion.Details = "n/a";
-    suggestion.ImageLocation = thisSuggestion?.cover_image;
-    suggestion.ExternalId = thisSuggestion?.id.toString();
-    suggestion.ExternalLink = `https://www.discogs.com${thisSuggestion?.uri}`
+    suggestion.ImageLocation = randomSuggestion?.cover_image;
+    suggestion.ExternalId = randomSuggestion?.id.toString();
+    suggestion.ExternalLink = `https://www.discogs.com${randomSuggestion?.uri}`
     console.log(suggestion)
     addSuggestion(suggestion)
     .then(() => {
@@ -159,6 +162,9 @@ const addUserSuggestion = () => {
     getUserSuggestions();
   }, []);
 
+  let toggle = () => setModal(!modal);
+
+
   return (
     <>
       <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>Music!</div>
@@ -187,8 +193,13 @@ const addUserSuggestion = () => {
       {/* <button onClick={printmusic} className="btn btn-secondary">Show Me My Music Suggestion!</button> */}
       </section>
       <section id="music-save" style={{display: "none"}}>
-      <button onClick={saveSuggestion} className="btn btn-primary">Save Music</button>
+      <button onClick={toggle} className="btn btn-warning">More Details</button>
+      <br />
+      <br />
       <button onClick={printmusic} className="btn btn-secondary">Show Me Another Music Suggestion!</button>
+      <br />
+      <br />
+      <button onClick={saveSuggestion} className="btn btn-primary">Save Music</button>
       </section>
       </div>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Music!</div>
@@ -235,6 +246,29 @@ const addUserSuggestion = () => {
   </FormGroup>
   </fieldset>
 </Form>
+<Modal
+    isOpen={modal}
+    toggle={toggle}
+    fullscreen
+  >
+    <ModalBody >
+    { randomSuggestion && (
+      <>
+      <div className="text-center" style={{width: "50%", margin: "0 auto", paddingTop: "10rem"}}>
+    <img src={`${randomSuggestion?.cover_image}`} style={{height: "50vh", marginBottom: "1.5rem", borderRadius: "2rem"}} alt={`Movie poster for ${randomSuggestion?.title}`}/>
+    <br />
+    <h1 style={{ fontFamily: "Bebas Neue" }}>Title: <strong style={{ fontFamily: "Bebas Neue" }}>{randomSuggestion?.title}</strong></h1>
+    <br />
+    <button style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} className="btn btn-primary"><a style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} href={`https://www.discogs.com${randomSuggestion?.uri}`}  target="_blank">More Details</a></button>
+    </div>
+    </>
+    )}
+        <div className="text-center">
+    <button onClick={toggle} style={{marginBottom: '2rem'}} className="btn-danger btn">CLOSE</button>
+    </div>
+    </ModalBody>
+
+  </Modal>
     </>
 
   );
