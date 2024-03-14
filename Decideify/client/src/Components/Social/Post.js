@@ -45,7 +45,7 @@ export const Post = ({ thisPost }) => {
     useEffect(() => {
         getPostReactionsByPostId(thisPost.id)
             .then((postReactions) => setPostReactionsList(postReactions))
-      }, [modal]);
+      }, []);
 
     const addReaction = (reaction) => {
         const reactionToSend = {
@@ -171,14 +171,14 @@ export const Post = ({ thisPost }) => {
   <button className="dropbtn">⬇️ 😊 ⬇️</button>
   <div className="dropdown-content" >
     {reactions.map((reaction) => (
-    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions}/>
+    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList}/>
     ))}
   </div>
 </div>
 <div style={{width: "15vw", margin: "0 auto"}} >
 {reactions.map((reaction) => (
   <>
-    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions}/>
+    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList}/>
   </>
 ))
 }

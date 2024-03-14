@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { addPostReaction, deletePostReaction, getPostReactionsByPostId, getpostreactionsbypostid } from "../../Managers/PostReactionManager";
 
-export const PostReaction = ({ post, reaction, modal }) => {
+export const PostReaction = ({ post, reaction, modal, postReactionsList, setPostReactionsList }) => {
     const localUserProfile = localStorage.getItem("userProfile");
     const decideifyUserObject = JSON.parse(localUserProfile);
 
@@ -11,8 +11,6 @@ export const PostReaction = ({ post, reaction, modal }) => {
         PostId: post.id
     });
 
-    const [postReactionsList, setPostReactionsList] = useState([]);
-
     const getPostsReactions = () => {
         getPostReactionsByPostId(post.id).then((postReactions) => {
         setPostReactionsList(postReactions);
@@ -21,11 +19,6 @@ export const PostReaction = ({ post, reaction, modal }) => {
         console.error("OOPS I BORKED IT WITH THIS ERROR:" , error);
     });
 };
-
-    useEffect(() => {
-        getPostReactionsByPostId(post.id)
-            .then((postReactions) => setPostReactionsList(postReactions))
-      }, [modal]);
 
     const addReaction = () => {
         const reactionToSend = {
