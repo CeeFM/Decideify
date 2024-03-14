@@ -39,6 +39,43 @@ code {
     box-shadow: 0 0 10px 2px gold;
   }
 }
+
+.pulsing-red {
+  animation: redpulse 2s infinite;
+  box-shadow: 0 0 10px 2px #ff0000;
+}
+
+@keyframes redpulse {
+  0% {
+    box-shadow: 0 0 10px 2px #ff0000;
+  }
+  50% {
+    box-shadow: 0 0 10px 6px #ff0000;
+  }
+  100% {
+    box-shadow: 0 0 10px 2px #ff0000;
+  }
+}
+
+.pulsing-green {
+  animation: greenpulse 2s infinite;
+  box-shadow: 0 0 10px 2px #078500;
+}
+
+@keyframes greenpulse {
+  0% {
+    box-shadow: 0 0 10px 2px #078500;
+  }
+  50% {
+    box-shadow: 0 0 10px 6px #078500;
+  }
+  100% {
+    box-shadow: 0 0 10px 2px #078500;
+  }
+}
+
+
+
 .big-link {
   margin-right: 1rem;
 }

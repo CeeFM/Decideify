@@ -12,6 +12,8 @@ export default function Suggestion({ userSugg }) {
 
   const [modal, setModal] = useState(false);
   const [modalTwo, setModalTwo] = useState(false);
+  const [trueBtn, setTrueBtn] = useState(false);
+  const [falseBtn, setFalseBtn] = useState(false);
   const [editSuggestion, setEditSuggestion] = useState({});
 
   useEffect(() => {
@@ -25,7 +27,13 @@ export default function Suggestion({ userSugg }) {
 
   const updateSuggestion = (e, bool) => {
     e.preventDefault();
-
+    if (bool === false) {
+      setFalseBtn("pulsing-red");
+      setTrueBtn("")
+    } else if (bool === true) {
+      setTrueBtn("pulsing-green");
+      setFalseBtn("");
+    }
     const suggestionUpdate = {...editSuggestion};
     suggestionUpdate.isRecommended = bool;
 
@@ -61,10 +69,10 @@ const truncateText = (text, limit) => {
             {decideifyUserObject.id === userSugg?.userProfileId && (
   <>
     <div style={{fontFamily: "Bebas Neue", fontSize: "1.25rem"}}>Recommend?</div>
-    <button onClick={(e) => updateSuggestion(e, true)}>
+    <button onClick={(e) => updateSuggestion(e, true)} className={trueBtn ? "pulsing-green" : ""}>
       <img src={yes} alt="yes" style={{ width: "3rem" }} value="true" />
     </button>
-    <button onClick={(e) => updateSuggestion(e, false)}>
+    <button onClick={(e) => updateSuggestion(e, false)}  className={falseBtn ? "pulsing-red" : ""}>
       <img src={no} alt="no" style={{ width: "2.75rem" }} value="false" />
     </button>
     <br />
@@ -106,19 +114,19 @@ const truncateText = (text, limit) => {
         </div>
         <div className="text-center">
             <img src={userSugg?.imageLocation} style={{height: "35rem", marginTop: "5rem"}} alt={userSugg?.title} />
-            <h1 style={{color: "#ff00bb"}}>{userSugg?.title}</h1>
+            <h1 style={{color: "#ff00bb", fontFamily: "Bebas Neue"}}>{userSugg?.title}</h1>
 
             {userSugg?.contentType !== "Music" && (
-              <div style={{fontSize: "1.25rem", width: "50%", margin: "0 auto"}}>{userSugg?.details}</div>
+              <div style={{fontSize: "1.25rem", fontFamily: "Bebas Neue", width: "50%", margin: "0 auto"}}>{userSugg?.details}</div>
             )}
             <br />
             {decideifyUserObject.id === userSugg?.userProfileId && (
   <>
     <h5>Recommend?</h5>
-    <button onClick={(e) => updateSuggestion(e, true)}>
+    <button onClick={(e) => updateSuggestion(e, true)} className={trueBtn}>
       <img src={yes} alt="yes" style={{ width: "3rem" }} value="true" />
     </button>
-    <button onClick={(e) => updateSuggestion(e, false)}>
+    <button onClick={(e) => updateSuggestion(e, false)} className={falseBtn}>
       <img src={no} alt="no" style={{ width: "2.75rem" }} value="false" />
     </button>
     <br />
