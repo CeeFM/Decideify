@@ -8,6 +8,7 @@ import { getAllReactions } from "../../Managers/ReactionManager";
 import { PostReaction } from "./PostReaction";
 import x from "../../Images/X.png"
 import { Subscribe } from "./Subscribe";
+import { addPostReaction, deletePostReaction, getPostReactionsByPostId } from "../../Managers/PostReactionManager";
 
 export const Post = ({ thisPost }) => {
 
@@ -29,6 +30,46 @@ export const Post = ({ thisPost }) => {
       PostId: thisPost.id
     });
     const [isActive, setIsActive] = useState(false);
+    const [postReactionsList, setPostReactionsList] = useState([]);
+    
+
+    const getPostsReactions = () => {
+        getPostReactionsByPostId(thisPost.id).then((postReactions) => {
+        setPostReactionsList(postReactions);
+    })
+    .catch((error) => {
+        console.error("OOPS I BORKED IT WITH THIS ERROR:" , error);
+    });
+};
+
+    useEffect(() => {
+        getPostReactionsByPostId(thisPost.id)
+            .then((postReactions) => setPostReactionsList(postReactions))
+      }, [modal]);
+
+    const addReaction = (reaction) => {
+        const reactionToSend = {
+          UserProfileId: decideifyUserObject.id,
+          ReactionId: reaction.id,
+          PostId: thisPost.id
+        };
+        addPostReaction(reactionToSend)
+        .then(() => {
+            return getPostReactionsByPostId(thisPost.id)
+        })
+        .then((thesePostReactions) => setPostReactionsList(thesePostReactions))
+      };
+    
+    const deleteReaction = (reaction) => {
+      const userReactionCount = postReactionsList.filter((pr) => pr.userProfileId === decideifyUserObject.id && pr.reactionId === reaction.id && pr.postId === thisPost.id);
+
+        deletePostReaction(userReactionCount[0].id)
+        .then(() => {
+            return getPostReactionsByPostId(thisPost.id)
+        })
+        .then((thesePostReactions) => setPostReactionsList(thesePostReactions));
+
+    }
 
     const toggleDropdown = () => {
       setIsActive(!isActive);
@@ -107,6 +148,7 @@ export const Post = ({ thisPost }) => {
     allReactions();
   }, [])
 
+  
     return (
     <>
         <Card style={{width: "40rem", margin: "2rem auto"}}>
@@ -129,7 +171,7 @@ export const Post = ({ thisPost }) => {
   <button className="dropbtn">⬇️ 😊 ⬇️</button>
   <div className="dropdown-content" >
     {reactions.map((reaction) => (
-      <button className="reactionbtn" style={{border: "none"}}><img key={reaction.id} src={reaction.imageLocation} style={{height: "7vh"}} alt={reaction.name} /></button>
+    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions}/>
     ))}
   </div>
 </div>

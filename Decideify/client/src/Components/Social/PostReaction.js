@@ -52,8 +52,6 @@ export const PostReaction = ({ post, reaction, modal }) => {
 
     return (
         <>
-          {reactionCount.length > 0 && ( 
-            <> 
               {userReactionCount.length === 0 ? (
                 <>
                   <button className="btn btn-secondary m-1" onClick={addReaction} style={{ fontFamily: "Bebas Neue" }}>
@@ -70,8 +68,7 @@ export const PostReaction = ({ post, reaction, modal }) => {
                 </button>
               )}
             </>
-          )}
-        </>
+
       );
 
 }

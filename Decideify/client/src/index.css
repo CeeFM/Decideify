@@ -135,13 +135,7 @@ code {
 }
 
 /* Style the dropdown options */
-.dropdown-content img {
-  display: block;
-  width: 100px; /* Adjust as needed */
-  height: auto; /* Adjust as needed */
-  padding: 2px;
-  border-radius: 2rem;
-}
+
 
 .reactionbtn:hover {
   background-color: #032e51;
