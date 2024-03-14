@@ -120,12 +120,23 @@ export const Post = ({ thisPost }) => {
   <img src={thisPost?.userProfile?.imageLocation} alt="the post author's picture" style={{ height: '5rem', borderRadius: '8rem' }}
   />
 </div>
+<div style={{width: "15vw", margin: "0 auto"}} >
 {reactions.map((reaction) => (
   <>
     <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions}/>
   </>
 ))
 }
+</div>
+<Form style={{width: "5vw", margin: "0 auto"}}>
+  <Label>REACT</Label>
+  <Input type="select">
+  <option value="0">⬇️ 😊 ⬇️</option>
+    {reactions.map((reaction) => (
+      <option key={reaction.id} value={reaction.id}><img src={reaction.imageLocation} /></option>
+    ))}
+  </Input>
+</Form>
             </CardBody>
         </Card>
         <Modal

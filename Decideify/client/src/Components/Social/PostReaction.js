@@ -50,22 +50,28 @@ export const PostReaction = ({ post, reaction, modal }) => {
     const userReactionCount = postReactionsList.filter((pr) => pr.userProfileId === decideifyUserObject.id && pr.reactionId === reaction.id);
     const reactionCount = postReactionsList.filter((pr) => pr.reactionId === reaction.id);
 
-    return <>
-        {reactionCount.length === 0 || userReactionCount.length === 0 ? (
-            <>
-                <button className="btn btn-secondary m-1" onClick={addReaction} style={{fontFamily: "Bebas Neue"}}>
-                <img className="reaction-btn" alt={reaction.name} src={reaction.imageLocation} />
-                <br />
-                {reactionCount.length}
+    return (
+        <>
+          {reactionCount.length > 0 && ( 
+            <> 
+              {userReactionCount.length === 0 ? (
+                <>
+                  <button className="btn btn-secondary m-1" onClick={addReaction} style={{ fontFamily: "Bebas Neue" }}>
+                    <img className="reaction-btn" alt={reaction.name} src={reaction.imageLocation} />
+                    <br />
+                    {reactionCount.length}
+                  </button>
+                </>
+              ) : (
+                <button className="btn btn-primary m-1" id="reacted" onClick={deleteReaction} style={{ fontFamily: "Bebas Neue" }}>
+                  <img className="reaction-btn" alt={reaction.name} src={reaction.imageLocation} />
+                  <br />
+                  {reactionCount.length}
                 </button>
+              )}
             </>
-        ) : (
-            <button className="btn btn-primary m-1" id="reacted" onClick={deleteReaction} style={{fontFamily: "Bebas Neue"}}>
-            <img className="reaction-btn" alt={reaction.name} src={reaction.imageLocation} />
-            <br />
-            {reactionCount.length}
-            </button> 
-        )}
+          )}
         </>
+      );
 
 }
