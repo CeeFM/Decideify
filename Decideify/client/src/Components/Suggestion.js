@@ -18,6 +18,13 @@ export default function Suggestion({ userSugg }) {
 
   useEffect(() => {
     setEditSuggestion(userSugg);
+    if (userSugg?.isRecommended === true) {
+      setTrueBtn("pulsing-green")
+      setFalseBtn("")
+    } else if (userSugg?.isRecommended === false) {
+      setTrueBtn("")
+      setFalseBtn("pulsing-red")
+    }
   }, [])
 
   const deleteMe = () => {
