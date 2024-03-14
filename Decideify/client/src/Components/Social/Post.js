@@ -28,6 +28,11 @@ export const Post = ({ thisPost }) => {
       CreateDateTime: new Date(),
       PostId: thisPost.id
     });
+    const [isActive, setIsActive] = useState(false);
+
+    const toggleDropdown = () => {
+      setIsActive(!isActive);
+    };
 
     const toggle = () => setModal(!modal);
 
@@ -120,6 +125,14 @@ export const Post = ({ thisPost }) => {
   <img src={thisPost?.userProfile?.imageLocation} alt="the post author's picture" style={{ height: '5rem', borderRadius: '8rem' }}
   />
 </div>
+<div className={`dropdown ${isActive ? 'active' : ''}`} onClick={toggleDropdown}>
+  <button className="dropbtn">⬇️ 😊 ⬇️</button>
+  <div className="dropdown-content" >
+    {reactions.map((reaction) => (
+      <button className="reactionbtn" style={{border: "none"}}><img key={reaction.id} src={reaction.imageLocation} style={{height: "7vh"}} alt={reaction.name} /></button>
+    ))}
+  </div>
+</div>
 <div style={{width: "15vw", margin: "0 auto"}} >
 {reactions.map((reaction) => (
   <>
@@ -128,15 +141,7 @@ export const Post = ({ thisPost }) => {
 ))
 }
 </div>
-<Form style={{width: "5vw", margin: "0 auto"}}>
-  <Label>REACT</Label>
-  <Input type="select">
-  <option value="0">⬇️ 😊 ⬇️</option>
-    {reactions.map((reaction) => (
-      <option key={reaction.id} value={reaction.id}><img src={reaction.imageLocation} /></option>
-    ))}
-  </Input>
-</Form>
+
             </CardBody>
         </Card>
         <Modal
