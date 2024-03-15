@@ -14,26 +14,20 @@ const SubscribePosts = () => {
     useEffect(() => {
         
         const fetchPosts = async () => {
-             // Fetch all subscriptions for the current user
              const subscriptions = await getSubscriptionsByUserId(decideifyUserObject.id); 
              let allPosts = [];
  
-             // Iterate through subscriptions to fetch posts from each subscribed user
              for (const subscription of subscriptions) {
                  const authorId = subscription.providerUserProfileId;
-                 // Fetch posts written by the subscribed author
                  const posts = await getPostByUserId(authorId);
-                 // Concatenate the fetched posts to the existing array
                  allPosts = [...allPosts, ...posts];
              }
 
-             // Update the state with the fetched posts
              setSubposts(allPosts);
      };
         fetchPosts();
     }, []);
 
-    //HTML Display
     return (
         <div className='text-center' style={{marginTop: "10rem"}}>
             <h2>Posts From People You're Subscribed To:</h2>

@@ -14,6 +14,7 @@ export const Post = ({ thisPost }) => {
 
   const localUserProfile = localStorage.getItem("userProfile");
   const decideifyUserObject = JSON.parse(localUserProfile);
+  let pbs;
 
     const [modal, setModal] = useState(false);
     const [allTags, setAllTags] = useState([]);
@@ -178,7 +179,7 @@ export const Post = ({ thisPost }) => {
   <div className="dropdown-content" >
     {reactions.map((reaction) => (
       <button
-  className="reactionbtn"
+  className="reactionbtn btn btn-secondary"
   style={{ border: "none" }}
   onClick={() =>
     postReactionsList.some(pr => pr.userProfileId === decideifyUserObject.id && pr.postId === thisPost.id && pr.reactionId === reaction.id)
@@ -195,7 +196,8 @@ export const Post = ({ thisPost }) => {
 </button>    ))}
   </div>
 </div>
-<div style={{width: "15vw", margin: "0 auto"}} >
+{postReactionsList.length > 0 && postReactionsList.length < 7 && postReactionsList.length !== 0 ?
+<div style={{width: "22vw", height: "15vh", margin: "0 auto", paddingTop: "2.5rem"}} >
 {reactions.map((reaction) => (
   <>
     <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList} />
@@ -203,6 +205,22 @@ export const Post = ({ thisPost }) => {
 ))
 }
 </div>
+:
+ postReactionsList.length !== 0 ?
+<div style={{width: "22vw", height: "15vh", margin: "0 auto", paddingTop: ""}} >
+{reactions.map((reaction) => (
+  <>
+    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList} />
+  </>
+))
+}
+</div>
+:
+<div style={{width: "22vw", height: "15vh", margin: "0 auto", paddingTop: "5rem"}} >
+  <h4>No reactions yet! C'mon and add one!</h4>
+</div>
+}
+
 
             </CardBody>
         </Card>
@@ -234,14 +252,37 @@ export const Post = ({ thisPost }) => {
   <img src={thisPost?.userProfile?.imageLocation} alt="the post author's picture" style={{ height: '5rem', borderRadius: '8rem' }}
   />
 </div>
-{/* Commenting out postreactions on social post modals for now because they weren't working very well and took up a lot of visual space. Will put them back in asap but trying to knock out some other things first
+<div className={`dropdown ${isActive ? 'active' : ''}`} onClick={toggleDropdown}>
+  <button className="dropbtn btn btn-secondary">⬇️ 😊 ⬇️</button>
+  <div className="dropdown-content" >
+    {reactions.map((reaction) => (
+      <button
+  className="reactionbtn btn btn-secondary"
+  style={{ border: "none" }}
+  onClick={() =>
+    postReactionsList.some(pr => pr.userProfileId === decideifyUserObject.id && pr.postId === thisPost.id && pr.reactionId === reaction.id)
+      ? deleteReaction(reaction)
+      : addReaction(reaction)
+  }
+>
+  <img
+    key={reaction.id}
+    src={reaction.imageLocation}
+    style={{ height: "7vh", width: "3.5vw" }}
+    alt={reaction.name}
+  />
+</button>    ))}
+  </div>
+</div>
 
+<div style={{width: "22vw", margin: "0 auto"}} >
 {reactions.map((reaction) => (
   <>
-    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} modal={modal}/>
+    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList} />
   </>
 ))
-} */}
+}
+</div>
 
             </CardBody>
         </Card>
