@@ -108,7 +108,7 @@ export const getallmovies = (category) => {
 
   export const getalltv = (category) => {
     const randomSort = Math.floor(Math.random() * tvSorting.length);
-    let tvUrl = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&without_genres=10763%7C10767&sort_by=${tvSorting[randomSort]}`
+    let tvUrl = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&without_genres=10763%7C10767&with_original_language=en&sort_by=${tvSorting[randomSort]}`
 
     if (category?.id !== 57 && category?.resultsCount < 500) {
       let randomPage = Math.floor(Math.random() * category?.resultsCount) + 1;

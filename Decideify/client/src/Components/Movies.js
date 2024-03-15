@@ -19,6 +19,8 @@ export default function Movies() {
   let myMovies = document.getElementById("my-movies");
 
   const [movieSuggestions, setMovieSuggestions] = useState([]);
+  const [movieSuggestionTracker, setMovieSuggestionTracker] = useState([]);
+  const [noMoreSuggestions, setNoMoreSuggestion] = useState(false);
   const [randomSuggestion, setRandomSuggestion] = useState();
   const [modal, setModal] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -71,12 +73,34 @@ export default function Movies() {
   };
 
   const printmovies = () => {
-    const randomNumber = Math.floor(Math.random() * movieSuggestions?.results?.length);
+    let movieSuggestionNumbers = [...movieSuggestionTracker];
+    let allGood = false;
+    let randomNumber = Math.floor(Math.random() * movieSuggestions?.results?.length);
+    while (allGood === false) {
+      if (movieSuggestionNumbers.includes(randomNumber)) {
+        randomNumber = Math.floor(Math.random() * movieSuggestions?.results?.length);
+      } else if (movieSuggestions?.results[randomNumber]?.poster_path === null) {
+        const newMovieSuggestionNumbers = [...movieSuggestionNumbers, randomNumber];
+        setMovieSuggestionTracker(newMovieSuggestionNumbers);
+        randomNumber = Math.floor(Math.random() * movieSuggestions?.results?.length);
+      } else if (movieSuggestionNumbers.length >= movieSuggestions?.results?.length - 1) {
+        allGood = true;
+        setNoMoreSuggestion(true);
+      } else {
+        allGood = true;
+        const newMovieSuggestionNumbers = [...movieSuggestionNumbers, randomNumber];
+        setMovieSuggestionTracker(newMovieSuggestionNumbers)
+      }
+    }
     thisSuggestion = movieSuggestions?.results[randomNumber];
     setRandomSuggestion(thisSuggestion);
+    if (noMoreSuggestions) {
+      movieDetails.innerHTML = `<h1 style="font-family: 'Bebas Neue';">No more suggestions for this search! Start Over to generate more!</h1>`
+    } else {
     movieDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${thisSuggestion?.poster_path}" style="height: 50vh; marginBottom: 6.5rem; borderRadius: 5rem;" alt="Movie poster for ${thisSuggestion?.title}"/>
     <br />
     <h1>${thisSuggestion?.title}</h1>`;
+    };
     movieShow.style.display = "none";
     movieSave.style.display = "block";
   }

@@ -15,6 +15,8 @@ export default function Music() {
   const [randomSuggestion, setRandomSuggestion] = useState();
   const [modal, setModal] = useState(false);
   const [musicSuggestions, setMusicSuggestions] = useState([]);
+  const [musicSuggestionTracker, setMusicSuggestionTracker] = useState([]);
+  const [noMoreSuggestions, setNoMoreSuggestion] = useState(false);
   const [categories, setCategories] = useState([]);
   const [userCategory, setUserCategory] = useState();
   const [userSuggestions, setUserSuggestions] = useState([]);
@@ -76,15 +78,34 @@ export default function Music() {
   let musicSave = document.getElementById("music-save");
 
   const printmusic = () => {
-    console.log(musicSuggestions);
-    const randomNumber = Math.floor(Math.random() * musicSuggestions?.results?.length);
-    console.log(randomNumber);
-    console.log(musicSuggestions?.results[randomNumber]);
+    let musicSuggestionNumbers = [...musicSuggestionTracker];
+    let allGood = false;
+    let randomNumber = Math.floor(Math.random() * musicSuggestions?.results?.length);
+    while (allGood === false) {
+      if (musicSuggestionNumbers.includes(randomNumber)) {
+        randomNumber = Math.floor(Math.random() * musicSuggestions?.results?.length);
+      } else if (musicSuggestions?.results[randomNumber]?.cover_image === null) {
+        const newMusicSuggestionNumbers = [...musicSuggestionNumbers, randomNumber];
+        setMusicSuggestionTracker(newMusicSuggestionNumbers);
+        randomNumber = Math.floor(Math.random() * musicSuggestions?.results?.length);
+      } else if (musicSuggestionNumbers.length >= musicSuggestions?.results?.length - 1) {
+        allGood = true;
+        setNoMoreSuggestion(true);
+      } else {
+        allGood = true;
+        const newMusicSuggestionNumbers = [...musicSuggestionNumbers, randomNumber];
+        setMusicSuggestionTracker(newMusicSuggestionNumbers);
+      }
+    }
     thisSuggestion = musicSuggestions?.results[randomNumber];
     setRandomSuggestion(thisSuggestion);
+    if (noMoreSuggestions) {
+      musicDetails.innerHTML = `<h1 style="font-family: 'Bebas Neue';">No more suggestions for this search! Start Over to generate more!</h1>`
+    } else {
     musicDetails.innerHTML = `<img src=${thisSuggestion?.cover_image} style="height: 50vh; marginBottom: 6.5rem; borderRadius: 5rem;" alt="Album cover for ${thisSuggestion?.title}"/>
     <br />
     <h1 style="font-family: 'Bebas Neue';">Title: <strong style="font-family: 'Bebas Neue';">${thisSuggestion?.title}</strong></h1>`;
+    }
     musicShow.style.display = "none";
     musicSave.style.display = "block";
   }

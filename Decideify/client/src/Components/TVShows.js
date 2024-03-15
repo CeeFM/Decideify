@@ -14,6 +14,8 @@ export default function TVShows() {
 
   const [randomSuggestion, setRandomSuggestion] = useState();
   const [modal, setModal] = useState(false);
+  const [tvSuggestionTracker, setTVSuggestionTracker] = useState([]);
+  const [noMoreSuggestions, setNoMoreSuggestion] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [userCategory, setUserCategory] = useState();
@@ -73,17 +75,38 @@ export default function TVShows() {
 
 
   const printshows = () => {
-    console.log(showSuggestions);
-    const randomNumber = Math.floor(Math.random() * showSuggestions?.results?.length);
-    console.log(randomNumber);
-    console.log(showSuggestions?.results[randomNumber]);
+    let tvSuggestionNumbers = [...tvSuggestionTracker];
+    let allGood = false;
+    let randomNumber = Math.floor(Math.random() * showSuggestions?.results?.length);
+    while (allGood === false) {
+      if (tvSuggestionNumbers.includes(randomNumber)) {
+        randomNumber = Math.floor(Math.random() * showSuggestions?.results?.length);
+      } else if (showSuggestions?.results[randomNumber]?.poster_path === null) {
+        const newTVSuggestionNumbers = [...tvSuggestionNumbers, randomNumber];
+        setTVSuggestionTracker(newTVSuggestionNumbers);
+        randomNumber = Math.floor(Math.random() * showSuggestions?.results?.length);
+      } else if (tvSuggestionNumbers.length >= showSuggestions?.results?.length - 1) {
+        allGood = true;
+        setNoMoreSuggestion(true);
+      } else {
+        allGood = true;
+        const newTVSuggestionNumbers = [...tvSuggestionNumbers, randomNumber];
+        setTVSuggestionTracker(newTVSuggestionNumbers);
+      }
+    }
     currentSuggestion = showSuggestions?.results[randomNumber];
     setRandomSuggestion(currentSuggestion);
+    if (noMoreSuggestions) {
+      tvDetails.innerHTML = `<h1 style="font-family: 'Bebas Neue';">No more suggestions for this search! Start Over to generate more!</h1>`
+    } else {
     tvDetails.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${currentSuggestion?.poster_path}" style="height: 50vh; marginBottom: 6.5rem; borderRadius: 5rem;" alt="TV Show poster for ${currentSuggestion?.name}"/>
     <br />
     <h1 style="font-family: 'Bebas Neue';">Title: <strong style="font-family: 'Bebas Neue';">${currentSuggestion?.name}</strong></h1>`;
+    }
     tvShow.style.display = "none";
     tvSave.style.display = "block";
+    console.log(tvSuggestionTracker);
+    console.log(showSuggestions);
   };
 
   const saveSuggestion = () => {
