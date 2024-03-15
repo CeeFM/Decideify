@@ -242,6 +242,7 @@ export const Post = ({ thisPost }) => {
   </>
 ))
 } */}
+
             </CardBody>
         </Card>
         { isVisible ?
