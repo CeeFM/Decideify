@@ -102,3 +102,39 @@ code {
 .prspan:hover {
   background-color: #ff000071;
 }
+
+/* Style the dropdown button */
+.dropbtn {
+  background-color: #011627;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #011627;
+  width: 20vw;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Show the dropdown content on hover */
+.dropdown.active .dropdown-content {
+  display: block;
+}
+
+/* Style the dropdown options */
+.reactionbtn:hover {
+  background-color: #032e51;
+}
