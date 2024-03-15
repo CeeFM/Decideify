@@ -17,6 +17,8 @@ export const Post = ({ thisPost }) => {
 
     const [modal, setModal] = useState(false);
     const [allTags, setAllTags] = useState([]);
+    const [postButtons, setPostButtons] = useState();
+    const [dropdownButtons, setDropdownButtons] = useState();
     const [thisTag, setThisTag] = useState();
     const [isVisible, setIsVisible] = useState(false);
     const [isVisibleToo, setIsVisibleToo] = useState(true);
@@ -44,7 +46,11 @@ export const Post = ({ thisPost }) => {
 
     useEffect(() => {
         getPostReactionsByPostId(thisPost.id)
-            .then((postReactions) => setPostReactionsList(postReactions))
+            .then((postReactions) => {
+              setPostReactionsList(postReactions);
+              setPostButtons(postReactions);
+              setDropdownButtons(postReactions);
+            })
       }, []);
 
     const addReaction = (reaction) => {
@@ -136,12 +142,12 @@ export const Post = ({ thisPost }) => {
     return text;
   }
 
-    useEffect(() => {
-        getAllTags();         
-    }, [])
+  useEffect(() => {
+    getAllTags();         
+  }, [])
 
-    useEffect(() => {
-      getPostComments();         
+  useEffect(() => {
+    getPostComments();         
   }, [])
 
   useEffect(() => {
@@ -149,7 +155,7 @@ export const Post = ({ thisPost }) => {
   }, [])
 
   
-    return (
+  return (
     <>
         <Card style={{width: "40rem", margin: "2rem auto"}}>
           <CardBody>
@@ -168,17 +174,31 @@ export const Post = ({ thisPost }) => {
   />
 </div>
 <div className={`dropdown ${isActive ? 'active' : ''}`} onClick={toggleDropdown}>
-  <button className="dropbtn">⬇️ 😊 ⬇️</button>
+  <button className="dropbtn btn btn-secondary">⬇️ 😊 ⬇️</button>
   <div className="dropdown-content" >
     {reactions.map((reaction) => (
-    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList}/>
-    ))}
+      <button
+  className="reactionbtn"
+  style={{ border: "none" }}
+  onClick={() =>
+    postReactionsList.some(pr => pr.userProfileId === decideifyUserObject.id && pr.postId === thisPost.id && pr.reactionId === reaction.id)
+      ? deleteReaction(reaction)
+      : addReaction(reaction)
+  }
+>
+  <img
+    key={reaction.id}
+    src={reaction.imageLocation}
+    style={{ height: "7vh", width: "3.5vw" }}
+    alt={reaction.name}
+  />
+</button>    ))}
   </div>
 </div>
 <div style={{width: "15vw", margin: "0 auto"}} >
 {reactions.map((reaction) => (
   <>
-    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList}/>
+    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList} />
   </>
 ))
 }
