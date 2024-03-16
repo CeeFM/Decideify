@@ -30,10 +30,10 @@ cd Decideify
 - Open the Decideify.sln file
 - Find your local machine in the SQL Server Object Explorer and add a new Database named Decideify
 - Create a New Query for the Decideify database, and run the SQL scripts from the SQL folder of Decideify in this order:
-  -Decideify_Create_DB.sql	
-  -Decideify_Seed_Categories_DB.sql
-	-Decideify_Seed_Reactions_DB.sql
-	-Decideify_Seed_Users_DB.sql
+  - Decideify_Create_DB.sql	
+  - Decideify_Seed_Categories_DB.sql
+  - Decideify_Seed_Reactions_DB.sql
+  - Decideify_Seed_Users_DB.sql
 
 ## Walkthrough
 Coming soon!
