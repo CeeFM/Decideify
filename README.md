@@ -35,8 +35,8 @@ cd Decideify
 	-Decideify_Seed_Reactions_DB.sql
 	-Decideify_Seed_Users_DB.sql
 
-### Walkthrough
+## Walkthrough
 Coming soon!
 
-### Video Walkthrough
+## Video Walkthrough
 Coming soon!
