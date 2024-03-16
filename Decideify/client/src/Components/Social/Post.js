@@ -7,14 +7,16 @@ import { Comment } from "./Comment";
 import { getAllReactions } from "../../Managers/ReactionManager";
 import { PostReaction } from "./PostReaction";
 import x from "../../Images/X.png"
+import thumbsup from "../../Images/_922a7e6b-32b8-40dd-ac07-1f2aed6535fb.jpg"
+import thumbsdown from "../../Images/_2306b1da-d7a0-4855-83e8-02631ad111e6.jpg"
 import { Subscribe } from "./Subscribe";
 import { addPostReaction, deletePostReaction, getPostReactionsByPostId } from "../../Managers/PostReactionManager";
+import { getSubscriptionsByUserId } from "../../Managers/SubscriptionManager";
 
 export const Post = ({ thisPost }) => {
 
   const localUserProfile = localStorage.getItem("userProfile");
   const decideifyUserObject = JSON.parse(localUserProfile);
-  let pbs;
 
     const [modal, setModal] = useState(false);
     const [allTags, setAllTags] = useState([]);
@@ -34,7 +36,11 @@ export const Post = ({ thisPost }) => {
     });
     const [isActive, setIsActive] = useState(false);
     const [postReactionsList, setPostReactionsList] = useState([]);
+    const [subscriptions, setSubscriptions] = useState([]);
     
+    const allSubscriptions = () => {
+      getSubscriptionsByUserId(decideifyUserObject?.id).then((thesesubscriptions) => setSubscriptions(thesesubscriptions));
+  };
 
     const getPostsReactions = () => {
         getPostReactionsByPostId(thisPost.id).then((postReactions) => {
@@ -155,6 +161,10 @@ export const Post = ({ thisPost }) => {
     allReactions();
   }, [])
 
+  useEffect(() => {
+    allSubscriptions();
+}, [])
+
   
   return (
     <>
@@ -165,7 +175,26 @@ export const Post = ({ thisPost }) => {
             { thisTag === undefined ?
               <CardImg top src={thisPost?.imageLocation} style={{ height: '25vh', width: "auto" }} onClick={toggle}/>
               :
+              thisTag?.suggestion?.isRecommended === null ?
               <CardImg top src={thisTag?.suggestion?.imageLocation} style={{ height: '25vh', width: "auto" }} onClick={toggle}/>
+              : thisTag?.suggestion?.isRecommended === true ?
+              <>
+              <div>
+              <CardImg top src={thisTag?.suggestion?.imageLocation} style={{ height: '25vh', width: "auto" }} onClick={toggle}/>
+              </div>
+              <div style={{position: "absolute", left: "3vw", top: "25vh"}}>
+              <img src={thumbsup} style={{height: "4vh", borderRadius: "5rem"}}/>              
+              </div>
+              </>
+              : 
+              <>
+              <div>
+              <CardImg top src={thisTag?.suggestion?.imageLocation} style={{ height: '25vh', width: "auto" }} onClick={toggle}/>
+              </div>
+              <div style={{position: "absolute", left: "3vw", top: "25vh"}}>
+              <img src={thumbsdown} style={{height: "4vh", borderRadius: "5rem"}}/>
+              </div>
+              </>
             }
 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: "1rem"}} className="text-center" onClick={toggle}>
   <p style={{ marginRight: '1rem', marginTop: "1.5rem" }}>
@@ -237,7 +266,7 @@ export const Post = ({ thisPost }) => {
           <div className="text-center">
         <Card  style={{width: "40rem", marginLeft: "-5.5rem"}}>
           <CardBody>
-          <Subscribe post={thisPost} />
+          <Subscribe post={thisPost} subscriptions={subscriptions} setSubscriptions={setSubscriptions}/>
             <h2 style={{color: "#ff00bb", marginTop: "1rem"}}>{thisPost.title}</h2>
             <h3 style={{color: "white", fontFamily: "Bebas Neue"}}>{thisPost.content}</h3>
             { thisTag === undefined ?

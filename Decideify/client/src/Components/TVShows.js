@@ -210,13 +210,10 @@ const addUserSuggestion = () => {
       {/* <button onClick={printshows} className="btn btn-secondary">Show Me My TV Show Suggestion!</button> */}
       </section>
       <section id="tv-save" style={{display: "none"}}>
-      <button onClick={toggle} className="btn btn-warning">More Details</button>
+      <button onClick={toggle} className="btn btn-warning">More Details</button>       <button onClick={saveSuggestion} className="btn btn-primary">Save TV Show</button>
       <br />
       <br />
       <button onClick={printshows} className="btn btn-secondary">Show Me Another TV Show Suggestion!</button>
-      <br />
-      <br />
-      <button onClick={saveSuggestion} className="btn btn-primary">Save TV Show</button>
       </section>
       </div>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s TV Shows!</div>

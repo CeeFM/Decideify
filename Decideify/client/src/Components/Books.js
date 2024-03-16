@@ -239,13 +239,10 @@ const submitCategory = (e) => {
       {/* <button onClick={printbooks} className="btn btn-secondary">Show Me My Book Suggestion!</button> */}
       </section>
       <section id="book-save" style={{display: "none"}}>
-      <button onClick={toggle} className="btn btn-warning">More Details</button>
+      <button onClick={toggle} className="btn btn-warning">More Details</button> <button onClick={saveSuggestion} className="btn btn-primary">Save Book</button>
       <br />
       <br />
       <button onClick={printbooks} className="btn btn-secondary">Show Me Another Book Suggestion!</button>
-      <br />
-      <br />
-      <button onClick={saveSuggestion} className="btn btn-primary">Save Book</button>
       </section>
       </div>
       </div>

@@ -7,9 +7,11 @@ import { Post } from './Post';
 
 const SubscribePosts = () => {
     const [subposts, setSubposts] = useState([]);
+    
 
     const localUserProfile = localStorage.getItem("userProfile");
     const decideifyUserObject = JSON.parse(localUserProfile);
+
 
     useEffect(() => {
         
@@ -33,7 +35,7 @@ const SubscribePosts = () => {
             <h2>Posts From People You're Subscribed To:</h2>
             <div className='text-center'>
                 {subposts.map(subpost => (
-                <Post thisPost={subpost} />
+                <Post key={subpost.id} thisPost={subpost} />
                 ))}
             </div>
         </div>
