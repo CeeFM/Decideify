@@ -244,10 +244,10 @@ const submitCategory = (e) => {
         </section>
         :
         <section id="book-save" style={{display: "none"}}>
-          <button onClick={toggle} className="btn btn-warning">More Details</button> <button onClick={saveSuggestion} className="btn btn-primary">Save Book</button>
+          <button onClick={toggle} className="btn btn-primary">More Details</button> <button onClick={saveSuggestion} className="btn btn-success">Save Book</button>
           <br />
           <br />
-        <button onClick={printbooks} className="btn btn-secondary">Show Me Another Book Suggestion!</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+          <button onClick={printbooks} className="btn btn-warning">Next Book Suggestion</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
         </section>
       }
       </div>

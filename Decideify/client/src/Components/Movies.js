@@ -212,10 +212,10 @@ const submitTest = (e) => {
         </section>
         :
         <section id="movie-save" style={{display: "none"}}>
-        <button onClick={toggle} className="btn btn-warning">More Details</button>   <button onClick={saveSuggestion} className="btn btn-primary">Save Movie</button>
+        <button onClick={toggle} className="btn btn-primary">More Details</button>   <button onClick={saveSuggestion} className="btn btn-success">Save Movie</button>
         <br />
         <br />
-        <button onClick={printmovies} className="btn btn-secondary">Show Me Another Movie Suggestion!</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        <button onClick={printmovies} className="btn btn-warning">Next Movie Suggestion</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
         </section>
       }
       </div>

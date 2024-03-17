@@ -215,10 +215,10 @@ const addUserSuggestion = () => {
         </section>
         :
         <section id="tv-save" style={{display: "none"}}>
-        <button onClick={toggle} className="btn btn-warning">More Details</button>       <button onClick={saveSuggestion} className="btn btn-primary">Save TV Show</button>
+        <button onClick={toggle} className="btn btn-primary">More Details</button>       <button onClick={saveSuggestion} className="btn btn-success">Save TV Show</button>
         <br />
         <br />
-        <button onClick={printshows} className="btn btn-secondary">Show Me Another TV Show Suggestion!</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        <button onClick={printshows} className="btn btn-warning">Next TV Suggestion</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
         </section>
       }
       </div>
