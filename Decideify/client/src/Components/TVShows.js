@@ -209,12 +209,18 @@ const addUserSuggestion = () => {
       <section id="tv-show">
       {/* <button onClick={printshows} className="btn btn-secondary">Show Me My TV Show Suggestion!</button> */}
       </section>
-      <section id="tv-save" style={{display: "none"}}>
-      <button onClick={toggle} className="btn btn-warning">More Details</button>       <button onClick={saveSuggestion} className="btn btn-primary">Save TV Show</button>
-      <br />
-      <br />
-      <button onClick={printshows} className="btn btn-secondary">Show Me Another TV Show Suggestion!</button>
-      </section>
+      { noMoreSuggestions?
+        <section id="tv-save">
+          <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        </section>
+        :
+        <section id="tv-save" style={{display: "none"}}>
+        <button onClick={toggle} className="btn btn-warning">More Details</button>       <button onClick={saveSuggestion} className="btn btn-primary">Save TV Show</button>
+        <br />
+        <br />
+        <button onClick={printshows} className="btn btn-secondary">Show Me Another TV Show Suggestion!</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        </section>
+      }
       </div>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s TV Shows!</div>
 

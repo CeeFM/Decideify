@@ -211,12 +211,18 @@ const addUserSuggestion = () => {
       <section id="music-show">
       {/* <button onClick={printmusic} className="btn btn-secondary">Show Me My Music Suggestion!</button> */}
       </section>
-      <section id="music-save" style={{display: "none"}}>
-      <button onClick={toggle} className="btn btn-warning">More Details</button>       <button onClick={saveSuggestion} className="btn btn-primary">Save Music</button>
-      <br />
-      <br />
-      <button onClick={printmusic} className="btn btn-secondary">Show Me Another Music Suggestion!</button>
-      </section>
+      { noMoreSuggestions ?
+        <section id="music-save">
+        <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        </section>
+      :
+        <section id="music-save" style={{display: "none"}}>
+        <button onClick={toggle} className="btn btn-warning">More Details</button>       <button onClick={saveSuggestion} className="btn btn-primary">Save Music</button>
+        <br />
+        <br />
+        <button onClick={printmusic} className="btn btn-secondary">Show Me Another Music Suggestion!</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        </section>
+      }
       </div>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Music!</div>
 

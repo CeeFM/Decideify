@@ -238,16 +238,21 @@ const submitCategory = (e) => {
       <section id="book-show">
       {/* <button onClick={printbooks} className="btn btn-secondary">Show Me My Book Suggestion!</button> */}
       </section>
-      <section id="book-save" style={{display: "none"}}>
-      <button onClick={toggle} className="btn btn-warning">More Details</button> <button onClick={saveSuggestion} className="btn btn-primary">Save Book</button>
-      <br />
-      <br />
-      <button onClick={printbooks} className="btn btn-secondary">Show Me Another Book Suggestion!</button>
-      </section>
+      { noMoreSuggestions ?
+        <section id="book-save">
+         <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        </section>
+        :
+        <section id="book-save" style={{display: "none"}}>
+          <button onClick={toggle} className="btn btn-warning">More Details</button> <button onClick={saveSuggestion} className="btn btn-primary">Save Book</button>
+          <br />
+          <br />
+        <button onClick={printbooks} className="btn btn-secondary">Show Me Another Book Suggestion!</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        </section>
+      }
       </div>
       </div>
       <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Books!</div>
-
 <div id="my-books" className="container">
 {filteredSuggestions.length === 0 ?
       <p className="text-center" style={{fontSize: "1.5rem"}}>No book suggestions added yet! Add some and they'll appear here!</p>

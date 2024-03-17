@@ -206,12 +206,18 @@ const submitTest = (e) => {
       <section id="movie-show">
       {/* <button onClick={printmovies} className="btn btn-secondary">Show Me My Movie Suggestion!</button> */}
       </section>
-      <section id="movie-save" style={{display: "none"}}>
-      <button onClick={toggle} className="btn btn-warning">More Details</button>   <button onClick={saveSuggestion} className="btn btn-primary">Save Movie</button>
-      <br />
-      <br />
-      <button onClick={printmovies} className="btn btn-secondary">Show Me Another Movie Suggestion!</button>
-      </section>
+      {noMoreSuggestions ?
+        <section id="movie-save">
+        <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        </section>
+        :
+        <section id="movie-save" style={{display: "none"}}>
+        <button onClick={toggle} className="btn btn-warning">More Details</button>   <button onClick={saveSuggestion} className="btn btn-primary">Save Movie</button>
+        <br />
+        <br />
+        <button onClick={printmovies} className="btn btn-secondary">Show Me Another Movie Suggestion!</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        </section>
+      }
       </div>
       </div>
       <div className="text-center" style={{paddingTop: "10vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Movies!</div>
