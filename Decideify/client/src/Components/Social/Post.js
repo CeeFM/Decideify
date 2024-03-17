@@ -20,8 +20,7 @@ export const Post = ({ thisPost }) => {
 
     const [modal, setModal] = useState(false);
     const [allTags, setAllTags] = useState([]);
-    const [postButtons, setPostButtons] = useState();
-    const [dropdownButtons, setDropdownButtons] = useState();
+    const [uniqueReactionCount, setUniqueReactionCount] = useState(0);
     const [thisTag, setThisTag] = useState();
     const [isVisible, setIsVisible] = useState(false);
     const [isVisibleToo, setIsVisibleToo] = useState(true);
@@ -52,11 +51,12 @@ export const Post = ({ thisPost }) => {
 };
 
     useEffect(() => {
+        let reactionIds = new Set();
         getPostReactionsByPostId(thisPost.id)
             .then((postReactions) => {
               setPostReactionsList(postReactions);
-              setPostButtons(postReactions);
-              setDropdownButtons(postReactions);
+              postReactions.forEach(obj => reactionIds.add(obj.reactionId));
+              setUniqueReactionCount(reactionIds.size);
             })
       }, []);
 
@@ -70,7 +70,12 @@ export const Post = ({ thisPost }) => {
         .then(() => {
             return getPostReactionsByPostId(thisPost.id)
         })
-        .then((thesePostReactions) => setPostReactionsList(thesePostReactions))
+        .then((thesePostReactions) => {
+          let reactionIds = new Set();
+          setPostReactionsList(thesePostReactions);
+          thesePostReactions.forEach(obj => reactionIds.add(obj.reactionId));
+          setUniqueReactionCount(reactionIds.size);
+        })
       };
     
     const deleteReaction = (reaction) => {
@@ -80,7 +85,12 @@ export const Post = ({ thisPost }) => {
         .then(() => {
             return getPostReactionsByPostId(thisPost.id)
         })
-        .then((thesePostReactions) => setPostReactionsList(thesePostReactions));
+        .then((thesePostReactions) => {
+          let reactionIds = new Set();
+          setPostReactionsList(thesePostReactions);
+          thesePostReactions.forEach(obj => reactionIds.add(obj.reactionId));
+          setUniqueReactionCount(reactionIds.size);
+        });
 
     }
 
@@ -208,6 +218,7 @@ export const Post = ({ thisPost }) => {
   <div className="dropdown-content" >
     {reactions.map((reaction) => (
       <button
+  key={reaction.name}
   className="reactionbtn btn btn-secondary"
   style={{ border: "none" }}
   onClick={() =>
@@ -225,11 +236,11 @@ export const Post = ({ thisPost }) => {
 </button>    ))}
   </div>
 </div>
-{postReactionsList.length > 0 && postReactionsList.length < 7 && postReactionsList.length !== 0 ?
+{postReactionsList.length > 0 && uniqueReactionCount <= 6 && postReactionsList.length !== 0 ?
 <div style={{width: "22vw", height: "15vh", margin: "0 auto", paddingTop: "2.5rem"}} >
 {reactions.map((reaction) => (
   <>
-    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList} />
+    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList} uniqueReactionCount={uniqueReactionCount} setUniqueReactionCount={setUniqueReactionCount}/>
   </>
 ))
 }
@@ -239,7 +250,7 @@ export const Post = ({ thisPost }) => {
 <div style={{width: "22vw", height: "15vh", margin: "0 auto", paddingTop: ""}} >
 {reactions.map((reaction) => (
   <>
-    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList} />
+    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList} uniqueReactionCount={uniqueReactionCount} setUniqueReactionCount={setUniqueReactionCount} />
   </>
 ))
 }
@@ -249,6 +260,7 @@ export const Post = ({ thisPost }) => {
   <h4>No reactions yet! C'mon and add one!</h4>
 </div>
 }
+<button onClick={() => console.log(postReactionsList)}>Test Reaction Unique Counter</button>
 
 
             </CardBody>
@@ -307,7 +319,7 @@ export const Post = ({ thisPost }) => {
 <div style={{width: "22vw", margin: "0 auto"}} >
 {reactions.map((reaction) => (
   <>
-    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList} />
+    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList} uniqueReactionCount={uniqueReactionCount} setUniqueReactionCount={setUniqueReactionCount}/>
   </>
 ))
 }
