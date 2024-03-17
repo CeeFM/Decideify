@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import yes from "../Images/YES.png"
 import no from "../Images/NO.png"
+import subyes from "../Images/_922a7e6b-32b8-40dd-ac07-1f2aed6535fb.jpg"
+import subno from "../Images/_2306b1da-d7a0-4855-83e8-02631ad111e6.jpg"
 import x from "../Images/X.png"
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import { deleteSuggestion } from "../Managers/SuggestionManager";
+import { getprofilebyid } from "../Managers/UserProfileManager";
 
 export default function Suggestion({ userSugg }) {
 
@@ -15,6 +18,14 @@ export default function Suggestion({ userSugg }) {
   const [trueBtn, setTrueBtn] = useState(false);
   const [falseBtn, setFalseBtn] = useState(false);
   const [editSuggestion, setEditSuggestion] = useState({});
+  const [suggestionOwner, setSuggestionOwner] = useState({});
+
+  useEffect(() => {
+    getprofilebyid(userSugg?.userProfileId)
+      .then((thisProfile) => {
+        setSuggestionOwner(thisProfile);
+      });
+  });
 
   useEffect(() => {
     setEditSuggestion(userSugg);
@@ -95,6 +106,15 @@ const truncateText = (text, limit) => {
     </button>
   </>
 )}
+{decideifyUserObject.id !== userSugg?.userProfileId && (
+  <>
+    <h5>Recommend?</h5>
+
+      <img src={subyes} alt="yes" style={{ width: "3rem", borderRadius: "2rem", margin: "0 1rem" }} className={trueBtn}/>
+      <img src={subno} alt="no" style={{ width: "2.75rem", borderRadius: "2rem", margin: "0 1rem" }} className={falseBtn} />
+    <br />
+  </>
+)}
             </div>
             <Modal isOpen={modal} toggle={toggle} >
         <ModalHeader toggle={toggle}>CONFIRM DELETION</ModalHeader>
@@ -120,6 +140,9 @@ const truncateText = (text, limit) => {
         <button onClick={toggleTwo} style={{marginBottom: '2rem'}}>CLOSE</button>
         </div>
         <div className="text-center">
+        {decideifyUserObject.id !== userSugg?.userProfileId && (
+          <h5>{userSugg?.contentType} Suggestion from {suggestionOwner?.username}</h5>
+        )}
             <img src={userSugg?.imageLocation} style={{height: "35rem", marginTop: "5rem"}} alt={userSugg?.title} />
             <h1 style={{color: "#ff00bb", fontFamily: "Bebas Neue"}}>{userSugg?.title}</h1>
 
@@ -147,6 +170,15 @@ const truncateText = (text, limit) => {
         alt="delete button"
       />
     </button>
+  </>
+)}
+{decideifyUserObject.id !== userSugg?.userProfileId && (
+  <>
+    <h5>Recommend?</h5>
+
+      <img src={subyes} alt="yes" style={{ width: "3rem", margin: "0 1rem", borderRadius: "2rem" }} className={trueBtn}/>
+      <img src={subno} alt="no" style={{ width: "2.75rem", margin: "0 1rem", borderRadius: "2rem" }} className={falseBtn} />
+    <br />
   </>
 )}
             </div>

@@ -23,7 +23,7 @@ export const Post = ({ thisPost }) => {
     const [uniqueReactionCount, setUniqueReactionCount] = useState(0);
     const [thisTag, setThisTag] = useState();
     const [isVisible, setIsVisible] = useState(false);
-    const [isVisibleToo, setIsVisibleToo] = useState(true);
+    const [isVisibleToo, setIsVisibleToo] = useState(false);
     const [reactions, setReactions] = useState([]);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState({
@@ -260,9 +260,45 @@ export const Post = ({ thisPost }) => {
   <h4>No reactions yet! C'mon and add one!</h4>
 </div>
 }
-<button onClick={() => console.log(postReactionsList)}>Test Reaction Unique Counter</button>
+<div style={{marginTop: "1vh"}}>
+{ isVisible ?
+              <button className="btn btn-primary" onClick={toggleCommentForm}>Cancel</button>
+              :
+              <button className="btn btn-primary" onClick={toggleCommentForm}>Add Comment</button>
+            }
+        {isVisible && (
+          <Form style={{ width: "50%", margin: "auto" , paddingTop: "2rem", padding: "2rem"}} id="add-comment-form" onSubmit={writeComment}>
+      <fieldset>
+        <FormGroup>
+          <Label htmlFor="Subject">Subject/Headline</Label>
+          <Input type="text" name="Subject" value={newComment?.Title} onChange={handleControlledInputChange}/>
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="Content">Comment</Label>
+          <Input type="textarea" name="Content" value={newComment?.Content} onChange={handleControlledInputChange}/>
+        </FormGroup>
+        <FormGroup>
+          <Button>Publish Comment</Button>
+        </FormGroup>
+        </fieldset>
+      </Form>
+)}
+            { isVisibleToo && comments.length > 0 ?
+            <>
+              <button className="btn btn-primary" onClick={toggleComments}>Hide Comments</button>
+              <CardBody>
+              <p style={{marginTop: "1rem"}}>COMMENTS</p>
+              {comments.map((comm) => (
+                <Comment key={comm?.id} comment={comm} />
+              ))}
+              </CardBody>
+            </>
+              : 
 
+              <button className="btn btn-primary" onClick={toggleComments}>Show Comments</button>
 
+            }
+</div>
             </CardBody>
         </Card>
         <Modal
