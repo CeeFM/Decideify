@@ -289,7 +289,7 @@ export const Post = ({ thisPost }) => {
               <CardBody>
               <p style={{marginTop: "1rem"}}>COMMENTS</p>
               {comments.map((comm) => (
-                <Comment key={comm?.id} comment={comm} />
+                <Comment key={comm?.id} comment={comm} setComments={setComments} thisPost={thisPost} />
               ))}
               </CardBody>
             </>
@@ -391,13 +391,13 @@ export const Post = ({ thisPost }) => {
               <CardBody>
               <p style={{marginTop: "1rem"}}>COMMENTS</p>
               {comments.map((comm) => (
-                <Comment key={comm?.id} comment={comm} />
+                <Comment key={comm?.id} comment={comm} setComments={setComments} thisPost={thisPost}/>
               ))}
               </CardBody>
             </>
               : 
 
-              <button className="btn btn-primary" onClick={toggleComments}>Show Comments</button>
+              <button className="btn btn-primary" onClick={toggleComments}>Show Comments ({comments.length})</button>
 
             }
             </div>

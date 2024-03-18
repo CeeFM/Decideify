@@ -1,11 +1,22 @@
 import React from "react";
 import { Button, Card, CardBody, CardImg, Form, FormGroup, Input, Label } from "reactstrap";
 import { useState, useEffect } from 'react';
+import { deleteComment, getCommentsByPostId } from "../../Managers/CommentManager";
 
-export const Comment = ({ comment }) => {
+export const Comment = ({ comment, setComments, thisPost }) => {
 
   const localUserProfile = localStorage.getItem("userProfile");
   const decideifyUserObject = JSON.parse(localUserProfile);
+
+  const deleteThisComment = () => {
+    deleteComment(comment.id)
+      .then(() => {
+        return getCommentsByPostId(thisPost.id)
+      })
+      .then((theseComments) => {
+        setComments(theseComments);
+      })
+  }
 
     let commentDate = new Date(comment.createDateTime).toLocaleDateString('en-US')
 
@@ -26,7 +37,7 @@ export const Comment = ({ comment }) => {
 </div>
       {comment?.userProfileId === decideifyUserObject.id ?
       <>
-        <button className="btn btn-warning">Edit Comment</button> <button className="btn btn-danger">Delete Comment</button>
+        <button className="btn btn-warning">Edit Comment</button> <button className="btn btn-danger" onClick={deleteThisComment}>Delete Comment</button>
       </>
       :
       ""
