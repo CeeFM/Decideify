@@ -131,20 +131,20 @@ const handleModalInputChange = (e) => {
     <Col md={6}>
       <div className="text-center">
         {postFeed.slice(0, Math.ceil(postFeed.length / 2)).map((post) => (
-          <Post key={post.id} thisPost={post} />
+          <Post key={post.id} thisPost={post} setPostFeed={setPostFeed} />
         ))}
       </div>
     </Col>
     <Col md={6}>
       <div className="text-center">
         {postFeed.slice(Math.ceil(postFeed.length / 2)).map((post) => (
-          <Post key={post.id} thisPost={post} />
+          <Post key={post.id} thisPost={post} setPostFeed={setPostFeed} />
         ))}
       </div>
     </Col>
   </Row>
 </div>
-      <Modal isOpen={modal} toggle={toggle} >
+      <Modal isOpen={modal} toggle={toggle} style={{marginTop: "20vh"}}>
         <ModalHeader toggle={toggle}>Add Suggestion To Your Post?</ModalHeader>
         <ModalBody>
         <Form>
@@ -161,7 +161,7 @@ const handleModalInputChange = (e) => {
         </FormGroup>
         </Form>
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter style={{backgroundColor: "#011627"}}>
           <Button color="danger" onClick={tagSuggestion}>
             Confirm (add suggestion)
           </Button>{' '}

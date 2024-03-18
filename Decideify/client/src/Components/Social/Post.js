@@ -12,8 +12,9 @@ import thumbsdown from "../../Images/_2306b1da-d7a0-4855-83e8-02631ad111e6.jpg"
 import { Subscribe } from "./Subscribe";
 import { addPostReaction, deletePostReaction, getPostReactionsByPostId } from "../../Managers/PostReactionManager";
 import { getSubscriptionsByUserId } from "../../Managers/SubscriptionManager";
+import { deletePost, getAllPosts } from "../../Managers/PostManager";
 
-export const Post = ({ thisPost }) => {
+export const Post = ({ thisPost, setPostFeed }) => {
 
   const localUserProfile = localStorage.getItem("userProfile");
   const decideifyUserObject = JSON.parse(localUserProfile);
@@ -152,6 +153,16 @@ export const Post = ({ thisPost }) => {
       }));
   };
 
+  const deleteThisPost = () => {
+    deletePost(thisPost.id)
+      .then(() => {
+        return getAllPosts();
+      })
+      .then((thesePosts) => {
+        setPostFeed(thesePosts);
+      })
+  }
+
   const truncateText = (text, limit) => {
     if (text.length > limit) {
       return text.substring(0, limit) + "...";
@@ -180,6 +191,12 @@ export const Post = ({ thisPost }) => {
     <>
         <Card style={{width: "40rem", margin: "2rem auto"}}>
           <CardBody>
+            {thisPost.userProfileId === decideifyUserObject.id && (
+              <>
+              <button className="btn btn-danger" style={{position: "absolute", left: "2vw", top: "1.5vh"}} onClick={deleteThisPost}>Delete</button>
+              <button className="btn btn-warning" style={{position: "absolute", left: "2.4vw", top: "4.5vh"}} onClick={() => console.log("nothin")}>Edit</button>
+              </>
+            )}
             <h2 style={{color: "#ff00bb"}} onClick={toggle}>{truncateText(thisPost.title, 22)}</h2>
             <h3 style={{color: "white", fontFamily: "Bebas Neue"}} onClick={toggle}>{truncateText(thisPost.content, 37)}</h3>
             { thisTag === undefined ?
