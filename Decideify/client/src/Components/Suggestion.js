@@ -136,21 +136,21 @@ const truncateText = (text, limit) => {
         fullscreen
       >
         <ModalBody >
-          <div className="text-center">
+          <div className="text-center" style={{marginTop: "5rem"}}>
         <button onClick={toggleTwo} style={{marginBottom: '2rem'}}>CLOSE</button>
         </div>
         <div className="text-center">
         {decideifyUserObject.id !== userSugg?.userProfileId && (
-          <h5>{userSugg?.contentType} Suggestion from {suggestionOwner?.username}</h5>
+          <h3>{userSugg?.contentType} Suggestion from {suggestionOwner?.username}</h3>
         )}
-            <img src={userSugg?.imageLocation} style={{height: "35rem", marginTop: "5rem"}} alt={userSugg?.title} />
+            <img src={userSugg?.imageLocation} style={{height: "35rem", marginTop: "3rem"}} alt={userSugg?.title} />
             <h1 style={{color: "#ff00bb", fontFamily: "Bebas Neue"}}>{userSugg?.title}</h1>
 
             {userSugg?.contentType !== "Music" && (
-              <div style={{fontSize: "1.25rem", fontFamily: "Bebas Neue", width: "50%", margin: "0 auto"}}>{userSugg?.details}</div>
+              <h3 style={{fontFamily: "Bebas Neue", width: "50%", margin: "0 auto"}}>{userSugg?.details}</h3>
             )}
             {userSugg?.contentType === "Music" && (
-                  <a style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} href={`${userSugg?.externalLink}`}  target="_blank"> <button style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} className="btn btn-primary">More Details</button></a>
+                  <a style={{ fontFamily: "Bebas Neue",  fontSize: "1.5rem" }} href={`${userSugg?.externalLink}`}  target="_blank"> <button style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem",  marginBottom: "1.5rem" }} className="btn btn-primary">More Details</button></a>
 
             )}
             <br />

@@ -295,7 +295,7 @@ export const Post = ({ thisPost }) => {
             </>
               : 
 
-              <button className="btn btn-primary" onClick={toggleComments}>Show Comments</button>
+              <button className="btn btn-primary" onClick={toggleComments}>Show Comments ({comments.length})</button>
 
             }
 </div>

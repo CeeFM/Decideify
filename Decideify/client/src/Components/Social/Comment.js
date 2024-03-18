@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 
 export const Comment = ({ comment }) => {
 
+  const localUserProfile = localStorage.getItem("userProfile");
+  const decideifyUserObject = JSON.parse(localUserProfile);
+
     let commentDate = new Date(comment.createDateTime).toLocaleDateString('en-US')
 
     return (
@@ -21,6 +24,13 @@ export const Comment = ({ comment }) => {
   <img src={comment?.userProfile?.imageLocation} alt="the post author's picture" style={{ width: '3rem', borderRadius: '8rem', marginBottom: "1rem" }}
   />
 </div>
+      {comment?.userProfileId === decideifyUserObject.id ?
+      <>
+        <button className="btn btn-warning">Edit Comment</button> <button className="btn btn-danger">Delete Comment</button>
+      </>
+      :
+      ""
+      }
         </div>
         </>
     )
