@@ -219,7 +219,7 @@ const submitCategory = (e) => {
       <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem"}} onSubmit={submitCategory} id="book-form">
         <FormGroup className="text-center" style={{fontSize: "2rem"}}>
           <Label htmlFor="Category">Book Type</Label>
-          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange} style={{fontSize: "1.25rem"}}>
+          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange} style={{fontSize: "1.5rem"}}>
             <option value="0">⬇️ Select A Type of Book</option>
             {categories.map((category) => (
               <option key={category?.id} value={category?.id}>{category?.name}</option>
@@ -247,12 +247,12 @@ const submitCategory = (e) => {
           <button onClick={toggle} className="btn btn-primary">More Details</button> <button onClick={saveSuggestion} className="btn btn-success">Save Book</button>
           <br />
           <br />
-          <button onClick={printbooks} className="btn btn-warning">Next Book Suggestion</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+          <button onClick={printbooks} className="btn btn-secondary">Next Suggestion</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
         </section>
       }
       </div>
       </div>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Books!</div>
+      <div className="text-center" style={{paddingTop: "10vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Books!</div>
 <div id="my-books" className="container">
 {filteredSuggestions.length === 0 ?
       <p className="text-center" style={{fontSize: "1.5rem"}}>No book suggestions added yet! Add some and they'll appear here!</p>

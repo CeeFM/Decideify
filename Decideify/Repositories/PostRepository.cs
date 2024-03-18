@@ -176,6 +176,9 @@ namespace Decideify.Repositories
                             DELETE from PostTag
                             WHERE PostId = @id;
 
+                            DELETE from Comment
+                            WHERE PostId = @id
+
                             DELETE from Post
                             WHERE Id = @id
                         ";

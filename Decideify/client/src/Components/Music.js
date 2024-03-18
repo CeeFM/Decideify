@@ -191,7 +191,7 @@ const addUserSuggestion = () => {
       <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "2rem"}} onSubmit={submitTest} id="music-form" >
         <FormGroup className="text-center">
           <Label htmlFor="Category">Music Type</Label>
-          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange} style={{fontSize: "1.25rem"}}>
+          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange} style={{fontSize: "1.5rem"}}>
             <option value="">⬇️ Select A Type of Music</option>
             {categories.map((category) => (
               <option key={category?.id} value={category?.id}>{category?.name}</option>
@@ -199,7 +199,7 @@ const addUserSuggestion = () => {
             </Input>
         </FormGroup>
         <FormGroup className="text-center">
-        <Button style={{fontSize: "1.25rem"}}>DECIDEIFY MUSIC FOR ME</Button>
+        <Button style={{fontSize: "1.25rem", marginTop: "-10px"}}>DECIDEIFY MUSIC FOR ME</Button>
         </FormGroup>
       </Form>
       </div>
@@ -220,15 +220,15 @@ const addUserSuggestion = () => {
         <button onClick={toggle} className="btn btn-primary">More Details</button>       <button onClick={saveSuggestion} className="btn btn-success">Save Music</button>
         <br />
         <br />
-        <button onClick={printmusic} className="btn btn-warning">Next Music Suggestion</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        <button onClick={printmusic} className="btn btn-secondary">Next Suggestion</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
         </section>
       }
       </div>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Music!</div>
+      <div className="text-center" style={{paddingTop: "10vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Music!</div>
 
       <div id="my-music" className="container">
       {filteredSuggestions.length === 0 ?
-      <p className="text-center" style={{fontSize: "1.25rem"}}>No music suggestions added yet! Add some and they'll appear here!</p>
+      <p className="text-center" style={{fontSize: "1.5rem"}}>No music suggestions added yet! Add some and they'll appear here!</p>
       :
       <ContentCarousel filteredSuggestions={filteredSuggestions} />
     }
@@ -281,7 +281,7 @@ const addUserSuggestion = () => {
     <br />
     <h1 style={{ fontFamily: "Bebas Neue" }}>Title: <strong style={{ fontFamily: "Bebas Neue" }}>{randomSuggestion?.title}</strong></h1>
     <br />
-    <button style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} className="btn btn-primary"><a style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} href={`https://www.discogs.com${randomSuggestion?.uri}`}  target="_blank">More Details</a></button>
+    <a style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} href={`https://www.discogs.com${randomSuggestion?.uri}`}  target="_blank"> <button style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} className="btn btn-primary">More Details</button></a>
     </div>
     </>
     )}

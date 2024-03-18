@@ -215,7 +215,7 @@ const submitTest = (e) => {
         <button onClick={toggle} className="btn btn-primary">More Details</button>   <button onClick={saveSuggestion} className="btn btn-success">Save Movie</button>
         <br />
         <br />
-        <button onClick={printmovies} className="btn btn-warning">Next Movie Suggestion</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        <button onClick={printmovies} className="btn btn-secondary">Next Suggestion</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
         </section>
       }
       </div>
@@ -224,7 +224,7 @@ const submitTest = (e) => {
 
       <div id="my-movies" className="container">
       {filteredSuggestions.length === 0 ?
-      <p className="text-center" style={{fontSize: "1.25rem"}}>No movie suggestions added yet! Add some and they'll appear here!</p>
+      <p className="text-center" style={{fontSize: "1.5rem"}}>No movie suggestions added yet! Add some and they'll appear here!</p>
       :
       <ContentCarousel filteredSuggestions={filteredSuggestions} />
     }

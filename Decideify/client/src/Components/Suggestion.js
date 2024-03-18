@@ -25,7 +25,7 @@ export default function Suggestion({ userSugg }) {
       .then((thisProfile) => {
         setSuggestionOwner(thisProfile);
       });
-  });
+  }, []);
 
   useEffect(() => {
     setEditSuggestion(userSugg);
@@ -148,6 +148,10 @@ const truncateText = (text, limit) => {
 
             {userSugg?.contentType !== "Music" && (
               <div style={{fontSize: "1.25rem", fontFamily: "Bebas Neue", width: "50%", margin: "0 auto"}}>{userSugg?.details}</div>
+            )}
+            {userSugg?.contentType === "Music" && (
+                  <a style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} href={`${userSugg?.externalLink}`}  target="_blank"> <button style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} className="btn btn-primary">More Details</button></a>
+
             )}
             <br />
             {decideifyUserObject.id === userSugg?.userProfileId && (

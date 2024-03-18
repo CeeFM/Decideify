@@ -218,11 +218,11 @@ const addUserSuggestion = () => {
         <button onClick={toggle} className="btn btn-primary">More Details</button>       <button onClick={saveSuggestion} className="btn btn-success">Save TV Show</button>
         <br />
         <br />
-        <button onClick={printshows} className="btn btn-warning">Next TV Suggestion</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        <button onClick={printshows} className="btn btn-secondary">Next Suggestion</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
         </section>
       }
       </div>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s TV Shows!</div>
+      <div className="text-center" style={{paddingTop: "10vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s TV Shows!</div>
 
       <div id="my-tv" className="container">
       {filteredSuggestions.length === 0 ?
@@ -233,7 +233,7 @@ const addUserSuggestion = () => {
       </div>
       </div>
 
-      <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>Add A TV Show!</div>
+      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Add A TV Show!</div>
 
 
 <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-tv-form" onSubmit={addUserSuggestion} className="text-center">
