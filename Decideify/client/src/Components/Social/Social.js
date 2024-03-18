@@ -161,14 +161,18 @@ const handleModalInputChange = (e) => {
         </FormGroup>
         </Form>
         </ModalBody>
+        <div>
         <ModalFooter style={{backgroundColor: "#011627"}}>
-          <Button color="danger" onClick={tagSuggestion}>
+
+          <Button color="danger" onClick={tagSuggestion} style={{marginRight: "4vw"}}>
             Confirm (add suggestion)
           </Button>{' '}
-          <Button color="secondary" onClick={refresh}>
+          <Button color="secondary" onClick={refresh} style={{marginRight: "3vw"}}>
             Continue (no suggestion added)
           </Button>
+
         </ModalFooter>
+        </div>
       </Modal>
     </>
 

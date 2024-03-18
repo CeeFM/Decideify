@@ -61,7 +61,7 @@ export default function MyLibrary() {
 {movieSuggestions.length === 0 ?
       <p className="text-center" style={{fontSize: "1.5rem"}}> No movie suggestions added yet! Add some and they'll appear here!</p>
       :
-      <ContentCarousel filteredSuggestions={movieSuggestions} />
+      <ContentCarousel filteredSuggestions={movieSuggestions} setFilteredSuggestions={setMovieSuggestions}/>
     }
 </div>
 <div className="text-center" style={{paddingTop: "5vh", fontSize: "3rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s TV Shows!</div>
@@ -70,7 +70,7 @@ export default function MyLibrary() {
     {tvSuggestions.length === 0 ?
       <p className="text-center" style={{fontSize: "1.5rem"}}>No TV suggestions added yet! Add some and they'll appear here!</p>
       :
-      <ContentCarousel filteredSuggestions={tvSuggestions} />
+      <ContentCarousel filteredSuggestions={tvSuggestions} setFilteredSuggestions={setTvSuggestions}/>
     }
       </div>
 <div className="text-center" style={{paddingTop: "5vh", fontSize: "3rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Music!</div>
@@ -79,7 +79,7 @@ export default function MyLibrary() {
       {musicSuggestions.length === 0 ?
       <p className="text-center" style={{fontSize: "1.5rem"}}>No music suggestions added yet! Add some and they'll appear here!</p>
       :
-      <ContentCarousel filteredSuggestions={musicSuggestions} />
+      <ContentCarousel filteredSuggestions={musicSuggestions} setFilteredSuggestions={setMusicSuggestions}/>
     }
       </div>
       <div className="text-center" style={{paddingTop: "5vh", fontSize: "3rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Books!</div>
@@ -88,7 +88,7 @@ export default function MyLibrary() {
       {bookSuggestions.length === 0 ?
       <p className="text-center" style={{fontSize: "1.5rem"}}>No book suggestions added yet! Add some and they'll appear here!</p>
       :
-      <ContentCarousel filteredSuggestions={bookSuggestions} />
+      <ContentCarousel filteredSuggestions={bookSuggestions} setFilteredSuggestions={setBookSuggestions}/>
     }
 </div>
 <div className="text-center" style={{paddingTop: "5vh", fontSize: "3rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Subscribed Suggestions!</div>
