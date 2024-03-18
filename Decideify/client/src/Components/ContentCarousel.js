@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Carousel, CarouselItem, CarouselControl, Button } from "reactstrap";
 import Suggestion from "./Suggestion";
 
-export default function ContentCarousel({ filteredSuggestions }) {
+export default function ContentCarousel({ filteredSuggestions, setFilteredSuggestions }) {
   const [index, setIndex] = useState(0);
   const itemsPerPage = 5;
 
@@ -31,7 +31,7 @@ export default function ContentCarousel({ filteredSuggestions }) {
                 .slice(carouselPage * itemsPerPage, (carouselPage + 1) * itemsPerPage)
                 .map((suggestion) => (
                   <div className="col" key={suggestion.id}>
-                    <Suggestion userSugg={suggestion} />
+                    <Suggestion userSugg={suggestion} setFilteredSuggestions={setFilteredSuggestions}/>
                   </div>
                 ))}
             </div>

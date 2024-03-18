@@ -5,10 +5,10 @@ import subyes from "../Images/_922a7e6b-32b8-40dd-ac07-1f2aed6535fb.jpg"
 import subno from "../Images/_2306b1da-d7a0-4855-83e8-02631ad111e6.jpg"
 import x from "../Images/X.png"
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
-import { deleteSuggestion } from "../Managers/SuggestionManager";
+import { deleteSuggestion, getSuggestionsByUser } from "../Managers/SuggestionManager";
 import { getprofilebyid } from "../Managers/UserProfileManager";
 
-export default function Suggestion({ userSugg }) {
+export default function Suggestion({ userSugg, setFilteredSuggestions }) {
 
     const localUserProfile = localStorage.getItem("userProfile");
   const decideifyUserObject = JSON.parse(localUserProfile);
@@ -39,9 +39,15 @@ export default function Suggestion({ userSugg }) {
   }, [])
 
   const deleteMe = () => {
-    deleteSuggestion(editSuggestion?.id);
-    window.location.reload();
-  }
+    deleteSuggestion(editSuggestion?.id)
+      .then(() => {
+        return getSuggestionsByUser(decideifyUserObject?.id);
+      }) 
+      .then((suggs) => {
+        let filter = suggs.filter((s) => s.contentType === userSugg?.contentType);
+        setFilteredSuggestions(filter);
+      });
+  };
 
   const updateSuggestion = (e, bool) => {
     e.preventDefault();
@@ -116,18 +122,19 @@ const truncateText = (text, limit) => {
   </>
 )}
             </div>
-            <Modal isOpen={modal} toggle={toggle} >
-        <ModalHeader toggle={toggle}>CONFIRM DELETION</ModalHeader>
-        <ModalBody style={{fontFamily: "Bebas Neue", fontSize: "1.75rem"}}>
+            <Modal isOpen={modal} toggle={toggle} style={{marginTop: "25vh"}}>
+        <ModalBody style={{fontFamily: "Bebas Neue", fontSize: "1.75rem"}} className="text-center">
         You sure about that? You really wanna delete <strong style={{fontFamily: "Bebas Neue"}}>{editSuggestion?.title}</strong> from your {editSuggestion?.contentType} suggestions? For realzies?
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter style={{backgroundColor: "#011627"}}>
+          <div style={{margin:"0 auto"}}>
           <Button color="danger" onClick={deleteMe} style={{fontFamily: "Bebas Neue", fontSize: "1.25rem"}}>
             Confirm (for realzies)
           </Button>{' '}
           <Button color="secondary" onClick={toggle} style={{fontFamily: "Bebas Neue", fontSize: "1.25rem"}}>
             Cancel
           </Button>
+          </div>
         </ModalFooter>
       </Modal>
       <Modal

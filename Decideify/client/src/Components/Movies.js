@@ -145,14 +145,28 @@ const handleAddFormChange = (e) => {
   setAddEntry(newSuggestion);
 }
 
-const addUserSuggestion = () => {
+const addUserSuggestion = (e) => {
+  e.preventDefault();
   addSuggestion(addEntry)
     .then(() => {
-      getSuggestionsByUser(decideifyUserObject?.id)
+      return getSuggestionsByUser(decideifyUserObject?.id)
       .then((suggs) => {
         setUserSuggestions(suggs);
         let filter = suggs.filter((s) => s.contentType === "Movie");
         setFilteredSuggestions(filter);
+        setAddEntry({
+          ContentType: "Movie",
+          Title: "",
+          Details: "",
+          Creator: "",
+          ImageLocation: "",
+          UserProfileId: decideifyUserObject.id,
+          ReleaseDate: new Date(),
+          CategoryId: 0,
+          IsRecommended: null,
+          ExternalLink: "n/a",
+          ExternalId: "n/a"
+        });
       })
     })
 }
@@ -226,14 +240,14 @@ const submitTest = (e) => {
       {filteredSuggestions.length === 0 ?
       <p className="text-center" style={{fontSize: "1.5rem"}}>No movie suggestions added yet! Add some and they'll appear here!</p>
       :
-      <ContentCarousel filteredSuggestions={filteredSuggestions} />
+      <ContentCarousel filteredSuggestions={filteredSuggestions} setFilteredSuggestions={setFilteredSuggestions}/>
     }
       </div>
 
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Add A Movie!</div>
+      <div className="text-center" style={{paddingTop: "10vh", fontSize: "4rem", color: "#ff00bb"}}>Add A Movie!</div>
 
 
-      <Form className="text-center" style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-movie-form" onSubmit={addUserSuggestion}>
+      <Form className="text-center" style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-movie-form" onSubmit={(e) => addUserSuggestion(e)}>
   <fieldset>
         <FormGroup>
           <Label htmlFor="Category">Movie Type/Genre</Label>

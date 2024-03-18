@@ -25,7 +25,7 @@ function App() {
                 :
                 <Authorize setIsLoggedIn={setIsLoggedIn} />
             }
-            <div style={{marginBottom: "7.5rem"}}></div>
+            <div style={{marginBottom: "20.5rem"}}></div>
             <Footer />
         </Router>
     );

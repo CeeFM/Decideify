@@ -157,14 +157,28 @@ export default function Books() {
     })
   };
 
-  const addUserSuggestion = () => {
+  const addUserSuggestion = (e) => {
+    e.preventDefault();
     addSuggestion(addEntry)
     .then(() => {
-      getSuggestionsByUser(decideifyUserObject?.id)
+      return getSuggestionsByUser(decideifyUserObject?.id)
       .then((suggs) => {
         setUserSuggestions(suggs);
-        let filter = suggs.filter((s) => s.contentType === "Movie");
+        let filter = suggs.filter((s) => s.contentType === "Book");
         setFilteredSuggestions(filter);
+        setAddEntry({
+          ContentType: "Book",
+          Title: "",
+          Details: "",
+          Creator: "",
+          ImageLocation: "",
+          UserProfileId: decideifyUserObject.id,
+          ReleaseDate: new Date(),
+          CategoryId: 0,
+          IsRecommended: null,
+          ExternalLink: "n/a",
+          ExternalId: "n/a"
+        });
       })
     })
   }
@@ -257,12 +271,12 @@ const submitCategory = (e) => {
 {filteredSuggestions.length === 0 ?
       <p className="text-center" style={{fontSize: "1.5rem"}}>No book suggestions added yet! Add some and they'll appear here!</p>
       :
-      <ContentCarousel filteredSuggestions={filteredSuggestions} />
+      <ContentCarousel filteredSuggestions={filteredSuggestions} setFilteredSuggestions={setFilteredSuggestions}/>
     }
 </div>
-<div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Add A Book!</div>
+<div className="text-center" style={{paddingTop: "10vh", fontSize: "4rem", color: "#ff00bb"}}>Add A Book!</div>
 
-<Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-book-form" onSubmit={addUserSuggestion} className="text-center">
+<Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-book-form" onSubmit={(e) => addUserSuggestion(e)} className="text-center">
   <fieldset>
         <FormGroup>
           <Label htmlFor="Category" style={{fontSize: "1.25rem"}}>Book Type/Genre</Label>

@@ -161,14 +161,28 @@ const handleAddFormChange = (e) => {
   setAddEntry(newSuggestion);
 }
 
-const addUserSuggestion = () => {
+const addUserSuggestion = (e) => {
+  e.preventDefault();
   addSuggestion(addEntry)
   .then(() => {
-    getSuggestionsByUser(decideifyUserObject?.id)
+    return getSuggestionsByUser(decideifyUserObject?.id)
     .then((suggs) => {
       setUserSuggestions(suggs);
       let filter = suggs.filter((s) => s.contentType === "Music");
       setFilteredSuggestions(filter);
+      setAddEntry({
+        ContentType: "Music",
+        Title: "",
+        Details: "",
+        Creator: "",
+        ImageLocation: "",
+        UserProfileId: decideifyUserObject.id,
+        ReleaseDate: new Date(),
+        CategoryId: 0,
+        IsRecommended: null,
+        ExternalLink: "n/a",
+        ExternalId: "n/a"
+      });
     });
   })
 }
@@ -230,13 +244,13 @@ const addUserSuggestion = () => {
       {filteredSuggestions.length === 0 ?
       <p className="text-center" style={{fontSize: "1.5rem"}}>No music suggestions added yet! Add some and they'll appear here!</p>
       :
-      <ContentCarousel filteredSuggestions={filteredSuggestions} />
+      <ContentCarousel filteredSuggestions={filteredSuggestions} setFilteredSuggestions={setFilteredSuggestions}/>
     }
       </div>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Add An Album!</div>
+      <div className="text-center" style={{paddingTop: "10vh", fontSize: "4rem", color: "#ff00bb"}}>Add An Album!</div>
 
 
-<Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-album-form" onSubmit={addUserSuggestion}>
+<Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-album-form" onSubmit={(e) => addUserSuggestion(e)}>
 <fieldset>
   <FormGroup>
     <Label htmlFor="Category">Album Genre</Label>
