@@ -161,14 +161,28 @@ const handleAddFormChange = (e) => {
   setAddEntry(newSuggestion);
 }
 
-const addUserSuggestion = () => {
+const addUserSuggestion = (e) => {
+  e.preventDefault();
   addSuggestion(addEntry)
   .then(() => {
-    getSuggestionsByUser(decideifyUserObject?.id)
+    return getSuggestionsByUser(decideifyUserObject?.id)
     .then((suggs) => {
       setUserSuggestions(suggs);
       let filter = suggs.filter((s) => s.contentType === "TV Show");
       setFilteredSuggestions(filter);
+      setAddEntry({
+        ContentType: "TV Show",
+        Title: "",
+        Details: "",
+        Creator: "",
+        ImageLocation: "",
+        UserProfileId: decideifyUserObject.id,
+        ReleaseDate: new Date(),
+        CategoryId: 0,
+        IsRecommended: null,
+        ExternalLink: "n/a",
+        ExternalId: "n/a"
+      });
     });
   })
 }
@@ -209,31 +223,34 @@ const addUserSuggestion = () => {
       <section id="tv-show">
       {/* <button onClick={printshows} className="btn btn-secondary">Show Me My TV Show Suggestion!</button> */}
       </section>
-      <section id="tv-save" style={{display: "none"}}>
-      <button onClick={toggle} className="btn btn-warning">More Details</button>
-      <br />
-      <br />
-      <button onClick={printshows} className="btn btn-secondary">Show Me Another TV Show Suggestion!</button>
-      <br />
-      <br />
-      <button onClick={saveSuggestion} className="btn btn-primary">Save TV Show</button>
-      </section>
+      { noMoreSuggestions?
+        <section id="tv-save">
+          <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        </section>
+        :
+        <section id="tv-save" style={{display: "none"}}>
+        <button onClick={toggle} className="btn btn-primary">More Details</button>       <button onClick={saveSuggestion} className="btn btn-success">Save TV Show</button>
+        <br />
+        <br />
+        <button onClick={printshows} className="btn btn-secondary">Next Suggestion</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        </section>
+      }
       </div>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s TV Shows!</div>
+      <div className="text-center" style={{paddingTop: "10vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s TV Shows!</div>
 
       <div id="my-tv" className="container">
       {filteredSuggestions.length === 0 ?
       <p className="text-center" style={{fontSize: "1.5rem"}}>No TV suggestions added yet! Add some and they'll appear here!</p>
       :
-      <ContentCarousel filteredSuggestions={filteredSuggestions} />
+      <ContentCarousel filteredSuggestions={filteredSuggestions} setFilteredSuggestions={setFilteredSuggestions}/>
     }
       </div>
       </div>
 
-      <div className="text-center" style={{paddingTop: "5vh", fontSize: "4rem", color: "#ff00bb"}}>Add A TV Show!</div>
+      <div className="text-center" style={{paddingTop: "10vh", fontSize: "4rem", color: "#ff00bb"}}>Add A TV Show!</div>
 
 
-<Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-tv-form" onSubmit={addUserSuggestion} className="text-center">
+<Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-tv-form" onSubmit={(e) => addUserSuggestion(e)} className="text-center">
 <fieldset>
   <FormGroup>
     <Label htmlFor="Category">TV Show Type/Genre</Label>

@@ -161,14 +161,28 @@ const handleAddFormChange = (e) => {
   setAddEntry(newSuggestion);
 }
 
-const addUserSuggestion = () => {
+const addUserSuggestion = (e) => {
+  e.preventDefault();
   addSuggestion(addEntry)
   .then(() => {
-    getSuggestionsByUser(decideifyUserObject?.id)
+    return getSuggestionsByUser(decideifyUserObject?.id)
     .then((suggs) => {
       setUserSuggestions(suggs);
       let filter = suggs.filter((s) => s.contentType === "Music");
       setFilteredSuggestions(filter);
+      setAddEntry({
+        ContentType: "Music",
+        Title: "",
+        Details: "",
+        Creator: "",
+        ImageLocation: "",
+        UserProfileId: decideifyUserObject.id,
+        ReleaseDate: new Date(),
+        CategoryId: 0,
+        IsRecommended: null,
+        ExternalLink: "n/a",
+        ExternalId: "n/a"
+      });
     });
   })
 }
@@ -191,7 +205,7 @@ const addUserSuggestion = () => {
       <Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "2rem"}} onSubmit={submitTest} id="music-form" >
         <FormGroup className="text-center">
           <Label htmlFor="Category">Music Type</Label>
-          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange} style={{fontSize: "1.25rem"}}>
+          <Input type="select" name="CategoryId" id="Category" value={suggestion?.CategoryId} onChange={handleControlledInputChange} style={{fontSize: "1.5rem"}}>
             <option value="">⬇️ Select A Type of Music</option>
             {categories.map((category) => (
               <option key={category?.id} value={category?.id}>{category?.name}</option>
@@ -199,7 +213,7 @@ const addUserSuggestion = () => {
             </Input>
         </FormGroup>
         <FormGroup className="text-center">
-        <Button style={{fontSize: "1.25rem"}}>DECIDEIFY MUSIC FOR ME</Button>
+        <Button style={{fontSize: "1.25rem", marginTop: "-10px"}}>DECIDEIFY MUSIC FOR ME</Button>
         </FormGroup>
       </Form>
       </div>
@@ -211,29 +225,32 @@ const addUserSuggestion = () => {
       <section id="music-show">
       {/* <button onClick={printmusic} className="btn btn-secondary">Show Me My Music Suggestion!</button> */}
       </section>
-      <section id="music-save" style={{display: "none"}}>
-      <button onClick={toggle} className="btn btn-warning">More Details</button>
-      <br />
-      <br />
-      <button onClick={printmusic} className="btn btn-secondary">Show Me Another Music Suggestion!</button>
-      <br />
-      <br />
-      <button onClick={saveSuggestion} className="btn btn-primary">Save Music</button>
-      </section>
+      { noMoreSuggestions ?
+        <section id="music-save">
+        <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        </section>
+      :
+        <section id="music-save" style={{display: "none"}}>
+        <button onClick={toggle} className="btn btn-primary">More Details</button>       <button onClick={saveSuggestion} className="btn btn-success">Save Music</button>
+        <br />
+        <br />
+        <button onClick={printmusic} className="btn btn-secondary">Next Suggestion</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        </section>
+      }
       </div>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Music!</div>
+      <div className="text-center" style={{paddingTop: "10vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Music!</div>
 
       <div id="my-music" className="container">
       {filteredSuggestions.length === 0 ?
-      <p className="text-center" style={{fontSize: "1.25rem"}}>No music suggestions added yet! Add some and they'll appear here!</p>
+      <p className="text-center" style={{fontSize: "1.5rem"}}>No music suggestions added yet! Add some and they'll appear here!</p>
       :
-      <ContentCarousel filteredSuggestions={filteredSuggestions} />
+      <ContentCarousel filteredSuggestions={filteredSuggestions} setFilteredSuggestions={setFilteredSuggestions}/>
     }
       </div>
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Add An Album!</div>
+      <div className="text-center" style={{paddingTop: "10vh", fontSize: "4rem", color: "#ff00bb"}}>Add An Album!</div>
 
 
-<Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-album-form" onSubmit={addUserSuggestion}>
+<Form style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-album-form" onSubmit={(e) => addUserSuggestion(e)}>
 <fieldset>
   <FormGroup>
     <Label htmlFor="Category">Album Genre</Label>
@@ -278,7 +295,7 @@ const addUserSuggestion = () => {
     <br />
     <h1 style={{ fontFamily: "Bebas Neue" }}>Title: <strong style={{ fontFamily: "Bebas Neue" }}>{randomSuggestion?.title}</strong></h1>
     <br />
-    <button style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} className="btn btn-primary"><a style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} href={`https://www.discogs.com${randomSuggestion?.uri}`}  target="_blank">More Details</a></button>
+    <a style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} href={`https://www.discogs.com${randomSuggestion?.uri}`}  target="_blank"> <button style={{ fontFamily: "Bebas Neue", fontSize: "1.5rem" }} className="btn btn-primary">More Details</button></a>
     </div>
     </>
     )}

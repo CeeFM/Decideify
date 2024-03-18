@@ -145,14 +145,28 @@ const handleAddFormChange = (e) => {
   setAddEntry(newSuggestion);
 }
 
-const addUserSuggestion = () => {
+const addUserSuggestion = (e) => {
+  e.preventDefault();
   addSuggestion(addEntry)
     .then(() => {
-      getSuggestionsByUser(decideifyUserObject?.id)
+      return getSuggestionsByUser(decideifyUserObject?.id)
       .then((suggs) => {
         setUserSuggestions(suggs);
         let filter = suggs.filter((s) => s.contentType === "Movie");
         setFilteredSuggestions(filter);
+        setAddEntry({
+          ContentType: "Movie",
+          Title: "",
+          Details: "",
+          Creator: "",
+          ImageLocation: "",
+          UserProfileId: decideifyUserObject.id,
+          ReleaseDate: new Date(),
+          CategoryId: 0,
+          IsRecommended: null,
+          ExternalLink: "n/a",
+          ExternalId: "n/a"
+        });
       })
     })
 }
@@ -206,31 +220,34 @@ const submitTest = (e) => {
       <section id="movie-show">
       {/* <button onClick={printmovies} className="btn btn-secondary">Show Me My Movie Suggestion!</button> */}
       </section>
-      <section id="movie-save" style={{display: "none"}}>
-      <button onClick={toggle} className="btn btn-warning">More Details</button>
-      <br />
-      <br />
-      <button onClick={printmovies} className="btn btn-secondary">Show Me Another Movie Suggestion!</button>
-      <br />
-      <br />
-      <button onClick={saveSuggestion} className="btn btn-primary">Save Movie</button>
-      </section>
+      {noMoreSuggestions ?
+        <section id="movie-save">
+        <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        </section>
+        :
+        <section id="movie-save" style={{display: "none"}}>
+        <button onClick={toggle} className="btn btn-primary">More Details</button>   <button onClick={saveSuggestion} className="btn btn-success">Save Movie</button>
+        <br />
+        <br />
+        <button onClick={printmovies} className="btn btn-secondary">Next Suggestion</button> <button onClick={() => window.location.reload()} className="btn btn-danger">Start Over</button>
+        </section>
+      }
       </div>
       </div>
       <div className="text-center" style={{paddingTop: "10vh", fontSize: "4rem", color: "#4cf7e6"}}>{decideifyUserObject?.username}'s Movies!</div>
 
       <div id="my-movies" className="container">
       {filteredSuggestions.length === 0 ?
-      <p className="text-center" style={{fontSize: "1.25rem"}}>No movie suggestions added yet! Add some and they'll appear here!</p>
+      <p className="text-center" style={{fontSize: "1.5rem"}}>No movie suggestions added yet! Add some and they'll appear here!</p>
       :
-      <ContentCarousel filteredSuggestions={filteredSuggestions} />
+      <ContentCarousel filteredSuggestions={filteredSuggestions} setFilteredSuggestions={setFilteredSuggestions}/>
     }
       </div>
 
-      <div className="text-center" style={{paddingTop: "15vh", fontSize: "4rem", color: "#ff00bb"}}>Add A Movie!</div>
+      <div className="text-center" style={{paddingTop: "10vh", fontSize: "4rem", color: "#ff00bb"}}>Add A Movie!</div>
 
 
-      <Form className="text-center" style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-movie-form" onSubmit={addUserSuggestion}>
+      <Form className="text-center" style={{ width: "25vw", margin: "auto" , paddingTop: "2rem", fontSize: "1.5rem"}} id="add-movie-form" onSubmit={(e) => addUserSuggestion(e)}>
   <fieldset>
         <FormGroup>
           <Label htmlFor="Category">Movie Type/Genre</Label>

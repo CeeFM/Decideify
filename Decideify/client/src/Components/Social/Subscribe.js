@@ -4,12 +4,11 @@ import { useState, useEffect } from 'react';
 import { addSubscription, deleteSubscription, getAllSubscriptions, getSubscriptionsByUserId } from "../../Managers/SubscriptionManager";
 import { getAllPosts } from "../../Managers/PostManager";
 
-export const Subscribe = ({ post }) => {
+export const Subscribe = ({ post, subscriptions, setSubscriptions }) => {
 
     const localUserProfile = localStorage.getItem("userProfile");
     const decideifyUserObject = JSON.parse(localUserProfile);
 
-    const [subscriptions, setSubscriptions] = useState([]);
     const [ newSubscription, setNewSubscription] = useState({
         SubscribeUserProfileId: decideifyUserObject.id,
         ProviderUserProfileId: post.userProfileId

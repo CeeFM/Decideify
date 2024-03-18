@@ -7,22 +7,24 @@ import { Comment } from "./Comment";
 import { getAllReactions } from "../../Managers/ReactionManager";
 import { PostReaction } from "./PostReaction";
 import x from "../../Images/X.png"
+import thumbsup from "../../Images/_922a7e6b-32b8-40dd-ac07-1f2aed6535fb.jpg"
+import thumbsdown from "../../Images/_2306b1da-d7a0-4855-83e8-02631ad111e6.jpg"
 import { Subscribe } from "./Subscribe";
 import { addPostReaction, deletePostReaction, getPostReactionsByPostId } from "../../Managers/PostReactionManager";
+import { getSubscriptionsByUserId } from "../../Managers/SubscriptionManager";
+import { deletePost, getAllPosts } from "../../Managers/PostManager";
 
-export const Post = ({ thisPost }) => {
+export const Post = ({ thisPost, setPostFeed }) => {
 
   const localUserProfile = localStorage.getItem("userProfile");
   const decideifyUserObject = JSON.parse(localUserProfile);
-  let pbs;
 
     const [modal, setModal] = useState(false);
     const [allTags, setAllTags] = useState([]);
-    const [postButtons, setPostButtons] = useState();
-    const [dropdownButtons, setDropdownButtons] = useState();
+    const [uniqueReactionCount, setUniqueReactionCount] = useState(0);
     const [thisTag, setThisTag] = useState();
     const [isVisible, setIsVisible] = useState(false);
-    const [isVisibleToo, setIsVisibleToo] = useState(true);
+    const [isVisibleToo, setIsVisibleToo] = useState(false);
     const [reactions, setReactions] = useState([]);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState({
@@ -34,7 +36,11 @@ export const Post = ({ thisPost }) => {
     });
     const [isActive, setIsActive] = useState(false);
     const [postReactionsList, setPostReactionsList] = useState([]);
+    const [subscriptions, setSubscriptions] = useState([]);
     
+    const allSubscriptions = () => {
+      getSubscriptionsByUserId(decideifyUserObject?.id).then((thesesubscriptions) => setSubscriptions(thesesubscriptions));
+  };
 
     const getPostsReactions = () => {
         getPostReactionsByPostId(thisPost.id).then((postReactions) => {
@@ -46,11 +52,12 @@ export const Post = ({ thisPost }) => {
 };
 
     useEffect(() => {
+        let reactionIds = new Set();
         getPostReactionsByPostId(thisPost.id)
             .then((postReactions) => {
               setPostReactionsList(postReactions);
-              setPostButtons(postReactions);
-              setDropdownButtons(postReactions);
+              postReactions.forEach(obj => reactionIds.add(obj.reactionId));
+              setUniqueReactionCount(reactionIds.size);
             })
       }, []);
 
@@ -64,7 +71,12 @@ export const Post = ({ thisPost }) => {
         .then(() => {
             return getPostReactionsByPostId(thisPost.id)
         })
-        .then((thesePostReactions) => setPostReactionsList(thesePostReactions))
+        .then((thesePostReactions) => {
+          let reactionIds = new Set();
+          setPostReactionsList(thesePostReactions);
+          thesePostReactions.forEach(obj => reactionIds.add(obj.reactionId));
+          setUniqueReactionCount(reactionIds.size);
+        })
       };
     
     const deleteReaction = (reaction) => {
@@ -74,7 +86,12 @@ export const Post = ({ thisPost }) => {
         .then(() => {
             return getPostReactionsByPostId(thisPost.id)
         })
-        .then((thesePostReactions) => setPostReactionsList(thesePostReactions));
+        .then((thesePostReactions) => {
+          let reactionIds = new Set();
+          setPostReactionsList(thesePostReactions);
+          thesePostReactions.forEach(obj => reactionIds.add(obj.reactionId));
+          setUniqueReactionCount(reactionIds.size);
+        });
 
     }
 
@@ -136,6 +153,16 @@ export const Post = ({ thisPost }) => {
       }));
   };
 
+  const deleteThisPost = () => {
+    deletePost(thisPost.id)
+      .then(() => {
+        return getAllPosts();
+      })
+      .then((thesePosts) => {
+        setPostFeed(thesePosts);
+      })
+  }
+
   const truncateText = (text, limit) => {
     if (text.length > limit) {
       return text.substring(0, limit) + "...";
@@ -155,17 +182,46 @@ export const Post = ({ thisPost }) => {
     allReactions();
   }, [])
 
+  useEffect(() => {
+    allSubscriptions();
+}, [])
+
   
   return (
     <>
         <Card style={{width: "40rem", margin: "2rem auto"}}>
           <CardBody>
+            {thisPost.userProfileId === decideifyUserObject.id && (
+              <>
+              <button className="btn btn-danger" style={{position: "absolute", left: "1vw", top: "8.5vh"}} onClick={deleteThisPost}>Delete</button>
+              <button className="btn btn-warning" style={{position: "absolute", left: "1.4vw", top: "11.5vh"}} onClick={() => console.log("nothin")}>Edit</button>
+              </>
+            )}
             <h2 style={{color: "#ff00bb"}} onClick={toggle}>{truncateText(thisPost.title, 22)}</h2>
             <h3 style={{color: "white", fontFamily: "Bebas Neue"}} onClick={toggle}>{truncateText(thisPost.content, 37)}</h3>
             { thisTag === undefined ?
               <CardImg top src={thisPost?.imageLocation} style={{ height: '25vh', width: "auto" }} onClick={toggle}/>
               :
+              thisTag?.suggestion?.isRecommended === null ?
               <CardImg top src={thisTag?.suggestion?.imageLocation} style={{ height: '25vh', width: "auto" }} onClick={toggle}/>
+              : thisTag?.suggestion?.isRecommended === true ?
+              <>
+              <div>
+              <CardImg top src={thisTag?.suggestion?.imageLocation} style={{ height: '25vh', width: "auto" }} onClick={toggle}/>
+              </div>
+              <div style={{position: "absolute", left: "3vw", top: "25vh"}}>
+              <img src={thumbsup} style={{height: "4vh", borderRadius: "5rem"}}/>              
+              </div>
+              </>
+              : 
+              <>
+              <div>
+              <CardImg top src={thisTag?.suggestion?.imageLocation} style={{ height: '25vh', width: "auto" }} onClick={toggle}/>
+              </div>
+              <div style={{position: "absolute", left: "3vw", top: "25vh"}}>
+              <img src={thumbsdown} style={{height: "4vh", borderRadius: "5rem"}}/>
+              </div>
+              </>
             }
 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: "1rem"}} className="text-center" onClick={toggle}>
   <p style={{ marginRight: '1rem', marginTop: "1.5rem" }}>
@@ -179,6 +235,7 @@ export const Post = ({ thisPost }) => {
   <div className="dropdown-content" >
     {reactions.map((reaction) => (
       <button
+  key={reaction.name}
   className="reactionbtn btn btn-secondary"
   style={{ border: "none" }}
   onClick={() =>
@@ -196,11 +253,11 @@ export const Post = ({ thisPost }) => {
 </button>    ))}
   </div>
 </div>
-{postReactionsList.length > 0 && postReactionsList.length < 7 && postReactionsList.length !== 0 ?
+{postReactionsList.length > 0 && uniqueReactionCount <= 6 && postReactionsList.length !== 0 ?
 <div style={{width: "22vw", height: "15vh", margin: "0 auto", paddingTop: "2.5rem"}} >
 {reactions.map((reaction) => (
   <>
-    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList} />
+    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList} uniqueReactionCount={uniqueReactionCount} setUniqueReactionCount={setUniqueReactionCount}/>
   </>
 ))
 }
@@ -210,7 +267,7 @@ export const Post = ({ thisPost }) => {
 <div style={{width: "22vw", height: "15vh", margin: "0 auto", paddingTop: ""}} >
 {reactions.map((reaction) => (
   <>
-    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList} />
+    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList} uniqueReactionCount={uniqueReactionCount} setUniqueReactionCount={setUniqueReactionCount} />
   </>
 ))
 }
@@ -220,8 +277,45 @@ export const Post = ({ thisPost }) => {
   <h4>No reactions yet! C'mon and add one!</h4>
 </div>
 }
+<div style={{marginTop: "1vh"}}>
+{ isVisible ?
+              <button className="btn btn-primary" onClick={toggleCommentForm}>Cancel</button>
+              :
+              <button className="btn btn-primary" onClick={toggleCommentForm}>Add Comment</button>
+            }
+        {isVisible && (
+          <Form style={{ width: "50%", margin: "auto" , paddingTop: "2rem", padding: "2rem"}} id="add-comment-form" onSubmit={writeComment}>
+      <fieldset>
+        <FormGroup>
+          <Label htmlFor="Subject">Subject/Headline</Label>
+          <Input type="text" name="Subject" value={newComment?.Title} onChange={handleControlledInputChange}/>
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="Content">Comment</Label>
+          <Input type="textarea" name="Content" value={newComment?.Content} onChange={handleControlledInputChange}/>
+        </FormGroup>
+        <FormGroup>
+          <Button>Publish Comment</Button>
+        </FormGroup>
+        </fieldset>
+      </Form>
+)}
+            { isVisibleToo && comments.length > 0 ?
+            <>
+              <button className="btn btn-primary" onClick={toggleComments}>Hide Comments</button>
+              <CardBody>
+              <p style={{marginTop: "1rem"}}>COMMENTS</p>
+              {comments.map((comm) => (
+                <Comment key={comm?.id} comment={comm} setComments={setComments} thisPost={thisPost} />
+              ))}
+              </CardBody>
+            </>
+              : 
 
+              <button className="btn btn-primary" onClick={toggleComments}>Show Comments ({comments.length})</button>
 
+            }
+</div>
             </CardBody>
         </Card>
         <Modal
@@ -237,7 +331,7 @@ export const Post = ({ thisPost }) => {
           <div className="text-center">
         <Card  style={{width: "40rem", marginLeft: "-5.5rem"}}>
           <CardBody>
-          <Subscribe post={thisPost} />
+          <Subscribe post={thisPost} subscriptions={subscriptions} setSubscriptions={setSubscriptions}/>
             <h2 style={{color: "#ff00bb", marginTop: "1rem"}}>{thisPost.title}</h2>
             <h3 style={{color: "white", fontFamily: "Bebas Neue"}}>{thisPost.content}</h3>
             { thisTag === undefined ?
@@ -278,7 +372,7 @@ export const Post = ({ thisPost }) => {
 <div style={{width: "22vw", margin: "0 auto"}} >
 {reactions.map((reaction) => (
   <>
-    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList} />
+    <PostReaction key={reaction.id} post={thisPost} reaction={reaction} setReactions={setReactions} postReactionsList={postReactionsList} setPostReactionsList={setPostReactionsList} uniqueReactionCount={uniqueReactionCount} setUniqueReactionCount={setUniqueReactionCount}/>
   </>
 ))
 }
@@ -314,13 +408,13 @@ export const Post = ({ thisPost }) => {
               <CardBody>
               <p style={{marginTop: "1rem"}}>COMMENTS</p>
               {comments.map((comm) => (
-                <Comment key={comm?.id} comment={comm} />
+                <Comment key={comm?.id} comment={comm} setComments={setComments} thisPost={thisPost}/>
               ))}
               </CardBody>
             </>
               : 
 
-              <button className="btn btn-primary" onClick={toggleComments}>Show Comments</button>
+              <button className="btn btn-primary" onClick={toggleComments}>Show Comments ({comments.length})</button>
 
             }
             </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { addPostReaction, deletePostReaction, getPostReactionsByPostId, getpostreactionsbypostid } from "../../Managers/PostReactionManager";
 
-export const PostReaction = ({ post, reaction, modal, postReactionsList, setPostReactionsList }) => {
+export const PostReaction = ({ post, reaction, modal, postReactionsList, setPostReactionsList, uniqueReactionCount, setUniqueReactionCount }) => {
     const localUserProfile = localStorage.getItem("userProfile");
     const decideifyUserObject = JSON.parse(localUserProfile);
 
@@ -37,6 +37,10 @@ export const PostReaction = ({ post, reaction, modal, postReactionsList, setPost
           } else if (thisReactionCount.length >= 1) {
             setVisibleButton("inline")
           }
+          let reactionIds = new Set();
+          setPostReactionsList(thesePostReactions);
+          thesePostReactions.forEach(obj => reactionIds.add(obj.reactionId));
+          setUniqueReactionCount(reactionIds.size);
         })
       };
     
@@ -53,11 +57,16 @@ export const PostReaction = ({ post, reaction, modal, postReactionsList, setPost
           } else if (thisReactionCount.length >= 1) {
             setVisibleButton("inline")
           }
+          let reactionIds = new Set();
+          setPostReactionsList(thesePostReactions);
+          thesePostReactions.forEach(obj => reactionIds.add(obj.reactionId));
+          setUniqueReactionCount(reactionIds.size);
         });
 
     }
 
     useEffect(() => {
+      let reactionIds = new Set();
       getPostReactionsByPostId(post.id)
         .then((postReactions) => {
         setPostReactionsList(postReactions);
@@ -67,7 +76,8 @@ export const PostReaction = ({ post, reaction, modal, postReactionsList, setPost
         } else if (thisReactionCount.length >= 1) {
           setVisibleButton("inline")
         }
-
+        postReactions.forEach(obj => reactionIds.add(obj.reactionId));
+        setUniqueReactionCount(reactionIds.size);
     })
     }, [])
 

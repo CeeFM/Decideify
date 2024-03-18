@@ -4,6 +4,7 @@ import Header from "./Components/Header";
 import ApplicationViews from "./Views/ApplicationViews";
 import { useEffect } from 'react';
 import Authorize from './Views/Authorize';
+import Footer from './Components/Footer';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -24,6 +25,8 @@ function App() {
                 :
                 <Authorize setIsLoggedIn={setIsLoggedIn} />
             }
+            <div style={{marginBottom: "20.5rem"}}></div>
+            <Footer />
         </Router>
     );
 }

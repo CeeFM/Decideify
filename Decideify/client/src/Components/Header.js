@@ -44,18 +44,19 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                 <NavItem>
                   <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/social">Social</NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/profile">My Profile</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/library">My Library</NavLink>
-                </NavItem>
               </>
             }
           </Nav>
           <Nav navbar>
             {isLoggedIn &&
               <>
+              <div style={{display: "flex", marginLeft: "49.5vw"}}>
+                <NavItem>
+                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/profile">My Profile</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/library">My Library</NavLink>
+                </NavItem>
                 <NavItem>
                   <a aria-current="page" className="nav-link"
                     style={{ cursor: "pointer", color: '#F6F7F8'}} onClick={() => {
@@ -63,19 +64,21 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                       setIsLoggedIn(false)
                     }}>Logout</a>
                 </NavItem>
+                </div>
               </>
             }
+            </Nav>
             {!isLoggedIn &&
-              <>
+            <Nav>
                 <NavItem>
                   <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/login">Login</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink tag={RRNavLink} style={{ color: '#F6F7F8'}} to="/register">Register</NavLink>
                 </NavItem>
-              </>
+              </Nav>
             }
-          </Nav>
+
         </Collapse>
       </Navbar>
     </div>
