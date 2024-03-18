@@ -193,8 +193,8 @@ export const Post = ({ thisPost, setPostFeed }) => {
           <CardBody>
             {thisPost.userProfileId === decideifyUserObject.id && (
               <>
-              <button className="btn btn-danger" style={{position: "absolute", left: "2vw", top: "1.5vh"}} onClick={deleteThisPost}>Delete</button>
-              <button className="btn btn-warning" style={{position: "absolute", left: "2.4vw", top: "4.5vh"}} onClick={() => console.log("nothin")}>Edit</button>
+              <button className="btn btn-danger" style={{position: "absolute", left: "1vw", top: "8.5vh"}} onClick={deleteThisPost}>Delete</button>
+              <button className="btn btn-warning" style={{position: "absolute", left: "1.4vw", top: "11.5vh"}} onClick={() => console.log("nothin")}>Edit</button>
               </>
             )}
             <h2 style={{color: "#ff00bb"}} onClick={toggle}>{truncateText(thisPost.title, 22)}</h2>
