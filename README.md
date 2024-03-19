@@ -21,12 +21,8 @@ git clone https://github.com/CeeFM/Decideify.git
 cd Decideify
 ```
 
-### Front-end Setup
-
-- cd into Decideify/client
-- install dependencies with `npm install`
-
 ### Back-end Setup
+- Enter/run `dotnet restore` in your terminal to install back-end dependencies
 - Open the Decideify.sln file
 - Find your local machine in the SQL Server Object Explorer and add a new Database named Decideify
 - Create a New Query for the Decideify database, and run the SQL scripts from the SQL folder of Decideify in this order:
@@ -34,6 +30,12 @@ cd Decideify
   - Decideify_Seed_Categories_DB.sql
   - Decideify_Seed_Reactions_DB.sql
   - Decideify_Seed_Users_DB.sql
+
+
+### Front-end Setup
+
+- cd into Decideify/client
+- install front-end dependencies with `npm install`
 
 ## Walkthrough
 Coming soon!
