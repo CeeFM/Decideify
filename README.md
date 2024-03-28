@@ -41,4 +41,4 @@ cd Decideify
 Coming soon!
 
 ## Video Walkthrough
-Coming soon!
+https://www.loom.com/share/c27912932e1f4d0bb442f34cb3f8530a?sid=06abbbbd-c8ce-4ef4-9b1d-c849e9af66a3
